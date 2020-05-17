@@ -5,8 +5,10 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
   </head>
   <body>
-    <div id="test">
-      {{ message }}
+    <div id="app">
+      <label>Enter your bot token</label>
+      <input v-model="token">
+      <button v-on:click="tokenLogin">Start</button>
     </div>
     <script src="main.js"></script>
 
