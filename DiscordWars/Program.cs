@@ -115,7 +115,7 @@ namespace DiscordWars
             // Internet or by using other methods such as reading from 
             // a configuration.
             await _client.LoginAsync(TokenType.Bot,
-                "NzExMzYwMTM4MzcxMzk5NzMx.XsB9wg.vDGJ4r9sy7dbOhWUFshq0Po5XwI");
+                );
             await _client.StartAsync();
             
             var handler = new CommandHandler(_client, new CommandService(new CommandServiceConfig()));
