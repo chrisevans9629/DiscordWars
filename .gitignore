@@ -10,6 +10,7 @@
 *.userosscache
 *.sln.docstates
 token.js
+Token.cs
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
