@@ -48,3 +48,4 @@ updates packages
 - https://discord.js.org/#/docs/main/stable/class/Message?scrollTo=guild
 - [Make a bot here](https://discord.com/developers/applications)
 - https://vuejs.org/v2/guide/
+- https://stackoverflow.com/questions/45995136/export-default-was-not-found
