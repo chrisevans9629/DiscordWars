@@ -91,7 +91,7 @@
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-const Package = (exports.Package = __webpack_require__(60));
+const Package = (exports.Package = __webpack_require__(61));
 const { Error, RangeError } = __webpack_require__(3);
 const browser = (exports.browser = typeof window !== 'undefined');
 
@@ -883,7 +883,7 @@ module.exports = Collection;
 "use strict";
 
 
-module.exports = __webpack_require__(61);
+module.exports = __webpack_require__(62);
 module.exports.Messages = __webpack_require__(101);
 
 
@@ -894,7 +894,7 @@ module.exports.Messages = __webpack_require__(101);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {
 
-const { parse } = __webpack_require__(59);
+const { parse } = __webpack_require__(60);
 const fetch = __webpack_require__(36);
 const { Colors, DefaultOptions, Endpoints } = __webpack_require__(0);
 const { Error: DiscordError, RangeError, TypeError } = __webpack_require__(3);
@@ -1893,7 +1893,7 @@ module.exports = Permissions;
 /* WEBPACK VAR INJECTION */(function(Buffer) {
 
 const fs = __webpack_require__(122);
-const path = __webpack_require__(59);
+const path = __webpack_require__(60);
 const stream = __webpack_require__(123);
 const fetch = __webpack_require__(36);
 const { Error: DiscordError, TypeError } = __webpack_require__(3);
@@ -2033,7 +2033,7 @@ const Role = __webpack_require__(19);
 const VoiceState = __webpack_require__(28);
 const TextBasedChannel = __webpack_require__(34);
 const { Error } = __webpack_require__(3);
-const GuildMemberRoleManager = __webpack_require__(73);
+const GuildMemberRoleManager = __webpack_require__(74);
 const Permissions = __webpack_require__(8);
 
 /**
@@ -3084,7 +3084,7 @@ module.exports = Webhook;
 
 
 const Emoji = __webpack_require__(30);
-const ActivityFlags = __webpack_require__(71);
+const ActivityFlags = __webpack_require__(72);
 const { ActivityTypes } = __webpack_require__(0);
 const Util = __webpack_require__(4);
 
@@ -5311,7 +5311,7 @@ var util = Object.create(__webpack_require__(26));
 util.inherits = __webpack_require__(23);
 /*</replacement>*/
 
-var Readable = __webpack_require__(66);
+var Readable = __webpack_require__(67);
 var Writable = __webpack_require__(46);
 
 util.inherits(Duplex, Readable);
@@ -5411,7 +5411,7 @@ Duplex.prototype._destroy = function (err, cb) {
 
 var base64 = __webpack_require__(99)
 var ieee754 = __webpack_require__(100)
-var isArray = __webpack_require__(58)
+var isArray = __webpack_require__(59)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -7351,16 +7351,16 @@ const structures = {
   GuildEmoji: __webpack_require__(25),
   DMChannel: __webpack_require__(39),
   TextChannel: __webpack_require__(41),
-  VoiceChannel: __webpack_require__(80),
-  CategoryChannel: __webpack_require__(81),
-  NewsChannel: __webpack_require__(82),
-  StoreChannel: __webpack_require__(83),
+  VoiceChannel: __webpack_require__(81),
+  CategoryChannel: __webpack_require__(82),
+  NewsChannel: __webpack_require__(83),
+  StoreChannel: __webpack_require__(84),
   GuildMember: __webpack_require__(10),
   Guild: __webpack_require__(53),
   Message: __webpack_require__(29),
   MessageReaction: __webpack_require__(51),
   Presence: __webpack_require__(14).Presence,
-  ClientPresence: __webpack_require__(90),
+  ClientPresence: __webpack_require__(91),
   VoiceState: __webpack_require__(28),
   Role: __webpack_require__(19),
   User: __webpack_require__(27),
@@ -7378,7 +7378,7 @@ module.exports = Structures;
 
 const BaseGuildEmoji = __webpack_require__(40);
 const { Error } = __webpack_require__(3);
-const GuildEmojiRoleManager = __webpack_require__(65);
+const GuildEmojiRoleManager = __webpack_require__(66);
 const Permissions = __webpack_require__(8);
 
 /**
@@ -7661,7 +7661,7 @@ const { Presence } = __webpack_require__(14);
 const TextBasedChannel = __webpack_require__(34);
 const { Error } = __webpack_require__(3);
 const Snowflake = __webpack_require__(7);
-const UserFlags = __webpack_require__(79);
+const UserFlags = __webpack_require__(80);
 
 /**
  * Represents a user on Discord.
@@ -8201,8 +8201,8 @@ const Base = __webpack_require__(5);
 const ClientApplication = __webpack_require__(50);
 const MessageAttachment = __webpack_require__(43);
 const Embed = __webpack_require__(44);
-const Mentions = __webpack_require__(76);
-const ReactionCollector = __webpack_require__(77);
+const Mentions = __webpack_require__(77);
+const ReactionCollector = __webpack_require__(78);
 const { Error, TypeError } = __webpack_require__(3);
 const ReactionManager = __webpack_require__(133);
 const Collection = __webpack_require__(2);
@@ -9446,7 +9446,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
 
 
 /* eslint-disable import/order */
-const MessageCollector = __webpack_require__(72);
+const MessageCollector = __webpack_require__(73);
 const APIMessage = __webpack_require__(31);
 const Snowflake = __webpack_require__(7);
 const Collection = __webpack_require__(2);
@@ -10029,7 +10029,7 @@ exports.Response = global.Response;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {
 
-__webpack_require__(62);
+__webpack_require__(63);
 const EventEmitter = __webpack_require__(15);
 const RESTManager = __webpack_require__(103);
 const { DefaultOptions } = __webpack_require__(0);
@@ -10234,7 +10234,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(62);
+__webpack_require__(63);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -11341,12 +11341,12 @@ module.exports = MessageEmbed;
 /* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(66);
+exports = module.exports = __webpack_require__(67);
 exports.Stream = exports;
 exports.Readable = exports;
 exports.Writable = __webpack_require__(46);
 exports.Duplex = __webpack_require__(20);
-exports.Transform = __webpack_require__(70);
+exports.Transform = __webpack_require__(71);
 exports.PassThrough = __webpack_require__(128);
 
 
@@ -11432,7 +11432,7 @@ var internalUtil = {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(67);
+var Stream = __webpack_require__(68);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -11448,7 +11448,7 @@ function _isUint8Array(obj) {
 
 /*</replacement>*/
 
-var destroyImpl = __webpack_require__(68);
+var destroyImpl = __webpack_require__(69);
 
 util.inherits(Writable, Stream);
 
@@ -12421,7 +12421,7 @@ module.exports = Collector;
 
 
 const Base = __webpack_require__(5);
-const Team = __webpack_require__(74);
+const Team = __webpack_require__(75);
 const { ClientApplicationAssetTypes, Endpoints } = __webpack_require__(0);
 const Snowflake = __webpack_require__(7);
 
@@ -12585,7 +12585,7 @@ module.exports = ClientApplication;
 
 const GuildEmoji = __webpack_require__(25);
 const ReactionEmoji = __webpack_require__(52);
-const ReactionUserManager = __webpack_require__(78);
+const ReactionUserManager = __webpack_require__(79);
 const Util = __webpack_require__(4);
 
 /**
@@ -12764,17 +12764,17 @@ module.exports = ReactionEmoji;
 
 
 const Base = __webpack_require__(5);
-const GuildAuditLogs = __webpack_require__(84);
+const GuildAuditLogs = __webpack_require__(85);
 const GuildPreview = __webpack_require__(55);
 const Integration = __webpack_require__(54);
 const Invite = __webpack_require__(18);
 const VoiceRegion = __webpack_require__(56);
 const Webhook = __webpack_require__(13);
-const GuildChannelManager = __webpack_require__(85);
+const GuildChannelManager = __webpack_require__(86);
 const GuildEmojiManager = __webpack_require__(57);
-const GuildMemberManager = __webpack_require__(86);
-const PresenceManager = __webpack_require__(87);
-const RoleManager = __webpack_require__(88);
+const GuildMemberManager = __webpack_require__(87);
+const PresenceManager = __webpack_require__(88);
+const RoleManager = __webpack_require__(89);
 const VoiceStateManager = __webpack_require__(136);
 const Collection = __webpack_require__(2);
 const {
@@ -12786,7 +12786,7 @@ const {
 } = __webpack_require__(0);
 const DataResolver = __webpack_require__(9);
 const Snowflake = __webpack_require__(7);
-const SystemChannelFlags = __webpack_require__(89);
+const SystemChannelFlags = __webpack_require__(90);
 const Util = __webpack_require__(4);
 
 /**
@@ -14647,6 +14647,118 @@ module.exports = GuildEmojiManager;
 
 /***/ }),
 /* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+const Util = __webpack_require__(4);
+
+module.exports = {
+  // "Root" classes (starting points)
+  BaseClient: __webpack_require__(37),
+  Client: __webpack_require__(110),
+  Shard: __webpack_require__(207),
+  ShardClientUtil: __webpack_require__(208),
+  ShardingManager: __webpack_require__(209),
+  WebhookClient: __webpack_require__(48),
+
+  // Utilities
+  ActivityFlags: __webpack_require__(72),
+  BitField: __webpack_require__(12),
+  Collection: __webpack_require__(2),
+  Constants: __webpack_require__(0),
+  DataResolver: __webpack_require__(9),
+  BaseManager: __webpack_require__(6),
+  DiscordAPIError: __webpack_require__(64),
+  HTTPError: __webpack_require__(65),
+  MessageFlags: __webpack_require__(47),
+  Intents: __webpack_require__(98),
+  Permissions: __webpack_require__(8),
+  Speaking: __webpack_require__(210),
+  Snowflake: __webpack_require__(7),
+  SnowflakeUtil: __webpack_require__(7),
+  Structures: __webpack_require__(24),
+  SystemChannelFlags: __webpack_require__(90),
+  UserFlags: __webpack_require__(80),
+  Util: Util,
+  version: __webpack_require__(61).version,
+
+  // Managers
+  ChannelManager: __webpack_require__(95),
+  GuildChannelManager: __webpack_require__(86),
+  GuildEmojiManager: __webpack_require__(57),
+  GuildEmojiRoleManager: __webpack_require__(66),
+  GuildMemberManager: __webpack_require__(87),
+  GuildMemberRoleManager: __webpack_require__(74),
+  GuildManager: __webpack_require__(96),
+  ReactionUserManager: __webpack_require__(79),
+  MessageManager: __webpack_require__(35),
+  PresenceManager: __webpack_require__(88),
+  RoleManager: __webpack_require__(89),
+  UserManager: __webpack_require__(97),
+
+  // Shortcuts to Util methods
+  discordSort: Util.discordSort,
+  escapeMarkdown: Util.escapeMarkdown,
+  fetchRecommendedShards: Util.fetchRecommendedShards,
+  resolveColor: Util.resolveColor,
+  resolveString: Util.resolveString,
+  splitMessage: Util.splitMessage,
+
+  // Structures
+  Base: __webpack_require__(5),
+  Activity: __webpack_require__(14).Activity,
+  APIMessage: __webpack_require__(31),
+  BaseGuildEmoji: __webpack_require__(40),
+  CategoryChannel: __webpack_require__(82),
+  Channel: __webpack_require__(16),
+  ClientApplication: __webpack_require__(50),
+  get ClientUser() {
+    // This is a getter so that it properly extends any custom User class
+    return __webpack_require__(94);
+  },
+  Collector: __webpack_require__(49),
+  DMChannel: __webpack_require__(39),
+  Emoji: __webpack_require__(30),
+  Guild: __webpack_require__(53),
+  GuildAuditLogs: __webpack_require__(85),
+  GuildChannel: __webpack_require__(17),
+  GuildEmoji: __webpack_require__(25),
+  GuildMember: __webpack_require__(10),
+  GuildPreview: __webpack_require__(55),
+  Integration: __webpack_require__(54),
+  Invite: __webpack_require__(18),
+  Message: __webpack_require__(29),
+  MessageAttachment: __webpack_require__(43),
+  MessageCollector: __webpack_require__(73),
+  MessageEmbed: __webpack_require__(44),
+  MessageMentions: __webpack_require__(77),
+  MessageReaction: __webpack_require__(51),
+  NewsChannel: __webpack_require__(83),
+  PermissionOverwrites: __webpack_require__(42),
+  Presence: __webpack_require__(14).Presence,
+  ClientPresence: __webpack_require__(91),
+  ReactionCollector: __webpack_require__(78),
+  ReactionEmoji: __webpack_require__(52),
+  RichPresenceAssets: __webpack_require__(14).RichPresenceAssets,
+  Role: __webpack_require__(19),
+  StoreChannel: __webpack_require__(84),
+  Team: __webpack_require__(75),
+  TeamMember: __webpack_require__(76),
+  TextChannel: __webpack_require__(41),
+  User: __webpack_require__(27),
+  VoiceChannel: __webpack_require__(81),
+  VoiceRegion: __webpack_require__(56),
+  VoiceState: __webpack_require__(28),
+  Webhook: __webpack_require__(13),
+
+  WebSocket: __webpack_require__(92),
+};
+
+
+/***/ }),
+/* 59 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -14657,7 +14769,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {// .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
@@ -14966,13 +15078,13 @@ var substr = 'ab'.substr(-1) === 'b'
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(11)))
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module) {
 
 module.exports = JSON.parse("{\"_from\":\"discord.js\",\"_id\":\"discord.js@12.2.0\",\"_inBundle\":false,\"_integrity\":\"sha512-Ueb/0SOsxXyqwvwFYFe0msMrGqH1OMqpp2Dpbplnlr4MzcRrFWwsBM9gKNZXPVBHWUKiQkwU8AihXBXIvTTSvg==\",\"_location\":\"/discord.js\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"tag\",\"registry\":true,\"raw\":\"discord.js\",\"name\":\"discord.js\",\"escapedName\":\"discord.js\",\"rawSpec\":\"\",\"saveSpec\":null,\"fetchSpec\":\"latest\"},\"_requiredBy\":[\"#USER\",\"/\"],\"_resolved\":\"https://registry.npmjs.org/discord.js/-/discord.js-12.2.0.tgz\",\"_shasum\":\"31018732e42a495c92655055192221eab2ad11a9\",\"_spec\":\"discord.js\",\"_where\":\"C:\\\\Users\\\\ChrisEvans\\\\Source\\\\Repos\\\\DiscordWars\",\"author\":{\"name\":\"Amish Shah\",\"email\":\"amishshah.2k@gmail.com\"},\"browser\":{\"@discordjs/opus\":false,\"https\":false,\"ws\":false,\"erlpack\":false,\"prism-media\":false,\"opusscript\":false,\"node-opus\":false,\"tweetnacl\":false,\"sodium\":false,\"worker_threads\":false,\"zlib-sync\":false,\"src/sharding/Shard.js\":false,\"src/sharding/ShardClientUtil.js\":false,\"src/sharding/ShardingManager.js\":false,\"src/client/voice/ClientVoiceManager.js\":false,\"src/client/voice/VoiceBroadcast.js\":false,\"src/client/voice/VoiceConnection.js\":false,\"src/client/voice/dispatcher/BroadcastDispatcher.js\":false,\"src/client/voice/dispatcher/StreamDispatcher.js\":false,\"src/client/voice/networking/VoiceUDPClient.js\":false,\"src/client/voice/networking/VoiceWebSocket.js\":false,\"src/client/voice/player/AudioPlayer.js\":false,\"src/client/voice/player/BasePlayer.js\":false,\"src/client/voice/player/BroadcastAudioPlayer.js\":false,\"src/client/voice/receiver/PacketHandler.js\":false,\"src/client/voice/receiver/Receiver.js\":false,\"src/client/voice/util/PlayInterface.js\":false,\"src/client/voice/util/Secretbox.js\":false,\"src/client/voice/util/Silence.js\":false,\"src/client/voice/util/VolumeInterface.js\":false},\"bugs\":{\"url\":\"https://github.com/discordjs/discord.js/issues\"},\"bundleDependencies\":false,\"commitlint\":{\"extends\":[\"@commitlint/config-angular\"],\"rules\":{\"scope-case\":[2,\"always\",\"pascal-case\"],\"type-enum\":[2,\"always\",[\"chore\",\"build\",\"ci\",\"docs\",\"feat\",\"fix\",\"perf\",\"refactor\",\"revert\",\"style\",\"test\"]]}},\"dependencies\":{\"@discordjs/collection\":\"^0.1.5\",\"@discordjs/form-data\":\"^3.0.1\",\"abort-controller\":\"^3.0.0\",\"node-fetch\":\"^2.6.0\",\"prism-media\":\"^1.2.0\",\"setimmediate\":\"^1.0.5\",\"tweetnacl\":\"^1.0.3\",\"ws\":\"^7.2.1\"},\"deprecated\":false,\"description\":\"A powerful library for interacting with the Discord API\",\"devDependencies\":{\"@commitlint/cli\":\"^8.3.5\",\"@commitlint/config-angular\":\"^8.3.4\",\"@types/node\":\"^10.12.24\",\"@types/ws\":\"^7.2.1\",\"cross-env\":\"^7.0.2\",\"discord.js-docgen\":\"github:discordjs/docgen\",\"dtslint\":\"^3.0.0\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^6.10.0\",\"eslint-plugin-import\":\"^2.20.1\",\"eslint-plugin-prettier\":\"^3.1.2\",\"husky\":\"^4.2.3\",\"jest\":\"^25.1.0\",\"json-filter-loader\":\"^1.0.0\",\"lint-staged\":\"^10.0.8\",\"prettier\":\"^1.19.1\",\"terser-webpack-plugin\":\"^1.2.2\",\"tslint\":\"^6.0.0\",\"typescript\":\"^3.8.2\",\"webpack\":\"^4.41.6\",\"webpack-cli\":\"^3.3.11\"},\"engines\":{\"node\":\">=12.0.0\"},\"exports\":{\".\":[{\"require\":\"./src/index.js\",\"import\":\"./esm/discord.mjs\"},\"./src/index.js\"],\"./esm\":\"./esm/discord.mjs\"},\"homepage\":\"https://github.com/discordjs/discord.js#readme\",\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\",\"commit-msg\":\"commitlint -E HUSKY_GIT_PARAMS\"}},\"keywords\":[\"discord\",\"api\",\"bot\",\"client\",\"node\",\"discordapp\"],\"license\":\"Apache-2.0\",\"lint-staged\":{\"*.js\":\"eslint --fix\",\"*.ts\":\"prettier --write --single-quote --print-width 120 --trailing-comma all --end-of-line lf\"},\"main\":\"./src/index\",\"name\":\"discord.js\",\"peerDependencies\":{\"bufferutil\":\"^4.0.1\",\"erlpack\":\"discordapp/erlpack\",\"libsodium-wrappers\":\"^0.7.6\",\"sodium\":\"^3.0.2\",\"utf-8-validate\":\"^5.0.2\",\"zlib-sync\":\"^0.1.6\"},\"peerDependenciesMeta\":{\"bufferutil\":{\"optional\":true},\"erlpack\":{\"optional\":true},\"libsodium-wrappers\":{\"optional\":true},\"sodium\":{\"optional\":true},\"utf-8-validate\":{\"optional\":true},\"zlib-sync\":{\"optional\":true}},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/discordjs/discord.js.git\"},\"runkitExampleFilename\":\"./docs/examples/ping.js\",\"scripts\":{\"build:browser\":\"webpack\",\"docs\":\"docgen --source src --custom docs/index.yml --output docs/docs.json\",\"docs:test\":\"docgen --source src --custom docs/index.yml\",\"lint\":\"eslint src\",\"lint:fix\":\"eslint src --fix\",\"lint:typings\":\"tslint typings/index.d.ts\",\"prepublishOnly\":\"npm run test && cross-env NODE_ENV=production npm run build:browser\",\"prettier\":\"prettier --write --single-quote --print-width 120 --trailing-comma all --end-of-line lf src/**/*.js typings/**/*.ts\",\"test\":\"npm run lint && npm run docs:test && npm run lint:typings\",\"test:typescript\":\"tsc\"},\"types\":\"./typings/index.d.ts\",\"unpkg\":\"./webpack/discord.min.js\",\"version\":\"12.2.0\"}");
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15040,7 +15152,7 @@ module.exports = {
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -15233,7 +15345,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(22), __webpack_require__(11)))
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15308,7 +15420,7 @@ module.exports = DiscordAPIError;
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15352,7 +15464,7 @@ module.exports = HTTPError;
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15478,7 +15590,7 @@ module.exports = GuildEmojiRoleManager;
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15513,7 +15625,7 @@ var pna = __webpack_require__(32);
 module.exports = Readable;
 
 /*<replacement>*/
-var isArray = __webpack_require__(58);
+var isArray = __webpack_require__(59);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -15531,7 +15643,7 @@ var EElistenerCount = function (emitter, type) {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(67);
+var Stream = __webpack_require__(68);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -15563,7 +15675,7 @@ if (debugUtil && debugUtil.debuglog) {
 /*</replacement>*/
 
 var BufferList = __webpack_require__(125);
-var destroyImpl = __webpack_require__(68);
+var destroyImpl = __webpack_require__(69);
 var StringDecoder;
 
 util.inherits(Readable, Stream);
@@ -15653,7 +15765,7 @@ function ReadableState(options, stream) {
   this.decoder = null;
   this.encoding = null;
   if (options.encoding) {
-    if (!StringDecoder) StringDecoder = __webpack_require__(69).StringDecoder;
+    if (!StringDecoder) StringDecoder = __webpack_require__(70).StringDecoder;
     this.decoder = new StringDecoder(options.encoding);
     this.encoding = options.encoding;
   }
@@ -15809,7 +15921,7 @@ Readable.prototype.isPaused = function () {
 
 // backwards compatibility.
 Readable.prototype.setEncoding = function (enc) {
-  if (!StringDecoder) StringDecoder = __webpack_require__(69).StringDecoder;
+  if (!StringDecoder) StringDecoder = __webpack_require__(70).StringDecoder;
   this._readableState.decoder = new StringDecoder(enc);
   this._readableState.encoding = enc;
   return this;
@@ -16504,14 +16616,14 @@ function indexOf(xs, x) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(22), __webpack_require__(11)))
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(15).EventEmitter;
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16591,7 +16703,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16893,7 +17005,7 @@ function simpleEnd(buf) {
 }
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17113,7 +17225,7 @@ function done(stream, er, data) {
 }
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17158,7 +17270,7 @@ module.exports = ActivityFlags;
 
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17294,7 +17406,7 @@ module.exports = MessageCollector;
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17467,14 +17579,14 @@ module.exports = GuildMemberRoleManager;
 
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 const Base = __webpack_require__(5);
-const TeamMember = __webpack_require__(75);
+const TeamMember = __webpack_require__(76);
 const Collection = __webpack_require__(2);
 const Snowflake = __webpack_require__(7);
 
@@ -17583,7 +17695,7 @@ module.exports = Team;
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17655,7 +17767,7 @@ module.exports = TeamMember;
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17883,7 +17995,7 @@ module.exports = MessageMentions;
 
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18080,7 +18192,7 @@ module.exports = ReactionCollector;
 
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18153,7 +18265,7 @@ module.exports = ReactionUserManager;
 
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18211,7 +18323,7 @@ module.exports = UserFlags;
 
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18369,7 +18481,7 @@ module.exports = VoiceChannel;
 
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18409,7 +18521,7 @@ module.exports = CategoryChannel;
 
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18434,7 +18546,7 @@ module.exports = NewsChannel;
 
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18463,7 +18575,7 @@ module.exports = StoreChannel;
 
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18979,7 +19091,7 @@ module.exports = GuildAuditLogs;
 
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19117,7 +19229,7 @@ module.exports = GuildChannelManager;
 
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19396,7 +19508,7 @@ module.exports = GuildMemberManager;
 
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19462,7 +19574,7 @@ module.exports = PresenceManager;
 
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19614,7 +19726,7 @@ module.exports = RoleManager;
 
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19661,7 +19773,7 @@ module.exports = SystemChannelFlags;
 
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19755,7 +19867,7 @@ module.exports = ClientPresence;
 
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19812,7 +19924,7 @@ for (const state of ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED']) exports[state] 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(21).Buffer))
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19832,7 +19944,7 @@ module.exports = handlers;
 
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20019,7 +20131,7 @@ module.exports = ClientUser;
 
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20119,7 +20231,7 @@ module.exports = ChannelManager;
 
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20342,7 +20454,7 @@ module.exports = GuildManager;
 
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20417,7 +20529,7 @@ module.exports = UserManager;
 
 
 /***/ }),
-/* 97 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20504,118 +20616,6 @@ Intents.ALL = Object.values(Intents.FLAGS).reduce((acc, p) => acc | p, 0);
 Intents.NON_PRIVILEGED = Intents.ALL & ~Intents.PRIVILEGED;
 
 module.exports = Intents;
-
-
-/***/ }),
-/* 98 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-const Util = __webpack_require__(4);
-
-module.exports = {
-  // "Root" classes (starting points)
-  BaseClient: __webpack_require__(37),
-  Client: __webpack_require__(110),
-  Shard: __webpack_require__(207),
-  ShardClientUtil: __webpack_require__(208),
-  ShardingManager: __webpack_require__(209),
-  WebhookClient: __webpack_require__(48),
-
-  // Utilities
-  ActivityFlags: __webpack_require__(71),
-  BitField: __webpack_require__(12),
-  Collection: __webpack_require__(2),
-  Constants: __webpack_require__(0),
-  DataResolver: __webpack_require__(9),
-  BaseManager: __webpack_require__(6),
-  DiscordAPIError: __webpack_require__(63),
-  HTTPError: __webpack_require__(64),
-  MessageFlags: __webpack_require__(47),
-  Intents: __webpack_require__(97),
-  Permissions: __webpack_require__(8),
-  Speaking: __webpack_require__(210),
-  Snowflake: __webpack_require__(7),
-  SnowflakeUtil: __webpack_require__(7),
-  Structures: __webpack_require__(24),
-  SystemChannelFlags: __webpack_require__(89),
-  UserFlags: __webpack_require__(79),
-  Util: Util,
-  version: __webpack_require__(60).version,
-
-  // Managers
-  ChannelManager: __webpack_require__(94),
-  GuildChannelManager: __webpack_require__(85),
-  GuildEmojiManager: __webpack_require__(57),
-  GuildEmojiRoleManager: __webpack_require__(65),
-  GuildMemberManager: __webpack_require__(86),
-  GuildMemberRoleManager: __webpack_require__(73),
-  GuildManager: __webpack_require__(95),
-  ReactionUserManager: __webpack_require__(78),
-  MessageManager: __webpack_require__(35),
-  PresenceManager: __webpack_require__(87),
-  RoleManager: __webpack_require__(88),
-  UserManager: __webpack_require__(96),
-
-  // Shortcuts to Util methods
-  discordSort: Util.discordSort,
-  escapeMarkdown: Util.escapeMarkdown,
-  fetchRecommendedShards: Util.fetchRecommendedShards,
-  resolveColor: Util.resolveColor,
-  resolveString: Util.resolveString,
-  splitMessage: Util.splitMessage,
-
-  // Structures
-  Base: __webpack_require__(5),
-  Activity: __webpack_require__(14).Activity,
-  APIMessage: __webpack_require__(31),
-  BaseGuildEmoji: __webpack_require__(40),
-  CategoryChannel: __webpack_require__(81),
-  Channel: __webpack_require__(16),
-  ClientApplication: __webpack_require__(50),
-  get ClientUser() {
-    // This is a getter so that it properly extends any custom User class
-    return __webpack_require__(93);
-  },
-  Collector: __webpack_require__(49),
-  DMChannel: __webpack_require__(39),
-  Emoji: __webpack_require__(30),
-  Guild: __webpack_require__(53),
-  GuildAuditLogs: __webpack_require__(84),
-  GuildChannel: __webpack_require__(17),
-  GuildEmoji: __webpack_require__(25),
-  GuildMember: __webpack_require__(10),
-  GuildPreview: __webpack_require__(55),
-  Integration: __webpack_require__(54),
-  Invite: __webpack_require__(18),
-  Message: __webpack_require__(29),
-  MessageAttachment: __webpack_require__(43),
-  MessageCollector: __webpack_require__(72),
-  MessageEmbed: __webpack_require__(44),
-  MessageMentions: __webpack_require__(76),
-  MessageReaction: __webpack_require__(51),
-  NewsChannel: __webpack_require__(82),
-  PermissionOverwrites: __webpack_require__(42),
-  Presence: __webpack_require__(14).Presence,
-  ClientPresence: __webpack_require__(90),
-  ReactionCollector: __webpack_require__(77),
-  ReactionEmoji: __webpack_require__(52),
-  RichPresenceAssets: __webpack_require__(14).RichPresenceAssets,
-  Role: __webpack_require__(19),
-  StoreChannel: __webpack_require__(83),
-  Team: __webpack_require__(74),
-  TeamMember: __webpack_require__(75),
-  TextChannel: __webpack_require__(41),
-  User: __webpack_require__(27),
-  VoiceChannel: __webpack_require__(80),
-  VoiceRegion: __webpack_require__(56),
-  VoiceState: __webpack_require__(28),
-  Webhook: __webpack_require__(13),
-
-  WebSocket: __webpack_require__(91),
-};
 
 
 /***/ }),
@@ -20874,7 +20874,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 "use strict";
 
 
-const { register } = __webpack_require__(61);
+const { register } = __webpack_require__(62);
 
 const Messages = {
   CLIENT_INVALID_OPTION: (prop, must) => `The ${prop} option must be ${must}`,
@@ -21621,8 +21621,8 @@ module.exports = buildRoute;
 "use strict";
 
 
-const DiscordAPIError = __webpack_require__(63);
-const HTTPError = __webpack_require__(64);
+const DiscordAPIError = __webpack_require__(64);
+const HTTPError = __webpack_require__(65);
 const {
   Events: { RATE_LIMIT },
   browser,
@@ -21813,10 +21813,10 @@ const ActionsManager = __webpack_require__(111);
 const ClientVoiceManager = __webpack_require__(159);
 const WebSocketManager = __webpack_require__(160);
 const { Error, TypeError, RangeError } = __webpack_require__(3);
-const ChannelManager = __webpack_require__(94);
+const ChannelManager = __webpack_require__(95);
 const GuildEmojiManager = __webpack_require__(57);
-const GuildManager = __webpack_require__(95);
-const UserManager = __webpack_require__(96);
+const GuildManager = __webpack_require__(96);
+const UserManager = __webpack_require__(97);
 const ShardClientUtil = __webpack_require__(205);
 const ClientApplication = __webpack_require__(50);
 const GuildPreview = __webpack_require__(55);
@@ -21826,7 +21826,7 @@ const Webhook = __webpack_require__(13);
 const Collection = __webpack_require__(2);
 const { Events, browser, DefaultOptions } = __webpack_require__(0);
 const DataResolver = __webpack_require__(9);
-const Intents = __webpack_require__(97);
+const Intents = __webpack_require__(98);
 const Permissions = __webpack_require__(8);
 const Structures = __webpack_require__(24);
 
@@ -23076,7 +23076,7 @@ function config (name) {
 
 module.exports = PassThrough;
 
-var Transform = __webpack_require__(70);
+var Transform = __webpack_require__(71);
 
 /*<replacement>*/
 var util = Object.create(__webpack_require__(26));
@@ -24161,7 +24161,7 @@ module.exports = WebhooksUpdate;
 
 const EventEmitter = __webpack_require__(15);
 const WebSocketShard = __webpack_require__(161);
-const PacketHandlers = __webpack_require__(92);
+const PacketHandlers = __webpack_require__(93);
 const { Error: DJSError } = __webpack_require__(3);
 const Collection = __webpack_require__(2);
 const { Events, ShardEvents, Status, WSCodes, WSEvents } = __webpack_require__(0);
@@ -24606,7 +24606,7 @@ module.exports = WebSocketManager;
 
 
 const EventEmitter = __webpack_require__(15);
-const WebSocket = __webpack_require__(91);
+const WebSocket = __webpack_require__(92);
 const { browser, Status, Events, ShardEvents, OPCodes, WSEvents } = __webpack_require__(0);
 
 const STATUS_KEYS = Object.keys(Status);
@@ -26177,7 +26177,7 @@ var map = {
 	"./VOICE_SERVER_UPDATE.js": 202,
 	"./VOICE_STATE_UPDATE.js": 203,
 	"./WEBHOOKS_UPDATE.js": 204,
-	"./index.js": 92
+	"./index.js": 93
 };
 
 
@@ -26690,7 +26690,7 @@ module.exports = (client, { d: data }, shard) => {
   if (client.user) {
     client.user._patch(data.user);
   } else {
-    if (!ClientUser) ClientUser = __webpack_require__(93);
+    if (!ClientUser) ClientUser = __webpack_require__(94);
     const clientUser = new ClientUser(client, data.user);
     client.user = clientUser;
     client.users.cache.set(clientUser.id, clientUser);
@@ -26910,26 +26910,47 @@ module.exports = Speaking;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/discord.js/src/index.js
-var src = __webpack_require__(98);
+var src = __webpack_require__(58);
 var src_default = /*#__PURE__*/__webpack_require__.n(src);
 
 // CONCATENATED MODULE: ./src/bot.js
 
 
 const client = new src_default.a.Client();
+client.commands = new src_default.a.Collection();
+
+
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
 client.on('message', msg => {
-  if (msg.content === 'ping') {
-    msg.reply('Pong!');
+  if (msg.content === '!ping') {
+    msg.reply('!Pong');
+  }
+  if (msg.content.startsWith('!join')) {
+    msg.reply(`joined!`);
+  }
+  if (msg.content.startsWith('!move')){
+    msg.reply('moving!');
+  }
+  if(msg.content.startsWith('!upgrade')){
+    msg.reply('upgrading!');
+  }
+  if(msg.content.startsWith('!leave')){
+    msg.reply('thanks for playing!');
+  }
+  if(msg.content.startsWith('!retreat')){
+    msg.reply('fighting another day!');
   }
 });
 function login(token){
     client.login(token);
 }
+
+
+
 // CONCATENATED MODULE: ./src/index.js
 
 
@@ -26943,6 +26964,7 @@ var app = new Vue({
   methods: {
     tokenLogin: function(){
       login(this.token);
+      this.token = null;
     }
   }
 })

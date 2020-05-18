@@ -5,6 +5,8 @@ A discord game where the chat leads soldiers to battle!
 # Development
 
 ## Commands
+run monogoose web server in the dist folder
+`monogoose.exe`
 updates the dist folder
 ```npx webpack```
 updates packages
@@ -37,3 +39,12 @@ updates packages
 |!upgrade|a, 10 a, 10% a|Upgrades a base with a certain number of units that the player has control over.
 |!leave||player leaves the game.
 |!retreat|a,b,etc...|Reverses the player's units movement away from the base specified.
+
+
+# Resources
+
+- http://phaser.io/learn
+- https://discordjs.guide/#before-you-begin
+- https://discord.js.org/#/docs/main/stable/class/Message?scrollTo=guild
+- [Make a bot here](https://discord.com/developers/applications)
+- https://vuejs.org/v2/guide/
