@@ -1,4 +1,7 @@
 import Discord from 'discord.js';
+const game = require('./game');
+
+
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();

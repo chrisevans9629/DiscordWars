@@ -1,6 +1,5 @@
 import login from './bot';
 
-
 var app = new Vue({
   el: '#app',
   data: {

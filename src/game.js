@@ -1,26 +1,11 @@
 import Phaser from 'phaser';
-
+import Level1 from './Levels/level1';
 var config = {
     type: Phaser.AUTO,
     width: 800,
-    height: 600,
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    height: 800,
+    scene: [Level1],
+    parent: 'game-parent'
 };
 
 var game = new Phaser.Game(config);
-
-function preload ()
-{
-}
-
-function create ()
-{
-}
-
-function update ()
-{
-}
