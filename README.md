@@ -19,7 +19,7 @@ updates packages
 3. When a base is upgraded, the units used to upgrade the base are destroyed, but the base now generates 2 units per second.  The base will also have more hitpoints.
 4. Some bases can be upgraded more than others and are therefore worth more.
 5. If a base is destoyed, it becomes neutral.  Units have to be used to take over a enemy base for it to become yours.
-
+6. bases can be repaired in the game way that bases are upgraded.  Units are used up to upgrade the bases.
 # How does this interact with discord?
 
 1. Discord users join a team using the `!join` or `!join 1` command.  This will add them to a team, allowing them to move units in the game.
