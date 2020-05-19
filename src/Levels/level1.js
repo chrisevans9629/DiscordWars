@@ -32,6 +32,10 @@ class Level1 extends Phaser.Scene {
         this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
     }
 
+    move(from,to,count) {
+        console.log(`${from} ${to} ${count}`);
+    }
+
     secondPassed(){
         //console.log(this.bases);
         this.bases.forEach(p => p.updateBase(p.getCount()+1))
