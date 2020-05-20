@@ -1,5 +1,5 @@
 import login from './bot';
-
+const manager = require('./manager');
 var app = new Vue({
     el: '#app',
     data: {
@@ -15,7 +15,7 @@ var app = new Vue({
         this.token = null;
       },
       move: function(){
-        events.move(this.moveFrom,this.moveTo,this.amount);
+        manager.events.move(this.moveFrom,this.moveTo,this.amount);
       }
     }
   })
