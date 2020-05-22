@@ -13,6 +13,11 @@ class State {
     }
 }
 
+
+class AttackState extends State {
+    
+}
+
 class MoveState extends State {
     toBase: Base;
     speed: number;
@@ -85,7 +90,6 @@ class Unit extends Phaser.GameObjects.Container {
 
         //unit.baseLocation = new Phaser.Math.Vector2(p.x + x * distance,p.y + y * distance);
         this.spawning = true;
-
         this.add(this.unitImg);
         scene.sys.displayList.add(this);
     }
@@ -96,14 +100,22 @@ class Base extends Phaser.GameObjects.Container {
     soldierCount: Phaser.GameObjects.Text;
     baseName: Phaser.GameObjects.Text;
     img: Phaser.GameObjects.Image;
+    health: number;
+    healthText: Phaser.GameObjects.Text;
     constructor(baseId: number, scene: Phaser.Scene){
         super(scene,50,50,[]);
+        this.health = 10;
         this.img = scene.add.image(0,0, 'base').setOrigin(0.5,0.5);
         this.img.scale = 0.5;
         this.baseName = scene.add.text(0,-70, `Base ${baseId}`, {color: 'white', fontSize: '36px'}).setOrigin(0.5,0.5);
         this.soldierCount = scene.add.text(0,0,'0', {color: 'black', fontSize: '15px'}).setOrigin(0.5,0.5);
-        this.add([this.baseName, this.soldierCount, this.img]);
+        
+        this.healthText = scene.add.text(0,0,this.health.toString(), {color: 'black', fontSize: '36px'}).setOrigin(0.5,0.5);
+
+        
+        this.add([this.img,this.baseName,this.healthText]);
         this.baseId = baseId;
+
         scene.sys.displayList.add(this);
     }
     updateBase = (cnt: number) => this.soldierCount.setText(cnt.toString());
@@ -162,47 +174,20 @@ class Level1 extends Phaser.Scene {
         this.units.filter(p => p.currentBase.baseId == from).slice(0,count).forEach(p => {
             p.unitState = new MoveState(p,this, toBase);
         });
-
-        //fromBase.addToBase(count)
-        //toBase.addToBase(-count);
-        
-        // let bodies = this.physics.overlapCirc(fromBase.x,fromBase.y,this.baseArea) as Phaser.Physics.Arcade.Body[];
-
-        // bodies.forEach(p => {
-        //     this.physics.moveToObject(p.gameObject,toBase,this.unitSpeed);
-        // });
     }
 
     secondPassed(){
-        //console.log(this.bases);
-        //this.bases.children.iterate(p => p.addToBase(1))
-
         this.bases.forEach(p => {
             let unit = new Unit(this, p);
             unit.currentBase = p;
-
-            
-            //lvl.physics.moveToObject(unit,toBase, lvl.unitSpeed);
             this.units.push(unit);
         });
-        
     }
 
     update() {
 
         this.units.forEach(p => p.unitState.update());
-        //this.units.children.iterate(p => )
-        //  this.units.forEach(p => {
-        //      if(p.spawning)
-        //      {
-        //         p.unitImg.setVelocity(p.unitImg.body.velocity.x/1.01,p.unitImg.body.velocity.y/1.01);
-        //         if(p.unitImg.body.velocity.x <= 1){
-        //             p.spawning = false;
-        //         }
-        //      }
-               
-        //         //this.physics.accelerateTo(p,p.baseLocation.x,p.baseLocation.y,this.unitSpeed);
-        //  });
+        
         //Phaser.Actions.RotateAroundDistance(this.bases, this.circle1, -0.001, this.circle1.radius);
     }
 }
