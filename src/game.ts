@@ -16,3 +16,9 @@ let config = {
 
 let game = new Phaser.Game(config);
 
+function move(fromBase: number, toBase: number, count: number){
+    let scene = game.scene.scenes[0] as Level1;
+    scene.move(fromBase, toBase, count);
+}
+
+export { game, move };

@@ -1,6 +1,6 @@
 import login from './bot';
 
-import { events } from './manager';
+import { move } from './game';
 //import * as v from 'vue';
 
  var vm = new Vue({
@@ -17,7 +17,7 @@ import { events } from './manager';
         this.token = null;
       },
       move: function(){
-        events.move(this.moveFrom,this.moveTo,this.amount);
+        move(this.moveFrom,this.moveTo,this.amount);
       }
      }
    });
