@@ -1,6 +1,6 @@
 
 import { Client } from 'discord.js';
-
+import { move } from './game';
 const client = new Client();
 //client.commands = new Collection();
 
@@ -17,6 +17,11 @@ client.on('message', msg => {
   }
   if (msg.content.startsWith('!move')){
     msg.reply('moving!');
+
+    let actions = msg.content.replace('!move','').split(' ');
+    console.log(actions);
+    move(Number(actions[1]),Number(actions[2]),100);
+    console.log("moving");
   }
   if(msg.content.startsWith('!upgrade')){
     msg.reply('upgrading!');
