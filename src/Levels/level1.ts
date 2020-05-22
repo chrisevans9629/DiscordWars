@@ -1,10 +1,10 @@
 'use strict';
 
 import { Tilemaps, Physics, Scene } from 'phaser';
-class State {
-    Unit: Unit;
+class State<T> {
+    Unit: T;
     Scene: Scene;
-    constructor(unit: Unit, scene: Scene){
+    constructor(unit: T, scene: Scene){
         this.Unit = unit;
         this.Scene = scene;
     }
@@ -14,11 +14,32 @@ class State {
 }
 
 
-class AttackState extends State {
-    
+class AttackState extends State<Unit> {
+    toBase: Base;
+    speed: number;
+    constructor(unit: Unit, scene: Scene, toBase: Base){
+        super(unit,scene);
+        this.speed = 1;
+        this.toBase = toBase;
+    }
+    update(){
+        let dir = new Phaser.Math.Vector2(this.toBase.x - this.Unit.x, this.toBase.y - this.Unit.y);
+        dir = dir.normalize();
+        this.Unit.x += dir.x * this.speed;
+        this.Unit.y += dir.y * this.speed;
+        if(Phaser.Math.Distance.Between(this.Unit.x,this.Unit.y,this.toBase.x,this.toBase.y) < 1){
+            
+            this.toBase.baseState.unitHit(this.Unit);
+            let lvl1 = this.Scene as Level1;
+            lvl1.destroyUnit(this.Unit);
+            //this.Unit.unitState = new OrbitState(this.Unit, this.Scene);
+            //this.Unit.currentBase = this.toBase;
+
+        }
+    }
 }
 
-class MoveState extends State {
+class MoveState extends State<Unit> {
     toBase: Base;
     speed: number;
     constructor(unit: Unit, scene: Scene, toBase: Base){
@@ -33,14 +54,14 @@ class MoveState extends State {
         this.Unit.x += dir.x * this.speed;
         this.Unit.y += dir.y * this.speed;
         if(Phaser.Math.Distance.Between(this.Unit.x,this.Unit.y,this.toBase.x,this.toBase.y) < 40){
-            this.Unit.unitState = new OrbitState(this.Unit, this.Scene);
+            this.Unit.unitState = new AttackState(this.Unit, this.Scene,this.toBase);
             this.Unit.currentBase = this.toBase;
         }
     }
 }
 
 
-class OrbitState extends State {
+class OrbitState extends State<Unit> {
     constructor(unit: Unit, scene: Scene){
         super(unit,scene);
     }
@@ -48,7 +69,7 @@ class OrbitState extends State {
         Phaser.Actions.RotateAround([this.Unit], this.Unit.currentBase, 0.005);
     }
 }
-class SpawnState extends State{
+class SpawnState extends State<Unit> {
     location: Phaser.Math.Vector2;
     speed: number;
     constructor(unit: Unit, scene: Scene){
@@ -78,10 +99,11 @@ class Unit extends Phaser.GameObjects.Container {
     currentBase: Base;
     spawning: boolean;
     unitImg: Phaser.Physics.Arcade.Image;
-    unitState: State;
-    constructor(scene: Level1, base: Base){
+    unitState: State<Unit>;
+    teamId: number;
+    constructor(scene: Level1, base: Base, teamid: number){
         super(scene,base.x,base.y,[]);
-
+        this.teamId = teamid;
         this.currentBase = base;
         this.unitImg = scene.physics.add.image(0,0,'base').setOrigin(0.5,0.5);
         this.unitImg.scale = 0.05;
@@ -95,6 +117,56 @@ class Unit extends Phaser.GameObjects.Container {
     }
 }
 
+class BaseState extends State<Base> {
+    secondPassed(){
+
+    }
+    unitHit(unit: Unit){
+
+    }
+}
+
+class GenerateState extends BaseState {
+    speed: number;
+    constructor(base: Base, scene: Scene){
+        super(base, scene);
+        this.speed = 1;
+    }
+    secondPassed(){
+        let lvl = this.Scene as Level1;
+        for (let index = 0; index < this.speed; index++) {
+            let unit = new Unit(lvl, this.Unit, this.Unit.teamId);
+            unit.currentBase = this.Unit;
+            lvl.units.push(unit);
+        }
+        
+        this.speed = Math.floor(this.Unit.health / 10);
+
+    }
+    unitHit(unit: Unit){
+        if(unit.teamId == this.Unit.teamId){
+            this.Unit.reduceHealth(-1);   
+        } else {
+            this.Unit.reduceHealth(1);   
+        }
+        if(this.Unit.health <= 0){
+            this.Unit.baseState = new NeutralState(this.Unit, this.Scene,0);
+        }
+    }
+}
+
+class NeutralState extends BaseState {
+    constructor(base: Base, scene: Scene, hp: number){
+        super(base,scene);
+        this.Unit.reduceHealth(-hp);
+    }
+    unitHit(unit: Unit){
+        this.Unit.reduceHealth(-1);
+        this.Unit.baseState = new GenerateState(this.Unit, this.Scene);
+        this.Unit.changeTeam(unit.teamId);
+    }
+}
+
 class Base extends Phaser.GameObjects.Container {
     baseId: number;
     soldierCount: Phaser.GameObjects.Text;
@@ -102,12 +174,19 @@ class Base extends Phaser.GameObjects.Container {
     img: Phaser.GameObjects.Image;
     health: number;
     healthText: Phaser.GameObjects.Text;
+    teamId: number;
+    baseState: BaseState;
     constructor(baseId: number, scene: Phaser.Scene){
         super(scene,50,50,[]);
         this.health = 10;
+        this.teamId = 1;
+        if(baseId % 2 == 1){
+            this.teamId = 2;
+        }
+        this.baseState = new GenerateState(this, scene);
         this.img = scene.add.image(0,0, 'base').setOrigin(0.5,0.5);
         this.img.scale = 0.5;
-        this.baseName = scene.add.text(0,-70, `Base ${baseId}`, {color: 'white', fontSize: '36px'}).setOrigin(0.5,0.5);
+        this.baseName = scene.add.text(0,-70, `Base ${baseId} Team ${this.teamId}`, {color: 'white', fontSize: '36px'}).setOrigin(0.5,0.5);
         this.soldierCount = scene.add.text(0,0,'0', {color: 'black', fontSize: '15px'}).setOrigin(0.5,0.5);
         
         this.healthText = scene.add.text(0,0,this.health.toString(), {color: 'black', fontSize: '36px'}).setOrigin(0.5,0.5);
@@ -117,6 +196,14 @@ class Base extends Phaser.GameObjects.Container {
         this.baseId = baseId;
 
         scene.sys.displayList.add(this);
+    }
+    reduceHealth(amt: number){
+        this.health -= amt;
+        this.healthText.setText(this.health.toString());
+    }
+    changeTeam(teamId: number){
+        this.teamId = teamId;
+        this.baseName.setText(`Base ${this.baseId} Team ${this.teamId}`);
     }
     updateBase = (cnt: number) => this.soldierCount.setText(cnt.toString());
     getCount = () => Number(this.soldierCount.text);
@@ -147,6 +234,12 @@ class Level1 extends Phaser.Scene {
     }
     bases: Base[];
     units: Unit[];
+
+    destroyUnit(unit: Unit){
+        unit.destroy();
+        this.units = this.units.filter(p => p !== unit);
+    }
+
     create() {
         this.bases = [];
         this.units = [];
@@ -155,7 +248,7 @@ class Level1 extends Phaser.Scene {
             this.bases.push(con);
         }
         
-        this.circle1 = new Phaser.Geom.Circle(400,400, 300);
+        this.circle1 = new Phaser.Geom.Circle(500,400, 300);
         
         this.bases = Phaser.Actions.PlaceOnCircle(this.bases,this.circle1);
         console.log(this.bases);
@@ -178,9 +271,7 @@ class Level1 extends Phaser.Scene {
 
     secondPassed(){
         this.bases.forEach(p => {
-            let unit = new Unit(this, p);
-            unit.currentBase = p;
-            this.units.push(unit);
+            p.baseState.secondPassed();
         });
     }
 
