@@ -79,6 +79,8 @@ class Level1 extends Phaser.Scene {
     
             let distance = Phaser.Math.FloatBetween(this.baseAreaMin,this.baseArea);
             unit.currentBase = p;
+
+            unit.gameState
             //unit.baseLocation = new Phaser.Math.Vector2(p.x + x * distance,p.y + y * distance);
             unit.setVelocity(x,y);
             unit.spawning = true;
