@@ -1,6 +1,7 @@
 'use strict';
 
 import { events } from '../manager';
+import { Tilemaps } from 'phaser';
 
 class Unit extends Phaser.GameObjects.Container {
     currentBase: Base;
@@ -32,13 +33,14 @@ class Base extends Phaser.GameObjects.Container {
     baseName: Phaser.GameObjects.Text;
     img: Phaser.GameObjects.Image;
     constructor(baseId: number, scene: Phaser.Scene){
-        super(scene,0,0,[]);
+        super(scene,50,50,[]);
         this.img = scene.add.image(0,0, 'base').setOrigin(0.5,0.5);
         this.img.scale = 0.5;
         this.baseName = scene.add.text(0,-70, `Base ${baseId}`, {color: 'white', fontSize: '36px'}).setOrigin(0.5,0.5);
         this.soldierCount = scene.add.text(0,0,'0', {color: 'black', fontSize: '15px'}).setOrigin(0.5,0.5);
-        this.add([this.baseName, this.soldierCount]);
+        this.add([this.baseName, this.soldierCount, this.img]);
         this.baseId = baseId;
+        scene.sys.displayList.add(this);
     }
     updateBase = (cnt: number) => this.soldierCount.setText(cnt.toString());
     getCount = () => Number(this.soldierCount.text);
@@ -74,19 +76,16 @@ class Level1 extends Phaser.Scene {
         this.bases = [];
         this.units = [];
         for (let index = 0; index < this.baseCount; index++) {
-
-          
-            let con = new Base(index,this);//this.add.container(0,0, [img, baseName, soldierCount]);
-            
-            
+            let con = new Base(index,this);
             this.bases.push(con);
         }
-        
+
         this.circle1 = new Phaser.Geom.Circle(400,400, 300);
         
 
 
-        Phaser.Actions.PlaceOnCircle(this.bases,this.circle1);
+        this.bases = Phaser.Actions.PlaceOnCircle(this.bases,this.circle1);
+        console.log(this.bases);
         this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
     }
 
