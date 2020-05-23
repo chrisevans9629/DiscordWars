@@ -4,12 +4,12 @@ import { BaseState } from './BaseState';
 import { GenerateState } from './GenerateState';
 import { Base } from "./Base";
 export class NeutralState extends BaseState {
-    constructor(base: Base, scene: Scene, hp: number) {
+    constructor(base: Base, scene: Scene) {
         super(base, scene);
-        this.Unit.reduceHealth(-hp);
+        this.Unit.changeTeam(-1);
     }
     unitHit(unit: Unit) {
-        this.Unit.reduceHealth(-1);
+        this.Unit.addHealth(1);
         this.Unit.baseState = new GenerateState(this.Unit, this.Scene);
         this.Unit.changeTeam(unit.teamId);
     }

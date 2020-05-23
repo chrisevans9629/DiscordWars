@@ -11,7 +11,7 @@ export class Base extends Phaser.GameObjects.Container {
     baseState: BaseState;
     constructor(baseId: number, scene: Phaser.Scene) {
         super(scene, 50, 50, []);
-        this.health = 10;
+        this.health = 15;
         this.teamId = 1;
         if (baseId % 2 == 1) {
             this.teamId = 2;
@@ -26,9 +26,13 @@ export class Base extends Phaser.GameObjects.Container {
         this.baseId = baseId;
         scene.sys.displayList.add(this);
     }
-    reduceHealth(amt: number) {
-        this.health -= amt;
+    addHealth(amt: number) {
+        this.health += amt;
         this.healthText.setText(this.health.toString());
+    }
+    setHealth(hp: number){
+        this.health = hp;
+        this.healthText.setText(hp.toString());
     }
     changeTeam(teamId: number) {
         this.teamId = teamId;
