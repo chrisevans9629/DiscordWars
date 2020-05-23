@@ -1,6 +1,6 @@
 import login from './bot';
 
-import { move } from './game';
+import { move, retreat } from './game';
 //import * as v from 'vue';
 
  var vm = new Vue({
@@ -18,7 +18,10 @@ import { move } from './game';
       },
       move: function(){
         move(this.moveFrom,this.moveTo,this.amount);
-      }
+      },
+      retreat: function(){
+        retreat(this.moveTo);
+      },
      }
    });
 

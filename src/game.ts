@@ -9,7 +9,7 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
+            debug: false,
         }
     }
 };
@@ -21,4 +21,9 @@ function move(fromBase: number, toBase: number, count: number){
     scene.move(fromBase, toBase, count);
 }
 
-export { game, move };
+function retreat(toBase: number){
+    let scene = game.scene.scenes[0] as Level1;
+    scene.retreat(toBase);
+}
+
+export { game, move, retreat };

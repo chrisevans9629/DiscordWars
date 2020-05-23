@@ -27,7 +27,14 @@
              <input v-model="moveTo" class="form-control">
              <label>Amount</label>
              <input v-model="amount" class="form-control">
-             <button v-on:click="move" class="btn">Move</button>
+             <div class="row">
+               <div class="col">
+                  <button v-on:click="move" class="btn">Move</button>
+               </div>
+               <div class="col">
+                  <button v-on:click="retreat" class="btn">Retreat</button>
+               </div>
+             </div>
           </div>
         </div>
         <div class="row">

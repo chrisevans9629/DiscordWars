@@ -46,7 +46,11 @@ export class Level1 extends Phaser.Scene {
         console.log(this.bases);
         this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
     }
-
+    retreat(to: number){
+        this.units.filter(p => p.unitState instanceof MoveState && p.unitState.toBase.baseId == to).forEach(p => {
+            p.unitState = new MoveState(p, this, p.currentBase);
+        });
+    }
     move(from: number,to: number,count: number) {
         //this = manager.events.level;
         //let lvl = this;
