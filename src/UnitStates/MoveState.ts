@@ -3,7 +3,8 @@ import { State } from './State';
 import { AttackState } from './AttackState';
 import { Base } from "../BaseStates/Base";
 import { Unit } from "./Unit";
-export class MoveState extends State<Unit> {
+import { UnitState } from './UnitState';
+export class MoveState extends UnitState {
     toBase: Base;
     speed: number;
     constructor(unit: Unit, scene: Scene, toBase: Base) {
@@ -20,5 +21,6 @@ export class MoveState extends State<Unit> {
             this.Unit.unitState = new AttackState(this.Unit, this.Scene, this.toBase);
             this.Unit.currentBase = this.toBase;
         }
+        super.update();
     }
 }

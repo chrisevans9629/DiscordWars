@@ -2,7 +2,8 @@ import { Scene } from 'phaser';
 import { State } from './State';
 import { OrbitState } from './OrbitState';
 import { Unit } from "./Unit";
-export class SpawnState extends State<Unit> {
+import { UnitState } from './UnitState';
+export class SpawnState extends UnitState {
     location: Phaser.Math.Vector2;
     speed: number;
     constructor(unit: Unit, scene: Scene) {
@@ -22,5 +23,6 @@ export class SpawnState extends State<Unit> {
         if (Phaser.Math.Distance.Between(this.Unit.x, this.Unit.y, this.location.x, this.location.y) < 5) {
             this.Unit.unitState = new OrbitState(this.Unit, this.Scene);
         }
+        super.update();
     }
 }
