@@ -114,8 +114,8 @@ namespace DiscordWars
             // environment variables, you may find more information on the 
             // Internet or by using other methods such as reading from 
             // a configuration.
-            await _client.LoginAsync(TokenType.Bot,Token.Value
-                );
+            // await _client.LoginAsync(TokenType.Bot,Token.Value
+            //     );
             await _client.StartAsync();
             
             var handler = new CommandHandler(_client, new CommandService(new CommandServiceConfig()));

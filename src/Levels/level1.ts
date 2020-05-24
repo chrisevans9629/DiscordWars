@@ -4,12 +4,34 @@ import { Tilemaps, Physics } from 'phaser';
 import { MoveState } from '../UnitStates/MoveState';
 import { Unit } from '../UnitStates/Unit';
 import { Base } from '../BaseStates/Base';
+import { State } from '../UnitStates/State';
+
+class GameState extends State<Level1> {
+    constructor(scene: Level1){
+        super(scene,scene);
+    }
+}
+
+class PauseState extends GameState {
+
+}
+
+class GameOverState extends GameState {
+
+}
+
+class GamePlayingState extends GameState {
+
+}
+
+
 export class Level1 extends Phaser.Scene {
     baseCount: number;
     unitSpeed: number;
     baseArea: number;
     baseAreaMin: number;
     circle1: Phaser.Geom.Circle;
+    gameState: GameState;
     constructor() {
         super('level1');
         this.baseCount = 4;
@@ -18,6 +40,7 @@ export class Level1 extends Phaser.Scene {
         this.unitSpeed = 20;
         this.baseArea = 30;
         this.baseAreaMin = 20;
+        
     }
 
     preload() {
