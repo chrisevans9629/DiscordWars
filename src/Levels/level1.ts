@@ -5,6 +5,8 @@ import { MoveState } from '../UnitStates/MoveState';
 import { Unit } from '../UnitStates/Unit';
 import { Base } from '../BaseStates/Base';
 import { State } from '../UnitStates/State';
+import { OrbitState } from '../UnitStates/OrbitState';
+import { AttackState } from '../UnitStates/AttackState';
 
 class GameState extends State<Level1> {
     constructor(scene: Level1){
@@ -104,6 +106,13 @@ export class Level1 extends Phaser.Scene {
         console.log(this.bases);
         this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
     }
+
+    upgrade(to: number){
+        this.units.filter(p => p.currentBase.baseId == to && p.unitState instanceof OrbitState).forEach(p => {
+            p.unitState = new AttackState(p, this, p.currentBase);
+        });
+    }
+
     retreat(to: number){
         this.units.filter(p => p.unitState instanceof MoveState && p.unitState.toBase.baseId == to).forEach(p => {
             p.unitState = new MoveState(p, this, p.currentBase);

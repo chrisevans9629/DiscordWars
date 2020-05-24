@@ -26,4 +26,9 @@ function retreat(toBase: number){
     scene.retreat(toBase);
 }
 
-export { game, move, retreat };
+function upgrade(toBase: number) {
+    let scene = game.scene.scenes[0] as Level1;
+    scene.upgrade(toBase);
+}
+
+export { game, move, retreat, upgrade };

@@ -1,28 +1,7 @@
-import login from './bot';
+import {model} from './vuemodel';
 
-import { move, retreat } from './game';
+
 //import * as v from 'vue';
 
- var vm = new Vue({
-     el: '#app',
-     data: {
-         token: null,
-         moveFrom: 0,
-         moveTo: 1,
-         amount: 10,
-     },
-     methods: {
-      tokenLogin: function(){
-        login(this.token);
-        this.token = null;
-      },
-      move: function(){
-        move(this.moveFrom,this.moveTo,this.amount);
-      },
-      retreat: function(){
-        retreat(this.moveTo);
-      },
-     }
-   });
-
+ var vm = new Vue(model);
   export {vm};
