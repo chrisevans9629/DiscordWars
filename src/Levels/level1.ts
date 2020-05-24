@@ -13,15 +13,49 @@ class GameState extends State<Level1> {
 }
 
 class PauseState extends GameState {
-
+    constructor(scene: Level1){
+        super(scene);
+        scene.time.paused = true;
+    }
+    
 }
 
-class GameOverState extends GameState {
-
+class ResumeState extends GameState {
+    constructor(scene: Level1){
+        super(scene);
+        scene.time.paused = false;
+    }
 }
 
-class GamePlayingState extends GameState {
+class GameOverState extends PauseState {
+    constructor(scene: Level1){
+        super(scene);
+        
+    }
+    update(){
+        
+    }
+}
 
+
+  
+
+class GamePlayingState extends ResumeState {
+    constructor(scene: Level1){
+        super(scene);
+    }
+    update() {
+        this.Unit.units.forEach(p => p.unitState.update());
+
+        let teams = this.Unit.bases.map(p => p.teamId);
+
+        teams.forEach(p => {
+            if(teams.every(r => r == p)){
+                this.Unit.gameState = new GameOverState(this.Unit);
+                return;
+            }
+        });
+    }
 }
 
 
@@ -40,7 +74,6 @@ export class Level1 extends Phaser.Scene {
         this.unitSpeed = 20;
         this.baseArea = 30;
         this.baseAreaMin = 20;
-        
     }
 
     preload() {
@@ -56,6 +89,8 @@ export class Level1 extends Phaser.Scene {
     }
 
     create() {
+        this.gameState = new GamePlayingState(this);
+
         this.bases = [];
         this.units = [];
         for (let index = 0; index < this.baseCount; index++) {
@@ -95,10 +130,7 @@ export class Level1 extends Phaser.Scene {
     }
 
     update() {
-
-        this.units.forEach(p => p.unitState.update());
-        
-        //Phaser.Actions.RotateAroundDistance(this.bases, this.circle1, -0.001, this.circle1.radius);
+        this.gameState.update();
     }
 }
 
