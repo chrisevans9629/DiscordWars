@@ -65,7 +65,14 @@ let retreatCmd = {
   },
 }
 
-let commands = [moveCmd, joinCmd, upgradeCmd, leaveCmd, retreatCmd];
+let sayCmd = {
+  name: '!say',
+  execute(msg: Message, args: string){
+    model.data.chat.push({ name: msg.author.username, message: args })
+  }
+}
+
+let commands = [moveCmd, joinCmd, upgradeCmd, leaveCmd, retreatCmd, sayCmd];
 
 client.on('message', msg => {
   commands.filter(p => msg.content.startsWith(p.name)).forEach(p => {

@@ -8,6 +8,14 @@ export interface Player {
   team: number;
 }
 
+interface Chat {
+  name: string;
+  message: string;
+}
+
+let chat: Chat[] = [];
+let players: Player[] = [];
+
 let model = {
     el: '#app',
     data: {
@@ -20,11 +28,9 @@ let model = {
         isDebugging: false,
         teams: [1,2],
         selectedTeam: 0,
-        players: [
-          {team: 1, name: 'Chris'},
-          {team: 2, name: 'Hyoostin'},
-        ],
+        players: players,
         selectedPlayer: '',
+        chat: chat,
         fps: 0,
     },
     delimiters: ['((','))'],
@@ -32,6 +38,7 @@ let model = {
      tokenLogin: function(){
        login(this.token);
        this.token = null;
+       alert('Ready!');
      },
      move: function(){
        move(this.moveFrom,this.moveTo,this.amount, this.selectedTeam);
