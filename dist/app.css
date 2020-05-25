@@ -4,6 +4,10 @@
     --textColor: white;
 }
 
+p {
+    color: var(--textColor);
+}
+
 html {
     color: var(--textColor);
 }

@@ -39,12 +39,12 @@
              </div>
               <div class="col">
                 <label>Enter your bot token</label>
-                  <input v-model="token" class="form-control">
+                  <input v-model="token" type="password" class="form-control">
                   <button v-on:click="tokenLogin" class="btn">Start</button>
                 <button v-on:click="debug" class="btn">Debug</button>
                 <div v-if="isDebugging">
                  
-                  
+                  <p>FPS: ((fps))</p>
                   <label>Team</label>
                   <select v-model="selectedTeam" class="form-control">
                     <option v-for="team in teams" v-bind:value="team">

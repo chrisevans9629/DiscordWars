@@ -25,6 +25,7 @@ let model = {
           {team: 2, name: 'Hyoostin'},
         ],
         selectedPlayer: '',
+        fps: 0,
     },
     delimiters: ['((','))'],
     methods: {

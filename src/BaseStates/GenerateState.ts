@@ -21,10 +21,10 @@ export class GenerateState extends BaseState {
     }
     unitHit(unit: Unit) {
         if (unit.teamId == this.Unit.teamId) {
-            this.Unit.addHealth(1);
+            this.Unit.addHealth(unit.value);
         }
         else {
-            this.Unit.addHealth(-1);
+            this.Unit.addHealth(-unit.value);
         }
         if (this.Unit.health <= 0) {
             this.Unit.baseState = new NeutralState(this.Unit, this.Scene);

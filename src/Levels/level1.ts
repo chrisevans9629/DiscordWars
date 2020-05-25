@@ -101,7 +101,6 @@ export class Level1 extends Phaser.Scene {
         this.circle1 = new Phaser.Geom.Circle(midx,midy, midy/2);
 
         this.createBases();
-        
         console.log(this.bases);
         this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
     }
@@ -151,8 +150,10 @@ export class Level1 extends Phaser.Scene {
         });
     }
 
-    update() {
+    update(time: number, delta: number) {
         this.gameState.update();
+
+        model.data.fps = 1000/delta;
     }
 }
 

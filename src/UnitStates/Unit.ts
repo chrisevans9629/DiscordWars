@@ -9,13 +9,17 @@ export class Unit extends Phaser.GameObjects.Container {
     unitImg: Phaser.Physics.Arcade.Image;
     unitState: UnitState;
     teamId: number;
+    value: number;
+    maxScale: number;
     constructor(scene: Level1, base: Base, teamid: number) {
         super(scene, base.x, base.y, []);
         this.teamId = teamid;
         this.currentBase = base;
         this.unitImg = scene.physics.add.image(0, 0, 'base').setOrigin(0.5, 0.5);
-        this.unitImg.scale = 0.08;
+        this.scale = 0.08;
+        this.maxScale = 0.16;
         this.unitState = new SpawnState(this, scene);
+        this.value = 1;
         //unit.baseLocation = new Phaser.Math.Vector2(p.x + x * distance,p.y + y * distance);
         this.spawning = true;
         this.add(this.unitImg);

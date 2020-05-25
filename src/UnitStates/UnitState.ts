@@ -1,6 +1,8 @@
 import { State } from './State';
 import { Unit } from './Unit';
 import Level1 from '../Levels/level1';
+import { model } from '../vuemodel';
+
 export class UnitState extends State<Unit> {
     update(){
         let lvl = this.Scene as Level1;
@@ -11,12 +13,24 @@ export class UnitState extends State<Unit> {
         let unit2 = img2.parentContainer as Unit;
         let lvl = this.Scene as Level1;
         if(unit1.teamId != unit2.teamId){
-            
-            lvl.destroyUnit(unit1);
-            lvl.destroyUnit(unit2);
+
+            let u1val = unit1.value;
+            unit1.value -= unit2.value;
+            unit2.value -= u1val;
+            if(unit1.value <= 0)
+            {
+                lvl.destroyUnit(unit1);
+            }
+            if(unit2.value <= 0){
+                lvl.destroyUnit(unit2);
+            }
         }
         else {
-            
+            if(model.data.fps <= 55){
+                unit1.value += unit2.value;
+                unit1.scale = unit1.maxScale;
+                lvl.destroyUnit(unit2);
+            }
         }
     }
 }
