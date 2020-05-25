@@ -28,19 +28,19 @@ game.scene.add('level1', level1);
 
 game.scene.start('level1');
 
-function move(fromBase: number, toBase: number, count: number){
+function move(fromBase: number, toBase: number, count: number, team: number){
     let scene = level1;
-    scene.move(fromBase, toBase, count);
+    scene.move(fromBase, toBase, count, team);
 }
 
-function retreat(toBase: number){
+function retreat(toBase: number, team: number){
     let scene = level1;
-    scene.retreat(toBase);
+    scene.retreat(toBase, team);
 }
 
-function upgrade(toBase: number) {
+function upgrade(toBase: number, team: number) {
     let scene = level1;
-    scene.upgrade(toBase);
+    scene.upgrade(toBase, team);
 }
 
 function reset(){

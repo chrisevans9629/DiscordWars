@@ -20,7 +20,7 @@ client.on('message', msg => {
 
     let actions = msg.content.replace('!move','').split(' ');
     console.log(actions);
-    move(Number(actions[1]),Number(actions[2]),100);
+    move(Number(actions[1]),Number(actions[2]),100,1);
     console.log("moving");
   }
   if(msg.content.startsWith('!upgrade')){

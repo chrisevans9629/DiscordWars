@@ -16,6 +16,7 @@ export class Base extends Phaser.GameObjects.Container {
         if (baseId % 2 == 1) {
             this.teamId = 2;
         }
+        this.setDepth(1);
         this.baseState = new GenerateState(this, scene);
         this.img = scene.add.image(0, 0, 'base').setOrigin(0.5, 0.5);
         this.img.scale = 0.5;

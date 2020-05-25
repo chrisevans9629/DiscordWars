@@ -17,12 +17,10 @@
       <div class="content">
         <div id="game-parent"></div>
       </div>
-      <div class="overlay">
+      <div class="overlay m-4">
             <div class="row">
               <div class="col">
-                <label>Enter your bot token</label>
-                <input v-model="token" class="form-control">
-                <button v-on:click="tokenLogin" class="btn">Start</button>
+                 <h3>Chat</h3>
               </div>
              <div class="col-6">
                <div class="d-flex align-items-center justify-content-center">
@@ -34,23 +32,37 @@
                
              </div>
               <div class="col">
-                 <label>From</label>
-                 <input v-model="moveFrom" class="form-control">
-                 <label>To</label>
-                 <input v-model="moveTo" class="form-control">
-                 <label>Amount</label>
-                 <input v-model="amount" class="form-control">
-                 <div class="row">
-                   <div class="col">
-                      <button v-on:click="move" class="btn">Move</button>
+                <button v-on:click="debug" class="btn">Debug</button>
+                <div v-if="isDebugging">
+                 
+                  <label>Enter your bot token</label>
+                  <input v-model="token" class="form-control">
+                  <button v-on:click="tokenLogin" class="btn">Start</button>
+                  <label>Team</label>
+                  <select v-model="selectedTeam" class="form-control">
+                    <option v-for="team in teams" v-bind:value="team">
+                       ((team))
+                    </option>
+                  </select>
+                   <label style="width: 100%;">From</label>
+                   <input v-model="moveFrom" class="form-control">
+                   <label>To</label>
+                   <input v-model="moveTo" class="form-control">
+                   <label>Amount</label>
+                   <input v-model="amount" class="form-control">
+                   <div class="row">
+                     <div class="col">
+                        <button v-on:click="move" class="btn">Move</button>
+                     </div>
+                     <div class="col">
+                        <button v-on:click="retreat" class="btn">Retreat</button>
+                     </div>
+                     <div class="col">
+                      <button v-on:click="upgrade" class="btn">Upgrade</button>
                    </div>
-                   <div class="col">
-                      <button v-on:click="retreat" class="btn">Retreat</button>
                    </div>
-                   <div class="col">
-                    <button v-on:click="upgrade" class="btn">Upgrade</button>
-                 </div>
-                 </div>
+                </div>
+                
               </div>
             </div>
       </div>

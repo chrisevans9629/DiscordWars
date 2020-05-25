@@ -46,6 +46,7 @@ class GameOverState extends PauseState {
 class GamePlayingState extends ResumeState {
     constructor(scene: Level1){
         super(scene);
+        model.data.gameOver = false;
     }
     update() {
         this.Unit.units.forEach(p => p.unitState.update());
@@ -119,18 +120,18 @@ export class Level1 extends Phaser.Scene {
         this.createBases();
         this.gameState = new GamePlayingState(this);
     }
-    upgrade(to: number){
-        this.units.filter(p => p.currentBase.baseId == to && p.unitState instanceof OrbitState).forEach(p => {
+    upgrade(to: number, team: number){
+        this.units.filter(p => p.currentBase.baseId == to && p.unitState instanceof OrbitState && p.teamId == team).forEach(p => {
             p.unitState = new AttackState(p, this, p.currentBase);
         });
     }
 
-    retreat(to: number){
-        this.units.filter(p => p.unitState instanceof MoveState && p.unitState.toBase.baseId == to).forEach(p => {
+    retreat(to: number, team: number){
+        this.units.filter(p => p.unitState instanceof MoveState && p.unitState.toBase.baseId == to && p.teamId == team).forEach(p => {
             p.unitState = new MoveState(p, this, p.currentBase);
         });
     }
-    move(from: number,to: number,count: number) {
+    move(from: number,to: number,count: number, team: number) {
         //this = manager.events.level;
         //let lvl = this;
         console.log(`from: ${from} to: ${to} count: ${count}`);
@@ -139,7 +140,7 @@ export class Level1 extends Phaser.Scene {
 
         let toBase = bases.find(p => p.baseId == to);
 
-        this.units.filter(p => p.currentBase.baseId == from && p.unitState instanceof MoveState != true).slice(0,count).forEach(p => {
+        this.units.filter(p => p.currentBase.baseId == from && p.unitState instanceof MoveState != true && p.teamId == team).slice(0,count).forEach(p => {
             p.unitState = new MoveState(p,this, toBase);
         });
     }
