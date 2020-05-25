@@ -1,6 +1,6 @@
 import login from './bot';
 
-import { move, retreat, upgrade } from './game';
+import { move, retreat, upgrade, reset } from './game';
 
 let model = {
     el: '#app',
@@ -9,7 +9,10 @@ let model = {
         moveFrom: 0,
         moveTo: 1,
         amount: 10,
+        gameOver: false,
+        title: 'test',
     },
+    delimiters: ['((','))'],
     methods: {
      tokenLogin: function(){
        login(this.token);
@@ -23,6 +26,9 @@ let model = {
      },
      upgrade: function() {
         upgrade(this.moveTo);
+     },
+     reset: function() {
+        reset()
      }
     }
   }

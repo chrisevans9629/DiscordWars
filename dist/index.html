@@ -24,7 +24,15 @@
                 <input v-model="token" class="form-control">
                 <button v-on:click="tokenLogin" class="btn">Start</button>
               </div>
-             <div class="col-6"></div>
+             <div class="col-6">
+               <div class="d-flex align-items-center justify-content-center">
+                <div v-if="gameOver">
+                  <h1>((title))</h1>
+                  <button class="btn" v-on:click="reset">Reset</button>
+                </div>
+               </div>
+               
+             </div>
               <div class="col">
                  <label>From</label>
                  <input v-model="moveFrom" class="form-control">

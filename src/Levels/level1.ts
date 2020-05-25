@@ -7,7 +7,7 @@ import { Base } from '../BaseStates/Base';
 import { State } from '../UnitStates/State';
 import { OrbitState } from '../UnitStates/OrbitState';
 import { AttackState } from '../UnitStates/AttackState';
-
+import { model } from '../vuemodel';
 class GameState extends State<Level1> {
     constructor(scene: Level1){
         super(scene,scene);
@@ -30,9 +30,10 @@ class ResumeState extends GameState {
 }
 
 class GameOverState extends PauseState {
-    constructor(scene: Level1){
+    constructor(scene: Level1, team: number){
         super(scene);
-        
+        model.data.gameOver = true;
+        model.data.title = `Team ${team} won!`;
     }
     update(){
         
@@ -53,7 +54,7 @@ class GamePlayingState extends ResumeState {
 
         teams.forEach(p => {
             if(teams.every(r => r == p)){
-                this.Unit.gameState = new GameOverState(this.Unit);
+                this.Unit.gameState = new GameOverState(this.Unit, p);
                 return;
             }
         });
@@ -93,23 +94,31 @@ export class Level1 extends Phaser.Scene {
     create() {
         this.gameState = new GamePlayingState(this);
 
-        this.bases = [];
         this.units = [];
+        let midx = this.scale.width/2;
+        let midy = this.scale.height/2;
+        this.circle1 = new Phaser.Geom.Circle(midx,midy, midy/2);
+
+        this.createBases();
+        
+        console.log(this.bases);
+        this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
+    }
+    createBases(){
+        this.bases = [];
         for (let index = 0; index < this.baseCount; index++) {
             let con = new Base(index,this);
             this.bases.push(con);
         }
-        
-        let midx = this.scale.width/2;
-        let midy = this.scale.height/2;
-
-        this.circle1 = new Phaser.Geom.Circle(midx,midy, midy/2);
-        
         this.bases = Phaser.Actions.PlaceOnCircle(this.bases,this.circle1);
-        console.log(this.bases);
-        this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
     }
-
+    reset() {
+        this.units.forEach(p => p.destroy());
+        this.units = [];
+        this.bases.forEach(p => p.destroy());
+        this.createBases();
+        this.gameState = new GamePlayingState(this);
+    }
     upgrade(to: number){
         this.units.filter(p => p.currentBase.baseId == to && p.unitState instanceof OrbitState).forEach(p => {
             p.unitState = new AttackState(p, this, p.currentBase);

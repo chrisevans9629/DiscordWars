@@ -43,4 +43,8 @@ function upgrade(toBase: number) {
     scene.upgrade(toBase);
 }
 
-export { game, move, retreat, upgrade };
+function reset(){
+    level1.reset();
+}
+
+export { game, move, retreat, upgrade, reset };

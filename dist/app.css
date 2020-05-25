@@ -7,7 +7,9 @@ html {
 label {
     color: white;
 }
-
+h1 {
+    color: white;
+}
 .btn {
     border: solid 1px black;
     margin: 10px;
