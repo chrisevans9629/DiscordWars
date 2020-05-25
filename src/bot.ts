@@ -1,6 +1,9 @@
 
-import { Client } from 'discord.js';
-import { move } from './game';
+import { Client, Message } from 'discord.js';
+import { move, upgrade, retreat } from './game';
+import { model } from './vuemodel';
+
+
 const client = new Client();
 //client.commands = new Collection();
 
@@ -8,31 +11,72 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('message', msg => {
-  if (msg.content === '!ping') {
-    msg.reply('!Pong');
-  }
-  if (msg.content.startsWith('!join')) {
-    msg.reply(`joined!`);
-  }
-  if (msg.content.startsWith('!move')){
-    msg.reply('moving!');
+interface ICommand {
+  name: string;
+  execute(msg: Message, args: string): void;
+}
 
-    let actions = msg.content.replace('!move','').split(' ');
-    console.log(actions);
-    move(Number(actions[1]),Number(actions[2]),100,1);
-    console.log("moving");
+let getTeam = (msg: Message) => model.data.players.find(p => p.name == msg.author.username);
+
+let moveCmd = {
+  name: '!move',
+  execute(msg: Message, args: string) {
+    let team = getTeam(msg);
+    if(team !== null){
+      let actions = args.split(' ');
+      move(Number(actions[1]),Number(actions[2]),100,team.team);
+      console.log("moving");
+    }
   }
-  if(msg.content.startsWith('!upgrade')){
-    msg.reply('upgrading!');
-  }
-  if(msg.content.startsWith('!leave')){
+};
+
+let joinCmd = {
+  name: '!join',
+  execute(msg: Message, args: string) {
+    let team = getTeam(msg);
+    if(team === null)
+      return;
+    model.data.players.push({team: Number(args), name: msg.author.username});
+    msg.reply(`joined!`);
+  },
+};
+
+let upgradeCmd = {
+  name: '!upgrade',
+  execute(msg: Message, args: string) {
+    let team = getTeam(msg);
+    upgrade(Number(args), team.team);
+  },
+};
+
+let leaveCmd = {
+  name: '!leave',
+  execute(msg: Message, args: string) {
+    model.data.players = model.data.players.filter(p => p.name != msg.author.username);
     msg.reply('thanks for playing!');
-  }
-  if(msg.content.startsWith('!retreat')){
-    msg.reply('fighting another day!');
-  }
+  },
+}
+
+let retreatCmd = {
+  name: '!retreat',
+  execute(msg: Message, args: string) {
+    let team = getTeam(msg);
+    retreat(Number(args), team.team);
+  },
+}
+
+let commands = [moveCmd, joinCmd, upgradeCmd, leaveCmd, retreatCmd];
+
+client.on('message', msg => {
+  commands.filter(p => msg.content.startsWith(p.name)).forEach(p => {
+    let t = msg.content.replace(p.name,'');
+    p.execute(msg,t);
+  });
 });
+
+
+
+
 export default function login(token: string){
     client.login(token);
 }

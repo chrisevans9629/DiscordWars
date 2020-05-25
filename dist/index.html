@@ -20,6 +20,12 @@
       <div class="overlay m-4">
             <div class="row">
               <div class="col">
+                 <h3>Players</h3>
+                 <ul>
+                   <li v-for="player in players">
+                      ((player.name)) team ((player.team))
+                   </li>
+                 </ul>
                  <h3>Chat</h3>
               </div>
              <div class="col-6">
@@ -32,12 +38,13 @@
                
              </div>
               <div class="col">
+                <label>Enter your bot token</label>
+                  <input v-model="token" class="form-control">
+                  <button v-on:click="tokenLogin" class="btn">Start</button>
                 <button v-on:click="debug" class="btn">Debug</button>
                 <div v-if="isDebugging">
                  
-                  <label>Enter your bot token</label>
-                  <input v-model="token" class="form-control">
-                  <button v-on:click="tokenLogin" class="btn">Start</button>
+                  
                   <label>Team</label>
                   <select v-model="selectedTeam" class="form-control">
                     <option v-for="team in teams" v-bind:value="team">

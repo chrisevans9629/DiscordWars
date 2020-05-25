@@ -3,6 +3,11 @@ import login from './bot';
 import { move, retreat, upgrade, reset } from './game';
 import { debug } from 'webpack';
 
+export interface Player {
+  name: string;
+  team: number;
+}
+
 let model = {
     el: '#app',
     data: {
@@ -15,6 +20,11 @@ let model = {
         isDebugging: false,
         teams: [1,2],
         selectedTeam: 0,
+        players: [
+          {team: 1, name: 'Chris'},
+          {team: 2, name: 'Hyoostin'},
+        ],
+        selectedPlayer: '',
     },
     delimiters: ['((','))'],
     methods: {
@@ -36,6 +46,9 @@ let model = {
      },
      debug: function(){
        this.isDebugging = !this.isDebugging;
+     },
+     join: function(){
+
      },
     }
   }

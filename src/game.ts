@@ -47,4 +47,6 @@ function reset(){
     level1.reset();
 }
 
+
+
 export { game, move, retreat, upgrade, reset };
