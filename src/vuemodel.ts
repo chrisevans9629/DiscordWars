@@ -41,10 +41,10 @@ let model = {
        alert('Ready!');
      },
      move: function(){
-       move(this.moveFrom,this.moveTo,this.amount, this.selectedTeam);
+       move(this.moveFrom,this.moveTo,this.amount, { name: '', team: this.selectedTeam});
      },
      retreat: function(){
-       retreat(this.moveTo, this.selectedTeam);
+       retreat(this.moveTo, { name: '', team: this.selectedTeam });
      },
      upgrade: function() {
         upgrade(this.moveTo, this.selectedTeam);

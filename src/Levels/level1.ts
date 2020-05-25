@@ -1,13 +1,13 @@
 'use strict';
 
 import { Tilemaps, Physics } from 'phaser';
-import { MoveState } from '../UnitStates/MoveState';
+import { MoveState, UserAction } from '../UnitStates/MoveState';
 import { Unit } from '../UnitStates/Unit';
 import { Base } from '../BaseStates/Base';
 import { State } from '../UnitStates/State';
 import { OrbitState } from '../UnitStates/OrbitState';
 import { AttackState } from '../UnitStates/AttackState';
-import { model } from '../vuemodel';
+import { model, Player } from '../vuemodel';
 class GameState extends State<Level1> {
     constructor(scene: Level1){
         super(scene,scene);
@@ -124,13 +124,17 @@ export class Level1 extends Phaser.Scene {
             p.unitState = new AttackState(p, this, p.currentBase);
         });
     }
+    actionid: number;
+    retreat(to: number, user: Player){
 
-    retreat(to: number, team: number){
-        this.units.filter(p => p.unitState instanceof MoveState && p.unitState.toBase.baseId == to && p.teamId == team).forEach(p => {
-            p.unitState = new MoveState(p, this, p.currentBase);
+        this.actionid++;
+
+        let action: UserAction = { user: user, id: this.actionid }
+        this.units.filter(p => p.unitState instanceof MoveState && p.unitState.toBase.baseId == to && p.teamId == user.team).forEach(p => {
+            p.unitState = new MoveState(p, this, p.currentBase, action);
         });
     }
-    move(from: number,to: number,count: number, team: number) {
+    move(from: number,to: number,count: number, user: Player) {
         //this = manager.events.level;
         //let lvl = this;
         console.log(`from: ${from} to: ${to} count: ${count}`);
@@ -138,9 +142,10 @@ export class Level1 extends Phaser.Scene {
         let bases = this.bases;
 
         let toBase = bases.find(p => p.baseId == to);
-
-        this.units.filter(p => p.currentBase.baseId == from && p.unitState instanceof MoveState != true && p.teamId == team).slice(0,count).forEach(p => {
-            p.unitState = new MoveState(p,this, toBase);
+        this.actionid++;
+        let action: UserAction = { user: user, id: this.actionid };
+        this.units.filter(p => p.currentBase.baseId == from && p.unitState instanceof MoveState != true && p.teamId == user.team).slice(0,count).forEach(p => {
+            p.unitState = new MoveState(p,this, toBase, action);
         });
     }
 

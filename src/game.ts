@@ -2,6 +2,7 @@ import * as Phaser from 'phaser';
 import Level1 from './Levels/level1';
 
 import {MainMenu} from './Levels/mainmenu';
+import { Player } from './vuemodel';
 
 let config = {
     type: Phaser.AUTO,
@@ -28,14 +29,14 @@ game.scene.add('level1', level1);
 
 game.scene.start('level1');
 
-function move(fromBase: number, toBase: number, count: number, team: number){
+function move(fromBase: number, toBase: number, count: number, user: Player){
     let scene = level1;
-    scene.move(fromBase, toBase, count, team);
+    scene.move(fromBase, toBase, count, user);
 }
 
-function retreat(toBase: number, team: number){
+function retreat(toBase: number, user: Player){
     let scene = level1;
-    scene.retreat(toBase, team);
+    scene.retreat(toBase, user);
 }
 
 function upgrade(toBase: number, team: number) {

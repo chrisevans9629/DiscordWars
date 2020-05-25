@@ -24,7 +24,7 @@ let moveCmd = {
     let team = getTeam(msg);
     if(team !== null){
       let actions = args.split(' ');
-      move(Number(actions[1]),Number(actions[2]),100,team.team);
+      move(Number(actions[1]),Number(actions[2]),100,team);
       console.log("moving");
     }
   }
@@ -61,7 +61,7 @@ let retreatCmd = {
   name: '!retreat',
   execute(msg: Message, args: string) {
     let team = getTeam(msg);
-    retreat(Number(args), team.team);
+    retreat(Number(args), team);
   },
 }
 

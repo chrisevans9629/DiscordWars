@@ -5,13 +5,23 @@ import { Base } from "../BaseStates/Base";
 import { Unit } from "./Unit";
 import { UnitState } from './UnitState';
 import { OrbitState } from './OrbitState';
+import { Player } from '../vuemodel';
+
+export class UserAction {
+    id: number;
+    user: Player;
+}
+
+
 export class MoveState extends UnitState {
     toBase: Base;
     speed: number;
-    constructor(unit: Unit, scene: Scene, toBase: Base) {
+    user: UserAction;
+    constructor(unit: Unit, scene: Scene, toBase: Base, user: UserAction) {
         super(unit, scene);
         this.speed = 1;
         this.toBase = toBase;
+        this.user = user;
     }
     update() {
         let dir = new Phaser.Math.Vector2(this.toBase.x - this.Unit.x, this.toBase.y - this.Unit.y);
