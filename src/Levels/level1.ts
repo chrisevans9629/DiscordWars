@@ -100,7 +100,10 @@ export class Level1 extends Phaser.Scene {
             this.bases.push(con);
         }
         
-        this.circle1 = new Phaser.Geom.Circle(500,400, 300);
+        let midx = this.scale.width/2;
+        let midy = this.scale.height/2;
+
+        this.circle1 = new Phaser.Geom.Circle(midx,midy, midy/2);
         
         this.bases = Phaser.Actions.PlaceOnCircle(this.bases,this.circle1);
         console.log(this.bases);
@@ -127,7 +130,7 @@ export class Level1 extends Phaser.Scene {
 
         let toBase = bases.find(p => p.baseId == to);
 
-        this.units.filter(p => p.currentBase.baseId == from).slice(0,count).forEach(p => {
+        this.units.filter(p => p.currentBase.baseId == from && p.unitState instanceof MoveState != true).slice(0,count).forEach(p => {
             p.unitState = new MoveState(p,this, toBase);
         });
     }

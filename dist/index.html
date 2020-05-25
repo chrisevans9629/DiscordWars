@@ -8,47 +8,44 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
-    <link rel="stylesheet" href="app.css">
     <meta name="viewport" content="user-scalable=0, initial-scale=1,minimum-scale=1, maximum-scale=1, width=device-width, minimal-ui=1">
   </head>
   <body>
-    <div id="app">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <label>Enter your bot token</label>
-            <input v-model="token" class="form-control">
-            <button v-on:click="tokenLogin" class="btn">Start</button>
-          </div>
-          <div class="col">
-             <label>From</label>
-             <input v-model="moveFrom" class="form-control">
-             <label>To</label>
-             <input v-model="moveTo" class="form-control">
-             <label>Amount</label>
-             <input v-model="amount" class="form-control">
-             <div class="row">
-               <div class="col">
-                  <button v-on:click="move" class="btn">Move</button>
-               </div>
-               <div class="col">
-                  <button v-on:click="retreat" class="btn">Retreat</button>
-               </div>
-               <div class="col">
-                <button v-on:click="upgrade" class="btn">Upgrade</button>
-             </div>
-             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div id="game-parent"></div>
+    <link rel="stylesheet" href="app.css">
 
-          </div>
-        </div>
+    <div id="app" class="con">
+      <div class="content">
+        <div id="game-parent"></div>
       </div>
-      
-
+      <div class="overlay">
+            <div class="row">
+              <div class="col">
+                <label>Enter your bot token</label>
+                <input v-model="token" class="form-control">
+                <button v-on:click="tokenLogin" class="btn">Start</button>
+              </div>
+             <div class="col-6"></div>
+              <div class="col">
+                 <label>From</label>
+                 <input v-model="moveFrom" class="form-control">
+                 <label>To</label>
+                 <input v-model="moveTo" class="form-control">
+                 <label>Amount</label>
+                 <input v-model="amount" class="form-control">
+                 <div class="row">
+                   <div class="col">
+                      <button v-on:click="move" class="btn">Move</button>
+                   </div>
+                   <div class="col">
+                      <button v-on:click="retreat" class="btn">Retreat</button>
+                   </div>
+                   <div class="col">
+                    <button v-on:click="upgrade" class="btn">Upgrade</button>
+                 </div>
+                 </div>
+              </div>
+            </div>
+      </div>
     </div>
 
     <script src="main.js"></script>
