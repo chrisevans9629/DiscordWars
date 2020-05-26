@@ -1,7 +1,7 @@
 
 import { Client, Message } from 'discord.js';
-import { move, upgrade, retreat, say } from './game';
-import { model } from './vuemodel';
+import { move, upgrade, retreat, say, getColor } from './game';
+import { model, Chat, Player } from './vuemodel';
 import { toastInfo } from './vueapp';
 
 const client = new Client();
@@ -34,9 +34,17 @@ let joinCmd = {
   name: '!join',
   execute(msg: Message, args: string) {
     let team = getTeam(msg);
-    if(team === null)
+    if(team){
+      msg.reply('you are already joined');
       return;
-    model.data.players.push({team: Number(args), name: msg.author.username});
+    }
+    let tm = Number(args);
+    team = getTeam(msg);
+    if(!team){
+      msg.reply(`team '${args}' does not exist`);
+      return;
+    }
+    model.data.players.push({team: tm, name: msg.author.username, style: {color: getColor(tm)}});
     toastInfo(`player ${msg.author.username} joined!`);
     msg.reply(`joined!`);
   },
@@ -69,7 +77,13 @@ let retreatCmd = {
 let sayCmd = {
   name: '!say',
   execute(msg: Message, args: string){
-    let chat = { name: msg.author.username, message: args };
+    let team = getTeam(msg);
+    if(!team){
+      msg.reply("you must !join first");
+      return;
+    }
+    
+    let chat: Chat = { name: msg.author.username, message: args, player: team };
     model.data.chat.push(chat);
     say(chat);
   }

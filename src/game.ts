@@ -52,4 +52,8 @@ function say(chat: Chat){
     level1.say(chat);
 }
 
-export { game, move, retreat, upgrade, reset, say };
+function getColor(teamId: number){
+    return level1.teamBaseImgs.find(p => p.teamId == teamId).color;
+}
+
+export { game, move, retreat, upgrade, reset, say, getColor };

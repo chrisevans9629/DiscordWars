@@ -26,13 +26,13 @@
                  <h3>Players</h3>
                  <ul>
                    <li v-for="player in players">
-                      ((player.name)) team ((player.team))
+                   <p><span :style="player.style">((player.name))</span> team ((player.team))</p>
                    </li>
                  </ul>
                  <h3>Chat</h3>
                  <ul>
                    <li v-for="msg in chat">
-                     ((msg.name)): ((msg.message))
+                     <p><span :style="msg.player.style">((msg.name)):</span> ((msg.message))</p>
                    </li>
                  </ul>
               </div>

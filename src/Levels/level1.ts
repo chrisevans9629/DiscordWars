@@ -65,6 +65,7 @@ class GamePlayingState extends ResumeState {
 class TeamImg {
     teamId: number;
     key: string;
+    color: string;
 }
 export class Level1 extends Phaser.Scene {
     baseCount: number;
@@ -103,9 +104,9 @@ export class Level1 extends Phaser.Scene {
         this.gameState = new GamePlayingState(this);
         this.teamBaseImgs = [];
 
-        this.teamBaseImgs.push({teamId: 1, key: 'red'});
-        this.teamBaseImgs.push({teamId: 2, key: 'blue'});
-        this.teamBaseImgs.push({teamId: -1, key: 'base'});
+        this.teamBaseImgs.push({teamId: 1, key: 'red', color: 'red'});
+        this.teamBaseImgs.push({teamId: 2, key: 'blue', color: 'blue'});
+        this.teamBaseImgs.push({teamId: -1, key: 'base', color: 'white'});
 
         this.units = [];
         let midx = this.scale.width/2;

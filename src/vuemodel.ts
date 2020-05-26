@@ -1,16 +1,18 @@
 import login from './bot';
 
-import { move, retreat, upgrade, reset } from './game';
+import { move, retreat, upgrade, reset, getColor } from './game';
 import { debug } from 'webpack';
 import { toastInfo } from './vueapp';
 export interface Player {
   name: string;
   team: number;
+  style: object;
 }
 
 export interface Chat {
   name: string;
   message: string;
+  player: Player;
 }
 
 let chat: Chat[] = [];
@@ -41,10 +43,10 @@ let model = {
        toastInfo('ready!');
      },
      move: function(){
-       move(this.moveFrom,this.moveTo,this.amount, { name: '', team: this.selectedTeam});
+       move(this.moveFrom,this.moveTo,this.amount, { name: '', team: this.selectedTeam, style: {color: getColor(this.selectedTeam)}});
      },
      retreat: function(){
-       retreat(this.moveTo, { name: '', team: this.selectedTeam });
+       retreat(this.moveTo, { name: '', team: this.selectedTeam, style: {color: getColor(this.selectedTeam)}});
      },
      upgrade: function() {
         upgrade(this.moveTo, this.selectedTeam);
