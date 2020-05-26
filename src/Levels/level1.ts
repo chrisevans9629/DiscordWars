@@ -124,7 +124,7 @@ export class Level1 extends Phaser.Scene {
     }
     say(chat: Chat){
         this.actions.filter(p => p.user.name == chat.name).forEach(p => {
-            p.text.text += ` '${chat.message}'`
+            p.text.text = `${chat.name}: ${chat.message}`
             console.log(p.text.text);
         });
     }

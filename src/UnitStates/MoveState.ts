@@ -23,7 +23,7 @@ export class UserAction {
             user.name = "noname";
         }
         
-        this.text = scene.add.text(0,0,user.name, { fontSize: '36px', color: 'white' });
+        this.text = scene.add.text(0,0,user.name, { fontSize: '20px', color: 'white' });
     }
 
     update(){

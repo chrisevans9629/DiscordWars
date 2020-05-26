@@ -2,7 +2,7 @@
 import { Client, Message } from 'discord.js';
 import { move, upgrade, retreat, say } from './game';
 import { model } from './vuemodel';
-
+import { toastInfo } from './vueapp';
 
 const client = new Client();
 //client.commands = new Collection();
@@ -37,6 +37,7 @@ let joinCmd = {
     if(team === null)
       return;
     model.data.players.push({team: Number(args), name: msg.author.username});
+    toastInfo(`player ${msg.author.username} joined!`);
     msg.reply(`joined!`);
   },
 };

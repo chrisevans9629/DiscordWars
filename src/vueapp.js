@@ -3,5 +3,14 @@ import {model} from './vuemodel';
 
 //import * as v from 'vue';
 
- var vm = new Vue(model);
-  export {vm};
+Vue.use(VueToast, {
+    position: 'top'
+});
+
+var vm = new Vue(model);
+
+function toastInfo(msg){
+    Vue.$toast.info(msg);
+}
+
+export {vm, toastInfo };
