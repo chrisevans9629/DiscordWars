@@ -7,7 +7,7 @@ export class Unit extends Phaser.GameObjects.Container {
     currentBase: Base;
     spawning: boolean;
     unitImg: Phaser.Physics.Arcade.Image;
-    unitState: UnitState;
+    private unitState: UnitState;
     teamId: number;
     value: number;
     maxScale: number;
@@ -26,8 +26,16 @@ export class Unit extends Phaser.GameObjects.Container {
         scene.sys.displayList.add(this);
 
     }
-
-    
+    get UnitState() {
+        return this.unitState;
+    }
+    getUnitState(){
+        return this.unitState;
+    }
+    setUnitState(state: UnitState){
+        this.unitState.removing(state);
+        this.unitState = state;
+    }
 
 
 }

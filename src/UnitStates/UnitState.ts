@@ -8,6 +8,11 @@ export class UnitState extends State<Unit> {
         let lvl = this.Scene as Level1;
         this.Scene.physics.overlap(this.Unit.unitImg,lvl.units.map(p => p.unitImg),this.collission,null,this);
     }
+
+    removing(newState: UnitState){
+
+    }
+
     collission(img1: Phaser.Physics.Arcade.Image, img2: Phaser.Physics.Arcade.Image){
         let unit1 = img1.parentContainer as Unit;
         let unit2 = img2.parentContainer as Unit;
