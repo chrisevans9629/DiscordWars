@@ -132,7 +132,7 @@ export class Level1 extends Phaser.Scene {
         this.actionid++;
 
         let action = new UserAction(this, this.actionid, user);
-
+        this.actions.push(action);
         this.units.filter(p => p.UnitState instanceof MoveState && p.UnitState.toBase.baseId == to && p.teamId == user.team).forEach(p => {
             p.setUnitState(new MoveState(p, this, p.currentBase, action));
         });
@@ -147,11 +147,12 @@ export class Level1 extends Phaser.Scene {
         let toBase = bases.find(p => p.baseId == to);
         this.actionid++;
         let action = new UserAction(this, this.actionid, user);
+        this.actions.push(action);
+
         let units = this.units.filter(p => p.currentBase.baseId == from && p.UnitState instanceof MoveState != true && p.teamId == user.team).slice(0,count);
         units.forEach(p => {
             p.setUnitState(new MoveState(p,this, toBase, action));
         });
-        this.actions.push(action);
     }
 
     secondPassed(){

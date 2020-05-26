@@ -19,7 +19,11 @@ export class UserAction {
         this.id = id;
         this.user = user;
         this.scene = scene;
-        this.text = scene.add.text(0,0,'test test', { fontSize: '36px', color: 'white' });
+        if(user.name === ""){
+            user.name = "noname";
+        }
+        
+        this.text = scene.add.text(0,0,user.name, { fontSize: '36px', color: 'white' });
     }
 
     update(){
