@@ -7,7 +7,7 @@ import { Base } from '../BaseStates/Base';
 import { State } from '../UnitStates/State';
 import { OrbitState } from '../UnitStates/OrbitState';
 import { AttackState } from '../UnitStates/AttackState';
-import { model, Player } from '../vuemodel';
+import { model, Player, Chat } from '../vuemodel';
 class GameState extends State<Level1> {
     constructor(scene: Level1){
         super(scene,scene);
@@ -115,11 +115,18 @@ export class Level1 extends Phaser.Scene {
         this.bases = Phaser.Actions.PlaceOnCircle(this.bases,this.circle1);
     }
     reset() {
-        this.units.forEach(p => p.destroy());
+        this.units.forEach(p => this.destroyUnit(p));
+        //this.units.forEach(p => p.destroy());
         this.units = [];
         this.bases.forEach(p => p.destroy());
         this.createBases();
         this.gameState = new GamePlayingState(this);
+    }
+    say(chat: Chat){
+        this.actions.filter(p => p.user.name == chat.name).forEach(p => {
+            p.text.text += ` '${chat.message}'`
+            console.log(p.text.text);
+        });
     }
     upgrade(to: number, team: number){
         this.units.filter(p => p.currentBase.baseId == to && p.getUnitState() instanceof OrbitState && p.teamId == team).forEach(p => {

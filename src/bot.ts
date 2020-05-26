@@ -1,6 +1,6 @@
 
 import { Client, Message } from 'discord.js';
-import { move, upgrade, retreat } from './game';
+import { move, upgrade, retreat, say } from './game';
 import { model } from './vuemodel';
 
 
@@ -68,7 +68,9 @@ let retreatCmd = {
 let sayCmd = {
   name: '!say',
   execute(msg: Message, args: string){
-    model.data.chat.push({ name: msg.author.username, message: args })
+    let chat = { name: msg.author.username, message: args };
+    model.data.chat.push(chat);
+    say(chat);
   }
 }
 

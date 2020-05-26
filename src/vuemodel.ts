@@ -8,7 +8,7 @@ export interface Player {
   team: number;
 }
 
-interface Chat {
+export interface Chat {
   name: string;
   message: string;
 }

@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import Level1 from './Levels/level1';
 
 import {MainMenu} from './Levels/mainmenu';
-import { Player } from './vuemodel';
+import { Player, Chat } from './vuemodel';
 
 let config = {
     type: Phaser.AUTO,
@@ -48,6 +48,8 @@ function reset(){
     level1.reset();
 }
 
+function say(chat: Chat){
+    level1.say(chat);
+}
 
-
-export { game, move, retreat, upgrade, reset };
+export { game, move, retreat, upgrade, reset, say };
