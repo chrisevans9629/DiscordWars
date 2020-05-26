@@ -13,7 +13,7 @@ export class GenerateState extends BaseState {
     secondPassed() {
         let lvl = this.Scene as Level1;
         for (let index = 0; index < this.speed; index++) {
-            let unit = new Unit(lvl, this.Unit, this.Unit.teamId);
+            let unit = new Unit(lvl, this.Unit, this.Unit.teamId, this.Unit.imgKey);
             unit.currentBase = this.Unit;
             lvl.units.push(unit);
         }

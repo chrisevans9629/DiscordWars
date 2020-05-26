@@ -62,7 +62,10 @@ class GamePlayingState extends ResumeState {
     }
 }
 
-
+class TeamImg {
+    teamId: number;
+    key: string;
+}
 export class Level1 extends Phaser.Scene {
     baseCount: number;
     unitSpeed: number;
@@ -83,6 +86,8 @@ export class Level1 extends Phaser.Scene {
 
     preload() {
         this.load.image('base','assets/images/base.png');
+        this.load.image('red','assets/images/red.png');
+        this.load.image('blue','assets/images/blue.png');
         //this.load.bitmapFont('ethno','assets/fonts/ethno14.png','assets/fonts/ethno14.xml');
     }
     bases: Base[];
@@ -96,6 +101,11 @@ export class Level1 extends Phaser.Scene {
 
     create() {
         this.gameState = new GamePlayingState(this);
+        this.teamBaseImgs = [];
+
+        this.teamBaseImgs.push({teamId: 1, key: 'red'});
+        this.teamBaseImgs.push({teamId: 2, key: 'blue'});
+        this.teamBaseImgs.push({teamId: -1, key: 'base'});
 
         this.units = [];
         let midx = this.scale.width/2;
@@ -106,10 +116,15 @@ export class Level1 extends Phaser.Scene {
         console.log(this.bases);
         this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
     }
+    teamBaseImgs: TeamImg[];
     createBases(){
         this.bases = [];
         for (let index = 0; index < this.baseCount; index++) {
-            let con = new Base(index,this);
+            let teamid = 1;
+            if(index % 2 == 0){
+                teamid = 2;
+            }
+            let con = new Base(index,this, this.teamBaseImgs.find(p => p.teamId == teamid).key, teamid);
             this.bases.push(con);
         }
         this.bases = Phaser.Actions.PlaceOnCircle(this.bases,this.circle1);

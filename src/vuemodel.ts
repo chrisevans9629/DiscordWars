@@ -2,7 +2,7 @@ import login from './bot';
 
 import { move, retreat, upgrade, reset } from './game';
 import { debug } from 'webpack';
-
+import { toastInfo } from './vueapp';
 export interface Player {
   name: string;
   team: number;
@@ -38,7 +38,7 @@ let model = {
      tokenLogin: function(){
        login(this.token);
        this.token = null;
-       alert('Ready!');
+       toastInfo('ready!');
      },
      move: function(){
        move(this.moveFrom,this.moveTo,this.amount, { name: '', team: this.selectedTeam});
