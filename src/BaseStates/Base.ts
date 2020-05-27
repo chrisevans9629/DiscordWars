@@ -1,6 +1,32 @@
 import { BaseState } from './BaseState';
 import { GenerateState } from './GenerateState';
 import Level1 from '../Levels/level1';
+
+export interface IBase {
+    health: number;
+    maxHealth: number;
+}
+let addHealth = (amt: number, base: IBase) => {
+    //health = 5;
+    //max = 12;
+
+    //7; 1
+    let used = 0;
+    if(amt + base.health >= base.maxHealth) {
+        used = base.maxHealth - base.health;
+        base.health = base.maxHealth;
+        //-100 + 10 <= -30;  -90 <= -30;
+    } else if(amt + base.health <= -base.maxHealth) {
+        //30+10 = 40;
+        used = base.health + base.maxHealth;
+        base.health = base.maxHealth;
+    } else {
+        used = amt;
+        base.health += amt;
+    }
+    return { valueUsed: used };
+}
+
 export class Base extends Phaser.GameObjects.Container {
     baseId: number;
     soldierCount: Phaser.GameObjects.Text;
@@ -9,6 +35,12 @@ export class Base extends Phaser.GameObjects.Container {
     private _health: number;
     get health(){
         return this._health;
+    }
+    set health(h: number) {
+        this._health = h;
+        if(this.healthText){
+            this.healthText.setText(this.health.toString());
+        }
     }
     healthText: Phaser.GameObjects.Text;
     private _teamId: number;
@@ -46,25 +78,7 @@ export class Base extends Phaser.GameObjects.Container {
     }
     //amt = 10; 1;
     addHealth(amt: number) {
-        //health = 5;
-        //max = 12;
-
-        //7; 1
-        let used = 0;
-        if(amt + this.health >= this.maxHealth) {
-            used = this.maxHealth - this.health;
-            this._health = this.maxHealth;
-            //-100 + 10 <= -30;  -90 <= -30;
-        } else if(amt + this.health <= -this.maxHealth) {
-            //30+10 = 40;
-            used = this.health + this.maxHealth;
-            this._health = this.maxHealth;
-        } else {
-            used = amt;
-            this._health += amt;
-        }
-        this.healthText.setText(this.health.toString());
-        return { valueUsed: used };
+        return addHealth(amt, this);
     }
     setHealth(hp: number){
         this._health = hp;
