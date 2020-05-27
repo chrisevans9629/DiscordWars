@@ -1,3 +1,4 @@
+
 export interface IBase {
     health: number;
     maxHealth: number;

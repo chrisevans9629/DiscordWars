@@ -4,6 +4,8 @@ import { BaseState } from './BaseState';
 import { Level1 } from '../Levels/level1';
 import { Base } from "./Base";
 import { NeutralState } from "./NeutralState";
+
+
 export class GenerateState extends BaseState {
     speed: number;
     constructor(base: Base, scene: Scene) {

@@ -8,6 +8,7 @@ import { State } from '../UnitStates/State';
 import { OrbitState } from '../UnitStates/OrbitState';
 import { AttackState } from '../UnitStates/AttackState';
 import { model, Player, Chat } from '../vuemodel';
+import { NeutralState } from '../BaseStates/NeutralState';
 class GameState extends State<Level1> {
     constructor(scene: Level1){
         super(scene,scene);
@@ -51,7 +52,7 @@ class GamePlayingState extends ResumeState {
     update() {
         this.Unit.units.forEach(p => p.getUnitState().update());
         this.Unit.actions.forEach(p => p.update());
-        let teams = this.Unit.bases.map(p => p.teamId);
+        let teams = this.Unit.bases.map(p => p.teamId).filter(p => p >= 0);
 
         teams.forEach(p => {
             if(teams.every(r => r == p)){
@@ -68,7 +69,7 @@ class TeamImg {
     color: string;
 }
 export class Level1 extends Phaser.Scene {
-    baseCount: number;
+    //baseCount: number;
     unitSpeed: number;
     baseArea: number;
     baseAreaMin: number;
@@ -76,7 +77,7 @@ export class Level1 extends Phaser.Scene {
     gameState: GameState;
     constructor() {
         super('level1');
-        this.baseCount = 4;
+       // this.baseCount = 4;
         console.log(this);
         //events.currentLevel = this;
         this.unitSpeed = 20;
@@ -120,14 +121,22 @@ export class Level1 extends Phaser.Scene {
     teamBaseImgs: TeamImg[];
     createBases(){
         this.bases = [];
-        for (let index = 0; index < this.baseCount; index++) {
-            let teamid = 1;
-            if(index % 2 == 0){
-                teamid = 2;
+
+        let baseSetup = [
+            [1,1],
+            [2,-1],
+            [3,2],
+            [4,-1],
+        ];
+
+        baseSetup.forEach(p => {
+            let team = p[1];
+            let con = new Base(p[0],this, this.teamBaseImgs.find(p => p.teamId == team).key, team);
+            if(team < 0){
+                con.baseState = new NeutralState(con, this);
             }
-            let con = new Base(index,this, this.teamBaseImgs.find(p => p.teamId == teamid).key, teamid);
             this.bases.push(con);
-        }
+        });
         this.bases = Phaser.Actions.PlaceOnCircle(this.bases,this.circle1);
     }
     reset() {

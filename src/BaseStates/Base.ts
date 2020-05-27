@@ -1,7 +1,7 @@
 import { BaseState } from './BaseState';
 import { GenerateState } from './GenerateState';
 import Level1 from '../Levels/level1';
-import { IBase, addHealth } from './IBase';
+import { addHealth } from './IBase';
 
 
 export class Base extends Phaser.GameObjects.Container {
