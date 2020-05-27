@@ -18,7 +18,7 @@ export let addHealth = (amt: number, base: IBase) => {
         used = base.health + base.maxHealth;
         base.health = base.maxHealth;
     } else {
-        used = amt;
+        used = -amt;
         base.health += amt;
     }
     return { valueUsed: used };
