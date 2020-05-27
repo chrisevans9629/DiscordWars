@@ -21,6 +21,9 @@ export class GenerateState extends BaseState {
     }
     unitHit(unit: Unit) {
         if (unit.teamId == this.Unit.teamId) {
+            if(this.Unit.health >= this.Unit.maxHealth){
+                return false;
+            }
             this.Unit.addHealth(unit.value);
         }
         else {
@@ -29,5 +32,6 @@ export class GenerateState extends BaseState {
         if (this.Unit.health <= 0) {
             this.Unit.baseState = new NeutralState(this.Unit, this.Scene);
         }
+        return true;
     }
 }

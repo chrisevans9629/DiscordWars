@@ -6,11 +6,15 @@ export class Base extends Phaser.GameObjects.Container {
     soldierCount: Phaser.GameObjects.Text;
     baseName: Phaser.GameObjects.Text;
     img: Phaser.GameObjects.Sprite;
-    health: number;
+    private _health: number;
+    get health(){
+        return this._health;
+    }
     healthText: Phaser.GameObjects.Text;
     private _teamId: number;
     baseState: BaseState;
     imgKey: string;
+    maxHealth: number;
     get teamId(){
         return this._teamId;
     }
@@ -25,7 +29,8 @@ export class Base extends Phaser.GameObjects.Container {
     }
     constructor(baseId: number, scene: Phaser.Scene, key: string, teamId: number) {
         super(scene, 50, 50, []);
-        this.health = 15;
+        this._health = 15;
+        this.maxHealth = 30;
         this.teamId = teamId;
         this.imgKey = key;
         this.setDepth(1);
@@ -40,11 +45,11 @@ export class Base extends Phaser.GameObjects.Container {
         scene.sys.displayList.add(this);
     }
     addHealth(amt: number) {
-        this.health += amt;
+        this._health += amt;
         this.healthText.setText(this.health.toString());
     }
     setHealth(hp: number){
-        this.health = hp;
+        this._health = hp;
         this.healthText.setText(hp.toString());
     }
     changeTeam(teamId: number) {

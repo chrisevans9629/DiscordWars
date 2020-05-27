@@ -4,6 +4,7 @@ import { Level1 } from '../Levels/level1';
 import { Base } from "../BaseStates/Base";
 import { Unit } from "./Unit";
 import { UnitState } from './UnitState';
+import { SpawnState } from './SpawnState';
 export class AttackState extends UnitState {
     toBase: Base;
     speed: number;
@@ -18,11 +19,13 @@ export class AttackState extends UnitState {
         this.Unit.x += dir.x * this.speed;
         this.Unit.y += dir.y * this.speed;
         if (Phaser.Math.Distance.Between(this.Unit.x, this.Unit.y, this.toBase.x, this.toBase.y) < 1) {
-            this.toBase.baseState.unitHit(this.Unit);
-            let lvl1 = this.Scene as Level1;
-            lvl1.destroyUnit(this.Unit);
-            //this.Unit.unitState = new OrbitState(this.Unit, this.Scene);
-            //this.Unit.currentBase = this.toBase;
+            let hit = this.toBase.baseState.unitHit(this.Unit);
+            if(hit) {
+                let lvl1 = this.Scene as Level1;
+                lvl1.destroyUnit(this.Unit);
+            } else {
+                this.Unit.setUnitState(new SpawnState(this.Unit, this.Scene));
+            }
         }
         super.update();
     }

@@ -12,5 +12,6 @@ export class NeutralState extends BaseState {
         this.Unit.addHealth(1);
         this.Unit.baseState = new GenerateState(this.Unit, this.Scene);
         this.Unit.changeTeam(unit.teamId);
+        return true;
     }
 }

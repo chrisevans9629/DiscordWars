@@ -5,5 +5,6 @@ export class BaseState extends State<Base> {
     secondPassed() {
     }
     unitHit(unit: Unit) {
+        return false;
     }
 }
