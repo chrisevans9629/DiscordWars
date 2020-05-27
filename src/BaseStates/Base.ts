@@ -44,13 +44,31 @@ export class Base extends Phaser.GameObjects.Container {
         this.baseId = baseId;
         scene.sys.displayList.add(this);
     }
+    //amt = 10; 1;
     addHealth(amt: number) {
-        this._health += amt;
+        //health = 5;
+        //max = 12;
+
+        //7; 1
+        let used = 0;
+        if(amt + this.health >= this.maxHealth) {
+            used = this.maxHealth - this.health;
+            this._health = this.maxHealth;
+            //-100 + 10 <= -30;  -90 <= -30;
+        } else if(amt + this.health <= -this.maxHealth) {
+            //30+10 = 40;
+            used = this.health + this.maxHealth;
+            this._health = this.maxHealth;
+        } else {
+            used = amt;
+            this._health += amt;
+        }
         this.healthText.setText(this.health.toString());
+        return { valueUsed: used };
     }
     setHealth(hp: number){
         this._health = hp;
-        this.healthText.setText(hp.toString());
+        //return this.addHealth(hp);
     }
     changeTeam(teamId: number) {
         this.teamId = teamId;

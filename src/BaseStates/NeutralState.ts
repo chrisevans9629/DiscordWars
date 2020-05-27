@@ -7,11 +7,11 @@ export class NeutralState extends BaseState {
     constructor(base: Base, scene: Scene) {
         super(base, scene);
         this.Unit.changeTeam(-1);
+        this.Unit.setHealth(0);
     }
     unitHit(unit: Unit) {
-        this.Unit.addHealth(1);
         this.Unit.baseState = new GenerateState(this.Unit, this.Scene);
         this.Unit.changeTeam(unit.teamId);
-        return true;
+        return this.Unit.addHealth(1);
     }
 }

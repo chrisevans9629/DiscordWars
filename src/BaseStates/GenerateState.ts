@@ -20,18 +20,21 @@ export class GenerateState extends BaseState {
         this.speed = Math.floor(this.Unit.health / 10);
     }
     unitHit(unit: Unit) {
+        let x = { valueUsed: 0 };
         if (unit.teamId == this.Unit.teamId) {
-            if(this.Unit.health >= this.Unit.maxHealth){
-                return false;
-            }
-            this.Unit.addHealth(unit.value);
+            x = this.Unit.addHealth(unit.value);
+        } else {
+            //value: 100 = 100 used; health = -90;
+            x = this.Unit.addHealth(-unit.value);
         }
-        else {
-            this.Unit.addHealth(-unit.value);
-        }
-        if (this.Unit.health <= 0) {
+        if (this.Unit.health == 0) {
             this.Unit.baseState = new NeutralState(this.Unit, this.Scene);
+        } 
+        else if (this.Unit.health < 0) {
+            //health = 90;
+            this.Unit.setHealth(this.Unit.health);
+            this.Unit.changeTeam(unit.teamId);
         }
-        return true;
+        return x;
     }
 }
