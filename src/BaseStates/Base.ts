@@ -1,31 +1,8 @@
 import { BaseState } from './BaseState';
 import { GenerateState } from './GenerateState';
 import Level1 from '../Levels/level1';
+import { IBase, addHealth } from './IBase';
 
-export interface IBase {
-    health: number;
-    maxHealth: number;
-}
-let addHealth = (amt: number, base: IBase) => {
-    //health = 5;
-    //max = 12;
-
-    //7; 1
-    let used = 0;
-    if(amt + base.health >= base.maxHealth) {
-        used = base.maxHealth - base.health;
-        base.health = base.maxHealth;
-        //-100 + 10 <= -30;  -90 <= -30;
-    } else if(amt + base.health <= -base.maxHealth) {
-        //30+10 = 40;
-        used = base.health + base.maxHealth;
-        base.health = base.maxHealth;
-    } else {
-        used = amt;
-        base.health += amt;
-    }
-    return { valueUsed: used };
-}
 
 export class Base extends Phaser.GameObjects.Container {
     baseId: number;
