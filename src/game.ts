@@ -53,7 +53,10 @@ function say(chat: Chat){
 }
 
 function getColor(teamId: number){
-    return level1.teamBaseImgs.find(p => p.teamId == teamId).color;
+    return getTeam(teamId).color;
+}
+function getTeam(teamId: number){
+    return level1.teamBaseImgs.find(p => p.teamId == teamId);
 }
 
-export { game, move, retreat, upgrade, reset, say, getColor };
+export { game, move, retreat, upgrade, reset, say, getColor, getTeam };
