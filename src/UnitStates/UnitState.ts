@@ -17,16 +17,17 @@ export class UnitState extends State<Unit> {
         let unit2 = img2.parentContainer as Unit;
         let lvl = this.Scene as Level1;
         if(unit1.teamId != unit2.teamId){
-            lvl.particleEngine.explosion(img1.x,img2.y,10);
             let u1val = unit1.value;
             unit1.value -= unit2.value;
             unit2.value -= u1val;
             if(unit1.value <= 0)
             {
                 lvl.destroyUnit(unit1);
+                lvl.particleEngine.explosion(unit1.x,unit1.y,10);
             }
             if(unit2.value <= 0){
                 lvl.destroyUnit(unit2);
+                lvl.particleEngine.explosion(unit2.x,unit2.y,10);
             }
             
         }

@@ -72,19 +72,22 @@ class ParticleEngine {
         this.particles = [];
     }
     explosion(x: number, y:number, amt:number){
+        //x = 400;
+        //y = 400;
         for(let i = 0;i < amt;i++){
             let img = this.scene.physics.add.image(x,y,'particle').setOrigin(0.5,0.5).setScale(0.25);
-            img.setVelocity(Phaser.Math.FloatBetween(-1,1), Phaser.Math.FloatBetween(-1,1));
-            
+            img.setVelocity(Phaser.Math.FloatBetween(-30,30), Phaser.Math.FloatBetween(-30,30));
+            img.setDepth(2);
             this.particles.push(img);
 
             this.scene.tweens.add({
                 targets: img,
                 scale: 0,
-                duration: 300,
+                duration: 5000,
                 ease: 'Sine.easeInOut',
                 onComplete: (p,s,t) => {
                     img.destroy();
+                    console.log('particle destroyed');
                 }
             });
         }
