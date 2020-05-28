@@ -105,7 +105,7 @@ client.on('message', msg => {
 
 
 export default function login(token: string){
-    client.login(token);
+    return client.login(token);
 }
 
 

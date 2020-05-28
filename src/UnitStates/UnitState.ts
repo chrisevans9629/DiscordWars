@@ -1,7 +1,6 @@
 import { State } from './State';
 import { Unit } from './Unit';
 import Level1 from '../Levels/level1';
-import { model } from '../vuemodel';
 
 export class UnitState extends State<Unit> {
     update(){
@@ -31,7 +30,7 @@ export class UnitState extends State<Unit> {
             }
         }
         else {
-            if(model.data.fps <= 55){
+            if(lvl.fps <= 55){
                 unit1.value += unit2.value;
                 unit1.scale = unit1.maxScale;
                 lvl.destroyUnit(unit2);

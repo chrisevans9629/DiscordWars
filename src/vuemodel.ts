@@ -2,7 +2,7 @@ import login from './bot';
 
 import { move, retreat, upgrade, reset, getColor } from './game';
 import { debug } from 'webpack';
-import { toastInfo } from './vueapp';
+import { toastInfo, toastError } from './vueapp';
 export interface Player {
   name: string;
   team: number;
@@ -34,13 +34,30 @@ let model = {
         selectedPlayer: '',
         chat: chat,
         fps: 0,
+        showToken: true,
     },
     delimiters: ['((','))'],
+    mounted: function(){
+      let token = sessionStorage.getItem('magic');
+      if(token){
+        this.tokenLogin(token);
+      }
+    },
     methods: {
-     tokenLogin: function(){
-       login(this.token);
-       this.token = null;
-       toastInfo('ready!');
+     tokenLogin: function(token: string){
+       login(token).then(p => {
+         this.token = null;
+         toastInfo('ready!');
+         sessionStorage.setItem('magic',p);
+         this.showToken = false;
+         console.log(this.showToken);
+       }, p => {
+         console.log(p);
+         toastError(p);
+       }).catch(p => {
+         console.log(p);
+         toastError(p);
+       });
      },
      move: function(){
        move(this.moveFrom,this.moveTo,this.amount, { name: '', team: this.selectedTeam, style: {color: getColor(this.selectedTeam)}});
@@ -57,10 +74,9 @@ let model = {
      debug: function(){
        this.isDebugging = !this.isDebugging;
      },
-     join: function(){
-
-     },
     }
   }
 
-  export {model};
+
+
+export {model};

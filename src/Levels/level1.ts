@@ -75,6 +75,7 @@ export class Level1 extends Phaser.Scene {
     baseAreaMin: number;
     circle1: Phaser.Geom.Circle;
     gameState: GameState;
+    fps: number;
     constructor() {
         super('level1');
        // this.baseCount = 4;
@@ -102,6 +103,7 @@ export class Level1 extends Phaser.Scene {
     }
 
     create() {
+        
         this.gameState = new GamePlayingState(this);
         this.teamBaseImgs = [];
 
@@ -123,10 +125,10 @@ export class Level1 extends Phaser.Scene {
         this.bases = [];
 
         let baseSetup = [
-            [1,1],
-            [2,-1],
-            [3,2],
-            [4,-1],
+            [1,-1],
+            [2,1],
+            [3,-1],
+            [4,2],
         ];
 
         baseSetup.forEach(p => {
@@ -137,7 +139,24 @@ export class Level1 extends Phaser.Scene {
             }
             this.bases.push(con);
         });
+        this.placeOnCircle();
+    }
+    placeOnCircle(){
+        let midx = this.scale.width/2;
+        let midy = this.scale.height/2;
+
+        //this.circle1 = new Phaser.Geom.Circle(midx,midy, midy/2);
+        this.circle1.x = midx;
+        this.circle1.y = midy;
+        this.circle1.radius = midy/2;
         this.bases = Phaser.Actions.PlaceOnCircle(this.bases,this.circle1);
+    }
+    resize (gameSize: Phaser.Structs.Size, baseSize: Phaser.Structs.Size, displaySize: Phaser.Structs.Size, resolution: number)
+    {
+        console.log('resized!');
+        //this.cameras.resize(width, height);
+
+        this.placeOnCircle();
     }
     reset() {
         this.units.forEach(p => this.destroyUnit(p));
@@ -195,7 +214,9 @@ export class Level1 extends Phaser.Scene {
 
     update(time: number, delta: number) {
         this.gameState.update();
-        model.data.fps = 1000/delta;
+        let f = 1000/delta;
+        model.data.fps = f;
+        this.fps = f;
     }
 }
 
