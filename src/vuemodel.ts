@@ -15,7 +15,7 @@ export interface Chat {
   player: Player;
 }
 
-let chat: Chat[] = [];
+let chat: Chat[] = []
 let players: Player[] = [];
 
 let model = {

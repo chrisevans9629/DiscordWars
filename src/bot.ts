@@ -96,7 +96,7 @@ let commands = [moveCmd, joinCmd, upgradeCmd, leaveCmd, retreatCmd, sayCmd];
 
 client.on('message', msg => {
   commands.filter(p => msg.content.startsWith(p.name)).forEach(p => {
-    let t = msg.content.replace(p.name,'');
+    let t = msg.content.replace(p.name,'').substr(0,100);
     p.execute(msg,t);
   });
 });

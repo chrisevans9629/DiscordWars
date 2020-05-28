@@ -1,6 +1,6 @@
 'use strict';
 
-import { Tilemaps, Physics } from 'phaser';
+import { Tilemaps, Physics, Scene } from 'phaser';
 import { MoveState, UserAction } from '../UnitStates/MoveState';
 import { Unit } from '../UnitStates/Unit';
 import { Base } from '../BaseStates/Base';
@@ -63,6 +63,35 @@ class GamePlayingState extends ResumeState {
     }
 }
 
+
+class ParticleEngine {
+    scene: Scene;
+    particles: Phaser.GameObjects.Image[];
+    constructor(scene: Scene){
+        this.scene = scene;
+        this.particles = [];
+    }
+    explosion(x: number, y:number, amt:number){
+        for(let i = 0;i < amt;i++){
+            let img = this.scene.physics.add.image(x,y,'particle').setOrigin(0.5,0.5).setScale(0.25);
+            img.setVelocity(Phaser.Math.FloatBetween(-1,1), Phaser.Math.FloatBetween(-1,1));
+            
+            this.particles.push(img);
+
+            this.scene.tweens.add({
+                targets: img,
+                scale: 0,
+                duration: 300,
+                ease: 'Sine.easeInOut',
+                onComplete: (p,s,t) => {
+                    img.destroy();
+                }
+            });
+        }
+    }
+    
+}
+
 class TeamImg {
     teamId: number;
     key: string;
@@ -76,6 +105,7 @@ export class Level1 extends Phaser.Scene {
     circle1: Phaser.Geom.Circle;
     gameState: GameState;
     fps: number;
+    particleEngine: ParticleEngine;
     constructor() {
         super('level1');
        // this.baseCount = 4;
@@ -91,6 +121,7 @@ export class Level1 extends Phaser.Scene {
         this.load.image('base','assets/images/base.png');
         this.load.image('red','assets/images/red.png');
         this.load.image('blue','assets/images/blue.png');
+        this.load.image('particle','assets/images/white.png');
         //this.load.bitmapFont('ethno','assets/fonts/ethno14.png','assets/fonts/ethno14.xml');
     }
     bases: Base[];
@@ -103,7 +134,7 @@ export class Level1 extends Phaser.Scene {
     }
 
     create() {
-        
+        this.particleEngine = new ParticleEngine(this);
         this.gameState = new GamePlayingState(this);
         this.teamBaseImgs = [];
 
@@ -205,6 +236,8 @@ export class Level1 extends Phaser.Scene {
             p.setUnitState(new MoveState(p,this, toBase, action));
         });
     }
+
+   
 
     secondPassed(){
         this.bases.forEach(p => {

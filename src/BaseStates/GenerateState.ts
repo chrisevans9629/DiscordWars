@@ -20,6 +20,13 @@ export class GenerateState extends BaseState {
             lvl.units.push(unit);
         }
         this.speed = Math.floor(this.Unit.health / 10);
+        this.Scene.tweens.add({
+            targets: this.Unit.img,
+            scale: 0.55,
+            duration: 300,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+        });
     }
     unitHit(unit: Unit) {
         let x = { valueUsed: 0 };

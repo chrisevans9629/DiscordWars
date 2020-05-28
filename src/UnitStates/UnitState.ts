@@ -17,7 +17,7 @@ export class UnitState extends State<Unit> {
         let unit2 = img2.parentContainer as Unit;
         let lvl = this.Scene as Level1;
         if(unit1.teamId != unit2.teamId){
-
+            lvl.particleEngine.explosion(img1.x,img2.y,10);
             let u1val = unit1.value;
             unit1.value -= unit2.value;
             unit2.value -= u1val;
@@ -28,6 +28,7 @@ export class UnitState extends State<Unit> {
             if(unit2.value <= 0){
                 lvl.destroyUnit(unit2);
             }
+            
         }
         else {
             if(lvl.fps <= 55){
