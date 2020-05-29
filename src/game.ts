@@ -35,17 +35,17 @@ game.scene.start('level1');
 
 function move(fromBase: number, toBase: number, count: number, user: Player){
     let scene = level1;
-    scene.move(fromBase, toBase, count, user);
+    return scene.move(fromBase, toBase, count, user);
 }
 
 function retreat(toBase: number, user: Player){
     let scene = level1;
-    scene.retreat(toBase, user);
+    return scene.retreat(toBase, user);
 }
 
 function upgrade(toBase: number, team: number) {
     let scene = level1;
-    scene.upgrade(toBase, team);
+    return scene.upgrade(toBase, team);
 }
 
 function reset(){

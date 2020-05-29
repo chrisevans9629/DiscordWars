@@ -19,16 +19,28 @@ interface ICommand {
 let getPlayer = (msg: Message) => {
   return model.data.players.find(p => p.name == msg.author.username)
 };
+let hasJoined = (msg: Message) => {
+  let team = getPlayer(msg);
+  if(!team){
+    msg.reply("you must !join first");
+    return {joined: false, team: team};
+  }
+  return {joined: true, team: team};
+};
+
+
 
 let moveCmd = {
   name: '!move',
   execute(msg: Message, args: string) {
-    let team = getPlayer(msg);
-    if(team !== null){
-      let actions = args.split(' ');
-      move(Number(actions[1]),Number(actions[2]),100,team);
-      console.log("moving");
+    let team = hasJoined(msg);
+    if(!team.joined){
+      return;
     }
+    let actions = args.split(' ');
+    let result = move(Number(actions[1]),Number(actions[2]),100,team.team);
+    msg.reply(result.reason);
+    console.log("moving");
   }
 };
 
@@ -56,14 +68,20 @@ let joinCmd = {
 let upgradeCmd = {
   name: '!upgrade',
   execute(msg: Message, args: string) {
-    let team = getPlayer(msg);
-    upgrade(Number(args), team.team);
+    let team = hasJoined(msg);
+    if(!team.joined){
+      return;
+    }
+    upgrade(Number(args), team.team.team);
   },
 };
 
 let leaveCmd = {
   name: '!leave',
   execute(msg: Message, args: string) {
+    if(!hasJoined(msg).joined){
+      return;
+    }
     model.data.players = model.data.players.filter(p => p.name != msg.author.username);
     msg.reply('thanks for playing!');
   },
@@ -72,21 +90,27 @@ let leaveCmd = {
 let retreatCmd = {
   name: '!retreat',
   execute(msg: Message, args: string) {
-    let team = getPlayer(msg);
-    retreat(Number(args), team);
+    let team = hasJoined(msg);
+    if(!team.joined){
+      return;
+    }
+    let result = retreat(Number(args), team.team);
+    msg.reply(result.reason);
   },
 }
+
+
 
 let sayCmd = {
   name: '!say',
   execute(msg: Message, args: string){
-    let team = getPlayer(msg);
-    if(!team){
-      msg.reply("you must !join first");
+    
+    let joined = hasJoined(msg);
+    if(!joined.joined){
       return;
     }
     
-    let chat: Chat = { name: msg.author.username, message: args, player: team };
+    let chat: Chat = { name: msg.author.username, message: args, player: joined.team };
     model.data.chat.push(chat);
     say(chat);
   }

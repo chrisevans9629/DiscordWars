@@ -212,13 +212,21 @@ export class Level1 extends Phaser.Scene {
     actionid: number;
     retreat(to: number, user: Player){
 
+        if(!this.bases.some(p => p.baseId == to)){
+            return { success: false, reason: `base ${to} does not exist.`};
+        }
         this.actionid++;
 
         let action = new UserAction(this, this.actionid, user);
         this.actions.push(action);
-        this.units.filter(p => p.UnitState instanceof MoveState && p.UnitState.toBase.baseId == to && p.teamId == user.team).forEach(p => {
+        let units = this.units.filter(p => p.UnitState instanceof MoveState && p.UnitState.toBase.baseId == to && p.teamId == user.team);
+        if(units.length == 0){
+            return { success: false, reason: `no units found moving to base ${to}`};
+        }
+        units.forEach(p => {
             p.UnitState = (new MoveState(p, this, p.currentBase, action));
         });
+        return { success: true, reason: `${units.length} are retreating!`};
     }
     move(from: number,to: number,count: number, user: Player) {
         //this = manager.events.level;
@@ -228,14 +236,25 @@ export class Level1 extends Phaser.Scene {
         let bases = this.bases;
 
         let toBase = bases.find(p => p.baseId == to);
+
+        if(!toBase){
+            return { success: false, reason: `to base ${to} does not exist`}
+        }
+
         this.actionid++;
         let action = new UserAction(this, this.actionid, user);
         this.actions.push(action);
 
         let units = this.units.filter(p => p.currentBase.baseId == from && p.UnitState instanceof MoveState != true && p.teamId == user.team).slice(0,count);
+        
+        if(units.length == 0){
+            return { success: false, reason: `did not find units at base ${from}`};
+        }
+        
         units.forEach(p => {
             p.UnitState = (new MoveState(p,this, toBase, action));
         });
+        return {success: true, reason: `moving ${units.length} units from ${from} to ${to}`};
     }
 
    
