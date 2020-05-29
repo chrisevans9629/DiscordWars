@@ -63,4 +63,10 @@ function getTeam(teamId: number){
     return level1.teamBaseImgs.find(p => p.teamId == teamId);
 }
 
-export { game, move, retreat, upgrade, reset, say, getColor, getTeam };
+function addAvatar(player: Player){
+    level1.load.image(player.name,player.avatarUrl);
+    console.log(player.avatarUrl);
+    level1.load.start();
+}
+
+export { game, move, retreat, upgrade, reset, say, getColor, getTeam, addAvatar };

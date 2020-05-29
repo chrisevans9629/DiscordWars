@@ -1,6 +1,6 @@
 
 import { Client, Message } from 'discord.js';
-import { move, upgrade, retreat, say, getColor, getTeam } from './game';
+import { move, upgrade, retreat, say, getColor, getTeam, addAvatar } from './game';
 import { model, Chat, Player } from './vuemodel';
 import { toastInfo } from './vueapp';
 
@@ -60,7 +60,10 @@ let joinCmd = {
       msg.reply(`team '${args}' does not exist`);
       return;
     }
-    model.data.players.push({team: tm, name: msg.author.username, style: {color: getColor(tm)}, avatarUrl: msg.author.avatarURL()});
+    let play = {team: tm, name: msg.author.username, style: {color: getColor(tm)}, avatarUrl: msg.author.avatarURL()};
+    model.data.players.push(play);
+
+    addAvatar(play);
     toastInfo(`player ${msg.author.username} joined!`);
     msg.reply(`joined!`);
   },
