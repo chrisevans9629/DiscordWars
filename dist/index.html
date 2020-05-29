@@ -26,7 +26,14 @@
                  <h3>Players</h3>
                  <ul>
                    <li v-for="player in players">
-                   <p><span :style="player.style">((player.name))</span> team ((player.team))</p>
+                     <div class="row">
+                      <div class="col-auto">
+                        <img class="avatar" v-if="player.avatarUrl" :src="player.avatarUrl">
+                      </div>
+                      <div class="col">
+                        <p><span :style="player.style">((player.name))</span> team ((player.team))</p>
+                      </div>
+                     </div>
                    </li>
                  </ul>
                  <h3>Chat</h3>

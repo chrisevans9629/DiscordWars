@@ -32,7 +32,9 @@ h1 {
     margin: 10px;
     color: white;
 }
-
+.avatar {
+    width: 50px;
+}
 .message {
     width:40%; 
     word-wrap:break-word; 

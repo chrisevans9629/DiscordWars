@@ -7,6 +7,7 @@ export interface Player {
   name: string;
   team: number;
   style: object;
+  avatarUrl: string;
 }
 
 export interface Chat {
@@ -60,10 +61,10 @@ let model = {
        });
      },
      move: function(){
-       move(this.moveFrom,this.moveTo,this.amount, { name: '', team: this.selectedTeam, style: {color: getColor(this.selectedTeam)}});
+       move(this.moveFrom,this.moveTo,this.amount, { name: '', team: this.selectedTeam, style: {color: getColor(this.selectedTeam)}, avatarUrl: null});
      },
      retreat: function(){
-       retreat(this.moveTo, { name: '', team: this.selectedTeam, style: {color: getColor(this.selectedTeam)}});
+       retreat(this.moveTo, { name: '', team: this.selectedTeam, style: {color: getColor(this.selectedTeam)}, avatarUrl: null});
      },
      upgrade: function() {
         upgrade(this.moveTo, this.selectedTeam);

@@ -47,6 +47,7 @@ let moveCmd = {
 let joinCmd = {
   name: '!join',
   execute(msg: Message, args: string) {
+    
     args = args.replace(' ','');
     let player = getPlayer(msg);
     if(player){
@@ -59,7 +60,7 @@ let joinCmd = {
       msg.reply(`team '${args}' does not exist`);
       return;
     }
-    model.data.players.push({team: tm, name: msg.author.username, style: {color: getColor(tm)}});
+    model.data.players.push({team: tm, name: msg.author.username, style: {color: getColor(tm)}, avatarUrl: msg.author.avatarURL()});
     toastInfo(`player ${msg.author.username} joined!`);
     msg.reply(`joined!`);
   },
