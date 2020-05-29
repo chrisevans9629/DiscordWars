@@ -30,6 +30,7 @@ export class GenerateState extends BaseState {
     }
     unitHit(unit: Unit) {
         let x = { valueUsed: 0 };
+        super.unitHit(unit);
         if (unit.teamId == this.Unit.teamId) {
             x = this.Unit.addHealth(unit.value);
         } else {

@@ -24,11 +24,11 @@ export class UnitState extends State<Unit> {
             if(unit1.value <= 0)
             {
                 lvl.destroyUnit(unit1);
-                lvl.particleEngine.explosion(unit1.x,unit1.y,10);
+                lvl.particleEngine.explosion(unit1.x,unit1.y,10,0.05, 500);
             }
             if(unit2.value <= 0){
                 lvl.destroyUnit(unit2);
-                lvl.particleEngine.explosion(unit2.x,unit2.y,10);
+                lvl.particleEngine.explosion(unit2.x,unit2.y,10,0.05, 500);
             }
             
         }
