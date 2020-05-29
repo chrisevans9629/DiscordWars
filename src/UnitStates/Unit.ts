@@ -29,10 +29,8 @@ export class Unit extends Phaser.GameObjects.Container {
     get UnitState() {
         return this.unitState;
     }
-    getUnitState(){
-        return this.unitState;
-    }
-    setUnitState(state: UnitState){
+    
+    set UnitState(state: UnitState){
         this.unitState.removing(state);
         this.unitState = state;
     }

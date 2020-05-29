@@ -50,7 +50,8 @@ class GamePlayingState extends ResumeState {
         model.data.gameOver = false;
     }
     update() {
-        this.Unit.units.forEach(p => p.getUnitState().update());
+
+        this.Unit.units.forEach(p => p.UnitState.update());
         this.Unit.actions.forEach(p => p.update());
         let teams = this.Unit.bases.map(p => p.teamId).filter(p => p >= 0);
 
@@ -60,34 +61,31 @@ class GamePlayingState extends ResumeState {
                 return;
             }
         });
+
     }
 }
 
 
 class ParticleEngine {
     scene: Scene;
-    particles: Phaser.GameObjects.Image[];
     constructor(scene: Scene){
         this.scene = scene;
-        this.particles = [];
     }
     explosion(x: number, y:number, amt:number){
-        //x = 400;
-        //y = 400;
         for(let i = 0;i < amt;i++){
-            let img = this.scene.physics.add.image(x,y,'particle').setOrigin(0.5,0.5).setScale(0.25);
+            let img = this.scene.physics.add.sprite(0,0,'particle').setOrigin(0.5,0.5).setScale(0.05);
+            img.setBlendMode(Phaser.BlendModes.ADD);
+            img.x = x+64;
+            img.y = y+64;
             img.setVelocity(Phaser.Math.FloatBetween(-30,30), Phaser.Math.FloatBetween(-30,30));
             img.setDepth(2);
-            this.particles.push(img);
-
             this.scene.tweens.add({
                 targets: img,
                 scale: 0,
-                duration: 5000,
+                duration: 500,
                 ease: 'Sine.easeInOut',
                 onComplete: (p,s,t) => {
                     img.destroy();
-                    console.log('particle destroyed');
                 }
             });
         }
@@ -207,8 +205,8 @@ export class Level1 extends Phaser.Scene {
         });
     }
     upgrade(to: number, team: number){
-        this.units.filter(p => p.currentBase.baseId == to && p.getUnitState() instanceof OrbitState && p.teamId == team).forEach(p => {
-            p.setUnitState(new AttackState(p, this, p.currentBase));
+        this.units.filter(p => p.currentBase.baseId == to && p.UnitState instanceof OrbitState && p.teamId == team).forEach(p => {
+            p.UnitState = (new AttackState(p, this, p.currentBase));
         });
     }
     actionid: number;
@@ -219,7 +217,7 @@ export class Level1 extends Phaser.Scene {
         let action = new UserAction(this, this.actionid, user);
         this.actions.push(action);
         this.units.filter(p => p.UnitState instanceof MoveState && p.UnitState.toBase.baseId == to && p.teamId == user.team).forEach(p => {
-            p.setUnitState(new MoveState(p, this, p.currentBase, action));
+            p.UnitState = (new MoveState(p, this, p.currentBase, action));
         });
     }
     move(from: number,to: number,count: number, user: Player) {
@@ -236,7 +234,7 @@ export class Level1 extends Phaser.Scene {
 
         let units = this.units.filter(p => p.currentBase.baseId == from && p.UnitState instanceof MoveState != true && p.teamId == user.team).slice(0,count);
         units.forEach(p => {
-            p.setUnitState(new MoveState(p,this, toBase, action));
+            p.UnitState = (new MoveState(p,this, toBase, action));
         });
     }
 

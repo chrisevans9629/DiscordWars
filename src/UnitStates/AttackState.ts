@@ -25,7 +25,7 @@ export class AttackState extends UnitState {
                 lvl1.destroyUnit(this.Unit);
             } else {
                 this.Unit.value -= hit.valueUsed;
-                this.Unit.setUnitState(new SpawnState(this.Unit, this.Scene));
+                this.Unit.UnitState = (new SpawnState(this.Unit, this.Scene));
             }
         }
         super.update();

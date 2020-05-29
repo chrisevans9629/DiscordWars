@@ -5,6 +5,7 @@ import Level1 from '../Levels/level1';
 export class UnitState extends State<Unit> {
     update(){
         let lvl = this.Scene as Level1;
+
         this.Scene.physics.overlap(this.Unit.unitImg,lvl.units.map(p => p.unitImg),this.collission,null,this);
     }
 

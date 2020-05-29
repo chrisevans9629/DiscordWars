@@ -21,7 +21,7 @@ export class SpawnState extends UnitState {
         this.Unit.x += dir.x * this.speed;
         this.Unit.y += dir.y * this.speed;
         if (Phaser.Math.Distance.Between(this.Unit.x, this.Unit.y, this.location.x, this.location.y) < 5) {
-            this.Unit.setUnitState(new OrbitState(this.Unit, this.Scene));
+            this.Unit.UnitState = (new OrbitState(this.Unit, this.Scene));
         }
         super.update();
     }
