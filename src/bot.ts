@@ -116,7 +116,14 @@ let sayCmd = {
   }
 }
 
-let commands = [moveCmd, joinCmd, upgradeCmd, leaveCmd, retreatCmd, sayCmd];
+let helpCmd = {
+  name: '!help',
+  execute(msg: Message, args: string){
+    msg.reply("!join 1 -> joins team 1\r\n!move 2 4 -> moves from base 2 to base 4\r\n!upgrade 1 -> upgrades base 1\r\n!retreat 1 -> retreats all units away from base 1\r\n!say loser -> roasts the other team\r\n!leave -> leaves the game");
+  }
+};
+
+let commands = [moveCmd, joinCmd, upgradeCmd, leaveCmd, retreatCmd, sayCmd, helpCmd];
 
 client.on('message', msg => {
   commands.filter(p => msg.content.startsWith(p.name)).forEach(p => {
