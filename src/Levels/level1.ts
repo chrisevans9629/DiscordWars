@@ -123,6 +123,11 @@ export class Level1 extends Phaser.Scene {
         this.load.image('red','assets/images/red.png');
         this.load.image('blue','assets/images/blue.png');
         this.load.image('particle','assets/images/white.png');
+        this.load.audio('theme','assets/audio/discordwars.wav');
+        this.load.audio('exp_9','assets/audio/Explosion9.wav');
+        this.load.audio('exp_10','assets/audio/Explosion10.wav');
+        this.load.audio('exp_11','assets/audio/Explosion11.wav');
+        this.load.audio('exp_14','assets/audio/Explosion14.wav');
         //this.load.bitmapFont('ethno','assets/fonts/ethno14.png','assets/fonts/ethno14.xml');
     }
     bases: Base[];
@@ -150,8 +155,11 @@ export class Level1 extends Phaser.Scene {
 
         this.createBases();
         console.log(this.bases);
+        this.music = this.sound.add('theme', { loop: true, });
+        this.music.play();
         this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
     }
+    music: Phaser.Sound.BaseSound;
     teamBaseImgs: TeamImg[];
     createBases(){
         this.bases = [];
@@ -260,6 +268,8 @@ export class Level1 extends Phaser.Scene {
    
 
     secondPassed(){
+        
+
         this.bases.forEach(p => {
             p.baseState.secondPassed();
         });
