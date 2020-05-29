@@ -38,8 +38,8 @@ export class Base extends Phaser.GameObjects.Container {
     }
     constructor(baseId: number, scene: Phaser.Scene, key: string, teamId: number) {
         super(scene, 50, 50, []);
-        this._health = 15;
-        this.maxHealth = 30;
+        this._health = 100;
+        this.maxHealth = 300;
         this.teamId = teamId;
         this.imgKey = key;
         this.setDepth(1);
