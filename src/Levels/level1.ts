@@ -128,6 +128,17 @@ export class Level1 extends Phaser.Scene {
         this.load.audio('exp_10','assets/audio/Explosion10.wav');
         this.load.audio('exp_11','assets/audio/Explosion11.wav');
         this.load.audio('exp_14','assets/audio/Explosion14.wav');
+
+        this.load.audio('blip_5','assets/audio/Blip_Select5.wav');
+        this.load.audio('blip_6','assets/audio/Blip_Select6.wav');
+        this.load.audio('blip_7','assets/audio/Blip_Select7.wav');
+        this.load.audio('blip_8','assets/audio/Blip_Select8.wav');
+
+        this.load.audio('hit_7','assets/audio/Blip_Select8.wav');
+        this.load.audio('hit_8', 'assets/audio/Hit_Hurt7.wav');
+        this.load.audio('hit_9', 'assets/audio/Hit_Hurt8.wav');
+        this.load.audio('hit_10','assets/audio/Hit_Hurt9.wav');
+        this.load.audio('hit_11','assets/audio/Hit_Hurt10.wav');
         //this.load.bitmapFont('ethno','assets/fonts/ethno14.png','assets/fonts/ethno14.xml');
     }
     bases: Base[];
@@ -158,16 +169,31 @@ export class Level1 extends Phaser.Scene {
         this.music = this.sound.add('theme', { loop: true, });
         this.music.play();
 
-        this.explosions = [
+        this.explosionSounds = [
             this.sound.add('exp_9'), 
             this.sound.add('exp_10'),
             this.sound.add('exp_11'),
             this.sound.add('exp_14')];
+        this.blipSounds = [
+            this.sound.add('blip_5'),
+            this.sound.add('blip_6'),
+            this.sound.add('blip_7'),
+            this.sound.add('blip_8'),
+        ];
+        this.hitSounds = [
+            this.sound.add('hit_7'),
+            this.sound.add('hit_8'),
+            this.sound.add('hit_9'),
+            this.sound.add('hit_10'),
+            this.sound.add('hit_11'),
+        ];
 
         this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
     }
     music: Phaser.Sound.BaseSound;
-    explosions: Phaser.Sound.BaseSound[];
+    explosionSounds: Phaser.Sound.BaseSound[];
+    hitSounds: Phaser.Sound.BaseSound[];
+    blipSounds: Phaser.Sound.BaseSound[];
     teamBaseImgs: TeamImg[];
     createBases(){
         this.bases = [];
@@ -219,11 +245,15 @@ export class Level1 extends Phaser.Scene {
             p.text.text = `${chat.message}`
             console.log(p.text.text);
         });
+        this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play();
+
     }
     upgrade(to: number, team: number){
         this.units.filter(p => p.currentBase.baseId == to && p.UnitState instanceof OrbitState && p.teamId == team).forEach(p => {
             p.UnitState = (new AttackState(p, this, p.currentBase));
         });
+        this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play();
+
     }
     actionid: number;
     retreat(to: number, user: Player){
@@ -239,9 +269,11 @@ export class Level1 extends Phaser.Scene {
         if(units.length == 0){
             return { success: false, reason: `no units found moving to base ${to}`};
         }
+
         units.forEach(p => {
             p.UnitState = (new MoveState(p, this, p.currentBase, action));
         });
+        this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play();
         return { success: true, reason: `${units.length} are retreating!`};
     }
     move(from: number,to: number,count: number, user: Player) {
@@ -270,9 +302,10 @@ export class Level1 extends Phaser.Scene {
         units.forEach(p => {
             p.UnitState = (new MoveState(p,this, toBase, action));
         });
+        this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play();
+
         return {success: true, reason: `moving ${units.length} units from ${from} to ${to}`};
     }
-
    
 
     secondPassed(){
