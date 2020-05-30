@@ -157,9 +157,17 @@ export class Level1 extends Phaser.Scene {
         console.log(this.bases);
         this.music = this.sound.add('theme', { loop: true, });
         this.music.play();
+
+        this.explosions = [
+            this.sound.add('exp_9'), 
+            this.sound.add('exp_10'),
+            this.sound.add('exp_11'),
+            this.sound.add('exp_14')];
+
         this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
     }
     music: Phaser.Sound.BaseSound;
+    explosions: Phaser.Sound.BaseSound[];
     teamBaseImgs: TeamImg[];
     createBases(){
         this.bases = [];
