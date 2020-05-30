@@ -166,6 +166,7 @@ export class Level1 extends Phaser.Scene {
 
         this.createBases();
         console.log(this.bases);
+        this.sound.pauseOnBlur = false;
         this.music = this.sound.add('theme', { loop: true, });
         this.music.play();
 
