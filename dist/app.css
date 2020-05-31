@@ -1,7 +1,12 @@
 
+@font-face {
+    font-family: ethno;
+    src: url('assets/fonts/ethnocen.ttf');
+}
 
 :root {
     --textColor: white;
+    font-family: 'ethno';
 }
 
 p {

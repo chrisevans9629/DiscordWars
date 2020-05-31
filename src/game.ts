@@ -31,7 +31,7 @@ let level1 = new Level1();
 game.scene.add('MainMenu', menu);
 game.scene.add('level1', level1);
 
-game.scene.start('level1');
+game.scene.start('MainMenu');
 
 function move(fromBase: number, toBase: number, count: number, user: Player){
     let scene = level1;
