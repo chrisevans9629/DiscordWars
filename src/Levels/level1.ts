@@ -98,6 +98,15 @@ class TeamImg {
     key: string;
     color: string;
 }
+
+function getCache(key: string, defa?: string) {
+     let item = localStorage.getItem(key);
+     if(item){
+         return item;
+     }
+     return defa;
+}
+
 export class Level1 extends Phaser.Scene {
     //baseCount: number;
     unitSpeed: number;
@@ -167,8 +176,10 @@ export class Level1 extends Phaser.Scene {
         this.createBases();
         console.log(this.bases);
         this.sound.pauseOnBlur = false;
-        this.music = this.sound.add('theme', { loop: true, });
-        this.music.play();
+        
+        this.soundVolume = Number(getCache('sound',"1"));
+        this.musicVolume = Number(getCache('music',"1"));
+        this.masterVolume = Number(getCache('master',"1"));
 
         this.explosionSounds = [
             this.sound.add('exp_9'), 
@@ -188,9 +199,24 @@ export class Level1 extends Phaser.Scene {
             this.sound.add('hit_10'),
             this.sound.add('hit_11'),
         ];
-
+        this.music = this.sound.add('theme', { loop: true, });
+        
+        this.music.play({ volume: this.musicVolume * this.masterVolume, loop: true });
         this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
     }
+    musicVolume: number;
+    soundVolume: number;
+    masterVolume: number;
+    updateVolume(music: number, sound: number, master: number){
+        this.musicVolume = music;
+        this.soundVolume = sound;
+        this.masterVolume = master;
+        localStorage.setItem('master', master.toString());
+        localStorage.setItem('sound', sound.toString());
+        localStorage.setItem('music', music.toString());
+        this.music.play({ volume: this.musicVolume * this.masterVolume, loop: true });
+    }
+
     music: Phaser.Sound.BaseSound;
     explosionSounds: Phaser.Sound.BaseSound[];
     hitSounds: Phaser.Sound.BaseSound[];
@@ -246,14 +272,14 @@ export class Level1 extends Phaser.Scene {
             p.text.text = `${chat.message}`
             console.log(p.text.text);
         });
-        this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play();
+        this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({ volume: this.masterVolume * this.soundVolume });
 
     }
     upgrade(to: number, team: number){
         this.units.filter(p => p.currentBase.baseId == to && p.UnitState instanceof OrbitState && p.teamId == team).forEach(p => {
             p.UnitState = (new AttackState(p, this, p.currentBase));
         });
-        this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play();
+        this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({volume: this.masterVolume * this.soundVolume });
 
     }
     actionid: number;
@@ -274,7 +300,7 @@ export class Level1 extends Phaser.Scene {
         units.forEach(p => {
             p.UnitState = (new MoveState(p, this, p.currentBase, action));
         });
-        this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play();
+        this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({ volume: this.masterVolume * this.soundVolume });
         return { success: true, reason: `${units.length} are retreating!`};
     }
     move(from: number,to: number,count: number, user: Player) {
@@ -303,7 +329,7 @@ export class Level1 extends Phaser.Scene {
         units.forEach(p => {
             p.UnitState = (new MoveState(p,this, toBase, action));
         });
-        this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play();
+        this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({ volume: this.soundVolume * this.masterVolume });
 
         return {success: true, reason: `moving ${units.length} units from ${from} to ${to}`};
     }

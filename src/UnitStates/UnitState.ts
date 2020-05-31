@@ -26,13 +26,13 @@ export class UnitState extends State<Unit> {
                 lvl.destroyUnit(unit1);
                 lvl.particleEngine.explosion(unit1.x,unit1.y,10,0.05, 500);
                 let m = lvl.explosionSounds[Math.floor(Math.random() * lvl.explosionSounds.length)];
-                m.play();
+                m.play({ volume: lvl.masterVolume * lvl.soundVolume });
             }
             if(unit2.value <= 0){
                 lvl.destroyUnit(unit2);
                 lvl.particleEngine.explosion(unit2.x,unit2.y,10,0.05, 500);
                 let m = lvl.explosionSounds[Math.floor(Math.random() * lvl.explosionSounds.length)];
-                m.play();
+                m.play({ volume: lvl.masterVolume * lvl.soundVolume });
             }
             
         }

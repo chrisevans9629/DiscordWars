@@ -1,6 +1,6 @@
 import login from './bot';
 
-import { move, retreat, upgrade, reset, getColor } from './game';
+import { move, retreat, upgrade, reset, getColor, updateVolume, getVolumes } from './game';
 import { debug } from 'webpack';
 import { toastInfo, toastError } from './vueapp';
 export interface Player {
@@ -36,6 +36,10 @@ let model = {
         chat: chat,
         fps: 0,
         showToken: true,
+        isSettings: false,
+        music: 1,
+        effects: 1,
+        master: 1,
     },
     delimiters: ['((','))'],
     mounted: function(){
@@ -43,8 +47,20 @@ let model = {
       if(token){
         this.tokenLogin(token);
       }
+      
     },
     methods: {
+      settings: function() {
+        let volumes = getVolumes();
+        this.effects = volumes.effects;
+        this.music = volumes.music;
+        this.master = volumes.master;
+        this.isSettings = !this.isSettings;
+      },
+      saveSettings: function() {
+        updateVolume(this.music, this.effects, this.master);
+        this.isSettings = !this.isSettings;
+      },
      tokenLogin: function(token: string){
        login(token).then(p => {
          this.token = null;

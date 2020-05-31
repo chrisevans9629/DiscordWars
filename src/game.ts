@@ -69,4 +69,12 @@ function addAvatar(player: Player){
     level1.load.start();
 }
 
-export { game, move, retreat, upgrade, reset, say, getColor, getTeam, addAvatar };
+function updateVolume(music: number, sound: number, master: number){
+    level1.updateVolume(music, sound, master);
+}
+
+function getVolumes(){
+    return { music: level1.musicVolume, effects: level1.soundVolume, master: level1.masterVolume };
+}
+
+export { game, move, retreat, upgrade, reset, say, getColor, getTeam, addAvatar, updateVolume, getVolumes };

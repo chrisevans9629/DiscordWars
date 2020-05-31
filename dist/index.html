@@ -58,7 +58,16 @@
                   <input v-model="token" type="password" class="form-control">
                   <button v-on:click="tokenLogin(token)" class="btn">Start</button>
                 </div>
-             
+                <button v-on:click="settings" class="btn">Settings</button>
+                <div v-if="isSettings">
+                  <label>Master</label>
+                  <input type="range" v-model="master" min="0" max="1" step="0.1">
+                  <label>Music</label>
+                  <input type="range" v-model="music" min="0" max="1" step="0.1">
+                  <label>Effects</label>
+                  <input type="range" v-model="effects" min="0" max="1" step="0.1">
+                  <button v-on:click="saveSettings" class="btn form-control">Save</button>
+                </div>
                 <button v-on:click="debug" class="btn">Debug</button>
                 <div v-if="isDebugging">
                   <label>Enter your bot token</label>
