@@ -28,6 +28,12 @@ LevelSystem
 - experience: number;
 - nextRatio: number;
 
+TeamSystem
+each team has a color and an image.  This class allows to change the base team add any time.
+- ImgKey: string;
+- teamId: number;
+- color: number;
+
 #### States
 
 ##### Base
@@ -44,6 +50,7 @@ must be repaired before it can be used to generate units.
 
 - base: Base;
 - unitHit(unit: Unit): void;
+
 
 ##### Unit
 
@@ -112,6 +119,8 @@ Occurs when health = 0
 - if health >= maxHealth
   - change to the generate state
 - if an opposing team hits the base, decrease the health
+
+
 
 # How does the game work?
 
