@@ -12,6 +12,46 @@ updates the dist folder
 updates packages
 ```npm install```
 
+## Game Mechanics
+
+### Types
+
+Healthbar
+- health: number;
+- maxHealth: number;
+
+LevelSystem
+- level: number;
+- nextLevel: number;
+- xp: number;
+
+Base
+- team: number;
+Unit
+- value
+- team
+
+### Attacks
+Occurs when an opposite unit attacks another base
+- decreases base health
+  - goes to neutral state if health <= 0
+    - adds the negative value to the neutral base
+- decreases unit value
+  - deletes if unit value = 0
+
+### Upgrades
+Occurs when the base has max health and a matching team unit hits the base
+- increase the xp based on the value of the unit
+  - destroy the unit
+  - if xp >= nextLevel
+    - level++
+    - nextLevel *= 2
+### Repair
+
+### Neutrality/Dead
+
+
+
 # How does the game work?
 
 1. the goal of the game is to DESTROY the other teams.  You do this by destroying all of the teams bases
@@ -32,14 +72,13 @@ updates packages
 
 # Commands
 
-|Name|Args|Description|
-|---|---|---|
-|!join|1,2,3,etc...|Join a team in the game.
-|!move|a b, 1 a b, 1% a b|Moves a certain number of units that the players has control over.
-|!upgrade|a, 10 a, 10% a|Upgrades a base with a certain number of units that the player has control over.
-|!leave||player leaves the game.
-|!retreat|a,b,etc...|Reverses the player's units movement away from the base specified.
-
+| Name     | Args               | Description                                                                      |
+| :------- | :----------------- | :------------------------------------------------------------------------------- |
+| !join    | 1,2,3,etc...       | Join a team in the game.                                                         |
+| !move    | a b, 1 a b, 1% a b | Moves a certain number of units that the players has control over.               |
+| !upgrade | a, 10 a, 10% a     | Upgrades a base with a certain number of units that the player has control over. |
+| !leave   |                    | player leaves the game.                                                          |
+| !retreat | a,b,etc...         | Reverses the player's units movement away from the base specified.               |
 
 # Resources
 
