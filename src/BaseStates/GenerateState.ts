@@ -17,6 +17,7 @@ export class GenerateState extends BaseState {
         for (let index = 0; index < this.speed; index++) {
             let unit = new Unit(lvl, this.Unit, this.Unit.teamId, this.Unit.imgKey);
             unit.currentBase = this.Unit;
+            
             lvl.units.push(unit);
         }
         this.speed = Math.floor(this.Unit.health / 100);

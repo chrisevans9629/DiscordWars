@@ -46,9 +46,9 @@ export class Base extends Phaser.GameObjects.Container {
         this.baseState = new GenerateState(this, scene);
         this.img = scene.add.sprite(0, 0, key).setOrigin(0.5, 0.5);
         this.img.scale = 0.5;
-        this.baseName = scene.add.text(0, -70, `${baseId}`, { color: 'white', fontSize: '36px' }).setOrigin(0.5, 0.5);
-        this.soldierCount = scene.add.text(0, 0, '0', { color: 'black', fontSize: '15px' }).setOrigin(0.5, 0.5);
-        this.healthText = scene.add.text(0, 0, this.health.toString(), { color: 'black', fontSize: '26px' }).setOrigin(0.5, 0.5);
+        this.baseName = scene.add.text(0, -70, `${baseId}`, { color: 'white', fontSize: '36px', fontFamily: 'ethno' }).setOrigin(0.5, 0.5);
+        this.soldierCount = scene.add.text(0, 0, '0', { color: 'black', fontSize: '15px', fontFamily: 'ethno' }).setOrigin(0.5, 0.5);
+        this.healthText = scene.add.text(0, 0, this.health.toString(), { color: 'black', fontSize: '15px', fontFamily: 'ethno' }).setOrigin(0.5, 0.5);
         this.add([this.img, this.baseName, this.healthText]);
         this.baseId = baseId;
         scene.sys.displayList.add(this);

@@ -6,36 +6,47 @@
 
 :root {
     --textColor: white;
-    font-family: 'ethno';
+    font-family: ethno;
 }
 
 p {
     color: var(--textColor);
+    font-family: ethno;
+
 }
 
 html {
     color: var(--textColor);
+    font-family: ethno;
 }
 
 li {
     color: var(--textColor);
+    
 }
 
 label {
     color: var(--textColor);
     width: 100%;
+    font-family: ethno;
+
 }
 
 h3 {
     color: var(--textColor);
+    font-family: ethno;
+
 }
 h1 {
     color: var(--textColor);
+    font-family: ethno;
+
 }
 .btn {
     border: solid 1px white;
     margin: 10px;
     color: white;
+    font-family: ethno;
 }
 .avatar {
     width: 50px;

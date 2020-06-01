@@ -22,5 +22,5 @@ export let addHealth = (amt: number, base: IBase) => {
         used = -amt;
         base.health += amt;
     }
-    return { valueUsed: used };
+    return { valueUsed: used, shouldDestroy: used >= Math.abs(amt) };
 }

@@ -23,19 +23,20 @@ describe('health', function(){
   });
 
   let cases = [
-    [200,200,10,0,200],
-    [200,200,-10,10,190],
-    [10,20,-10,10,0],
-    [10,20,-20,20,-10],
-    [10,20,20,10,20],
+    { health: 200,max:200,unit: 10,used: 0,healthResult: 200, destroy: false},
+    { health: 200,max:200,unit:-10,used:10,healthResult: 190, destroy: true},
+    { health: 10 ,max:20 ,unit:-10,used:10,healthResult:   0, destroy: true},
+    { health: 10 ,max:20 ,unit:-20,used:20,healthResult: -10, destroy: true},
+    { health: 10 ,max:20 ,unit: 20,used:10,healthResult:  20, destroy: false},
   ];
 
   cases.forEach(p => {
-    it(`test health:${p[0]} max:${p[1]} unit:${p[2]} = used:${p[3]} health:${p[4]}`, function(){
-      let base = {health:p[0], maxHealth:p[1]};
-      let h = addHealth(p[2],base);
-      expect(h.valueUsed).toBe(p[3]);
-      expect(base.health).toBe(p[4]);
+    it(`test health:${p.health} max:${p.max} unit:${p.unit} = used:${p.used} health:${p.healthResult}`, function(){
+      let base = {health:p.health, maxHealth:p.max};
+      let h = addHealth(p.unit,base);
+      expect(h.valueUsed).toBe(p.used);
+      expect(base.health).toBe(p.healthResult);
+      expect(h.shouldDestroy).toBe(p.destroy);
    });
   });
 
