@@ -16,6 +16,8 @@ updates packages
 
 ### Types
 
+#### Supporting
+
 Healthbar
 - health: number;
 - maxHealth: number;
@@ -23,13 +25,63 @@ Healthbar
 LevelSystem
 - level: number;
 - nextLevel: number;
-- xp: number;
+- experience: number;
+- nextRatio: number;
+
+#### States
+
+##### Base
+
+GenerateState
+create units every second based on the level of the base.
+
+- base: Base;
+- generate(): void;
+- unitHit(unit: Unit): void;
+
+NeutralState
+must be repaired before it can be used to generate units.
+
+- base: Base;
+- unitHit(unit: Unit): void;
+
+##### Unit
+
+MoveState
+move from the current base to the toBase.
+- speed: number;
+- toBase: Base;
+
+AttackState
+attacks the current base
+- speed: number;
+
+OribitState
+rotates around the current base
+- speed: number;
+
+SpawnState
+moves to the orbit state
+- speed: number;
+- distance: number;
+
+#### Main
 
 Base
+- hp: Healthbar;
 - team: number;
+- xp: LevelSystem;
+- baseState: BaseState;
+- imageKey: string;
+- tint: number;
+
 Unit
-- value
-- team
+- value: number;
+- team: number;
+- unitState: UnitState;
+- currentBase: Base;
+- imageKey: string;
+- tint: number;
 
 ### Attacks
 Occurs when an opposite unit attacks another base
@@ -45,12 +97,21 @@ Occurs when the base has max health and a matching team unit hits the base
   - destroy the unit
   - if xp >= nextLevel
     - level++
-    - nextLevel *= 2
+    - nextLevel *= nextRatio
+
 ### Repair
+Occurs when the base is NOT at max health and a matching team unit hits the base
+- increases base health
+  - decrease unit value/destroy
+  - stop if base health = max health
 
 ### Neutrality/Dead
-
-
+Occurs when health = 0
+- must be repaired to use
+- when a unit first hits a neutral base, it increases the base health and changes the team
+- if health >= maxHealth
+  - change to the generate state
+- if an opposing team hits the base, decrease the health
 
 # How does the game work?
 
