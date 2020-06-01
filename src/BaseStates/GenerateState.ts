@@ -20,7 +20,7 @@ export class GenerateState extends BaseState {
             
             lvl.units.push(unit);
         }
-        this.speed = Math.floor(this.Unit.health / 100);
+        this.speed = Math.floor(this.Unit.health / 100 + 1);
         this.Scene.tweens.add({
             targets: this.Unit.img,
             scale: 0.55,
