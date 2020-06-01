@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import { Unit } from '../UnitStates/Unit';
-import { BaseState } from './BaseState';
+import { BaseState, UnitChange } from './BaseState';
 import { Level1 } from '../Levels/level1';
 import { Base } from "./Base";
 import { NeutralState } from "./NeutralState";
@@ -29,11 +29,13 @@ export class GenerateState extends BaseState {
             yoyo: true,
         });
     }
-    unitHit(unit: Unit) {
-        let x = { valueUsed: 0 };
+    unitHit(unit: Unit) : UnitChange {
+        let x = { valueUsed: 0, shouldDestroy: false };
         super.unitHit(unit);
         if (unit.teamId == this.Unit.teamId) {
+            console.log(`upgrading base with value ${unit.value}`);
             x = this.Unit.addHealth(unit.value);
+            console.log(x);
         } else {
             //value: 100 = 100 used; health = -90;
             x = this.Unit.addHealth(-unit.value);

@@ -20,7 +20,7 @@ export class AttackState extends UnitState {
         this.Unit.y += dir.y * this.speed;
         if (Phaser.Math.Distance.Between(this.Unit.x, this.Unit.y, this.toBase.x, this.toBase.y) < 1) {
             let hit = this.toBase.baseState.unitHit(this.Unit);
-            if(hit.valueUsed == this.Unit.value) {
+            if(hit.shouldDestroy) {
                 let lvl1 = this.Scene as Level1;
                 lvl1.destroyUnit(this.Unit);
             } else {

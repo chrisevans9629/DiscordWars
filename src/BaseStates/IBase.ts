@@ -19,7 +19,7 @@ export let addHealth = (amt: number, base: IBase) => {
         used = base.health + base.maxHealth;
         base.health = base.maxHealth;
     } else {
-        used = -amt;
+        used = Math.abs(amt);
         base.health += amt;
     }
     return { valueUsed: used, shouldDestroy: used >= Math.abs(amt) };

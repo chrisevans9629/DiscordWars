@@ -28,6 +28,7 @@ describe('health', function(){
     { health: 10 ,max:20 ,unit:-10,used:10,healthResult:   0, destroy: true},
     { health: 10 ,max:20 ,unit:-20,used:20,healthResult: -10, destroy: true},
     { health: 10 ,max:20 ,unit: 20,used:10,healthResult:  20, destroy: false},
+    { health: 100 ,max:300 ,unit: 1,used:1,healthResult:  101, destroy: true},
   ];
 
   cases.forEach(p => {
