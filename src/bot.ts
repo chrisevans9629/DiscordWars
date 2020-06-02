@@ -60,7 +60,7 @@ let joinCmd = {
       msg.reply(`team '${args}' does not exist`);
       return;
     }
-    let play = {team: tm, name: msg.author.username, style: {color: getColor(tm)}, avatarUrl: msg.author.avatarURL()};
+    let play = {team: team, name: msg.author.username, style: {color: getColor(tm)}, avatarUrl: msg.author.avatarURL()};
     model.data.players.push(play);
 
     addAvatar(play);
@@ -76,7 +76,7 @@ let upgradeCmd = {
     if(!team.joined){
       return;
     }
-    upgrade(Number(args), team.team.team);
+    upgrade(Number(args), team.team.team.teamId);
   },
 };
 

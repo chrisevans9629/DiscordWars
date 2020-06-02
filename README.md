@@ -47,7 +47,18 @@ The team system also includes a neutral team.  This will be the default team for
 - UnitImgKey: string;
 - BaseImgKey: string;
 - teamId: number;
-- color: number;
+- color: [number,number,number];
+
+[Player](src/vuemodel.ts)
+- name: string;
+- team: TeamSystem;
+- style: object;
+- avatarUrl: string;
+
+[Chat](src/vuemodel.ts)
+- name: string;
+- message: string;
+- player: Player;
 
 #### States
 
@@ -88,6 +99,12 @@ moves to the orbit state
 - distance: number;
 
 #### Main
+
+[UserAction](src/UnitStates/UserAction.ts)
+represents the move a player makes.  this includes multiple units.
+- id: number;
+- user: Player;
+- units: Unit[];
 
 [Base](src/BaseStates/Base.ts)
 - hp: Healthbar;

@@ -2,9 +2,10 @@ import login from './bot';
 
 import { move, retreat, upgrade, reset, getColor, updateVolume, getVolumes } from './game';
 import { toastInfo, toastError } from './vueapp';
+import { ITeamSystem } from './support/TeamSystem';
 export interface Player {
   name: string;
-  team: number;
+  team: ITeamSystem;
   style: object;
   avatarUrl: string;
 }

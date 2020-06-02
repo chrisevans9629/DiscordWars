@@ -57,7 +57,9 @@ function say(chat: Chat){
 }
 
 function getColor(teamId: number){
-    return getTeam(teamId).color;
+    let t = getTeam(teamId).color;
+    console.log(t);
+    return `rgb(${t[0]},${t[1]},${t[2]})`;
 }
 function getTeam(teamId: number){
     return level1.teamBaseImgs.find(p => p.teamId == teamId);

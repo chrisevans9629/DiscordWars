@@ -1,7 +1,8 @@
 'use strict';
 
 import { Tilemaps, Physics, Scene } from 'phaser';
-import { MoveState, UserAction } from '../UnitStates/MoveState';
+import { MoveState } from '../UnitStates/MoveState';
+import { UserAction } from "../UnitStates/UserAction";
 import { Unit } from '../UnitStates/Unit';
 import { Base } from '../BaseStates/Base';
 import { State } from '../UnitStates/State';
@@ -9,6 +10,7 @@ import { OrbitState } from '../UnitStates/OrbitState';
 import { AttackState } from '../UnitStates/AttackState';
 import { model, Player, Chat } from '../vuemodel';
 import { NeutralState } from '../BaseStates/NeutralState';
+import { ITeamSystem } from '../support/TeamSystem';
 class GameState extends State<Level1> {
     constructor(scene: Level1){
         super(scene,scene);
@@ -93,11 +95,11 @@ class ParticleEngine {
     
 }
 
-class TeamImg {
-    teamId: number;
-    key: string;
-    color: string;
-}
+// class TeamImg {
+//     teamId: number;
+//     key: string;
+//     color: string;
+// }
 
 function getCache(key: string, defa?: string) {
      let item = localStorage.getItem(key);
@@ -164,9 +166,9 @@ export class Level1 extends Phaser.Scene {
         this.gameState = new GamePlayingState(this);
         this.teamBaseImgs = [];
 
-        this.teamBaseImgs.push({teamId: 1, key: 'red', color: 'red'});
-        this.teamBaseImgs.push({teamId: 2, key: 'blue', color: 'blue'});
-        this.teamBaseImgs.push({teamId: -1, key: 'base', color: 'white'});
+        this.teamBaseImgs.push({teamId: 1, BaseImgKey: 'red', UnitImgKey: 'red', color: [0xFF,0,0]});
+        this.teamBaseImgs.push({teamId: 2, BaseImgKey: 'blue', UnitImgKey: 'blue', color: [0,0,0xFF]});
+        this.teamBaseImgs.push({teamId: -1, BaseImgKey: 'base', UnitImgKey: 'base', color: [0xFF,0xFF,0xFF]});
 
         this.units = [];
         let midx = this.scale.width/2;
@@ -221,7 +223,7 @@ export class Level1 extends Phaser.Scene {
     explosionSounds: Phaser.Sound.BaseSound[];
     hitSounds: Phaser.Sound.BaseSound[];
     blipSounds: Phaser.Sound.BaseSound[];
-    teamBaseImgs: TeamImg[];
+    teamBaseImgs: ITeamSystem[];
     createBases(){
         this.bases = [];
 
@@ -234,7 +236,7 @@ export class Level1 extends Phaser.Scene {
 
         baseSetup.forEach(p => {
             let team = p[1];
-            let con = new Base(p[0],this, this.teamBaseImgs.find(p => p.teamId == team).key, team);
+            let con = new Base(p[0],this, this.teamBaseImgs.find(p => p.teamId == team).BaseImgKey, team);
             if(team < 0){
                 con.baseState = new NeutralState(con, this);
             }
@@ -292,7 +294,7 @@ export class Level1 extends Phaser.Scene {
 
         let action = new UserAction(this, this.actionid, user);
         this.actions.push(action);
-        let units = this.units.filter(p => p.UnitState instanceof MoveState && p.UnitState.toBase.baseId == to && p.teamId == user.team);
+        let units = this.units.filter(p => p.UnitState instanceof MoveState && p.UnitState.toBase.baseId == to && p.teamId == user.team.teamId);
         if(units.length == 0){
             return { success: false, reason: `no units found moving to base ${to}`};
         }
@@ -320,7 +322,7 @@ export class Level1 extends Phaser.Scene {
         let action = new UserAction(this, this.actionid, user);
         this.actions.push(action);
 
-        let units = this.units.filter(p => p.currentBase.baseId == from && p.UnitState instanceof MoveState != true && p.teamId == user.team).slice(0,count);
+        let units = this.units.filter(p => p.currentBase.baseId == from && p.UnitState instanceof MoveState != true && p.teamId == user.team.teamId).slice(0,count);
         
         if(units.length == 0){
             return { success: false, reason: `did not find units at base ${from}`};

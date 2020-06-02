@@ -31,7 +31,7 @@ export class Base extends Phaser.GameObjects.Container {
         this._teamId = id;
         let lvl = this.scene as Level1;
         if(this.img){
-            let k = lvl.teamBaseImgs.find(p => p.teamId == id).key;
+            let k = lvl.teamBaseImgs.find(p => p.teamId == id).BaseImgKey;
             this.imgKey = k;
             this.img.setTexture(k);
         }
