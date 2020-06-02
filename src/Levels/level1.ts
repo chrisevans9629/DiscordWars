@@ -53,7 +53,7 @@ class GamePlayingState extends ResumeState {
     }
     update() {
 
-        this.Unit.units.forEach(p => p.UnitState.update());
+        this.Unit.units.forEach(p => p.unitState.update());
         this.Unit.actions.forEach(p => p.update());
         let teams = this.Unit.bases.map(p => p.team.teamId).filter(p => p >= 0);
 
@@ -278,8 +278,8 @@ export class Level1 extends Phaser.Scene {
 
     }
     upgrade(to: number, team: number){
-        this.units.filter(p => p.currentBase.baseId == to && p.UnitState instanceof OrbitState && p.team.teamId == team).forEach(p => {
-            p.UnitState = (new AttackState(p, this, p.currentBase));
+        this.units.filter(p => p.currentBase.baseId == to && p.unitState instanceof OrbitState && p.team.teamId == team).forEach(p => {
+            p.unitState = (new AttackState(p, this, p.currentBase));
         });
         this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({volume: this.masterVolume * this.soundVolume });
 
@@ -294,13 +294,13 @@ export class Level1 extends Phaser.Scene {
 
         let action = new UserAction(this, this.actionid, user);
         this.actions.push(action);
-        let units = this.units.filter(p => p.UnitState instanceof MoveState && p.UnitState.toBase.baseId == to && p.team.teamId == user.team.teamId);
+        let units = this.units.filter(p => p.unitState instanceof MoveState && p.unitState.toBase.baseId == to && p.team.teamId == user.team.teamId);
         if(units.length == 0){
             return { success: false, reason: `no units found moving to base ${to}`};
         }
 
         units.forEach(p => {
-            p.UnitState = (new MoveState(p, this, p.currentBase, action));
+            p.unitState = (new MoveState(p, this, p.currentBase, action));
         });
         this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({ volume: this.masterVolume * this.soundVolume });
         return { success: true, reason: `${units.length} are retreating!`};
@@ -322,14 +322,14 @@ export class Level1 extends Phaser.Scene {
         let action = new UserAction(this, this.actionid, user);
         this.actions.push(action);
 
-        let units = this.units.filter(p => p.currentBase.baseId == from && p.UnitState instanceof MoveState != true && p.team.teamId == user.team.teamId).slice(0,count);
+        let units = this.units.filter(p => p.currentBase.baseId == from && p.unitState instanceof MoveState != true && p.team.teamId == user.team.teamId).slice(0,count);
         
         if(units.length == 0){
             return { success: false, reason: `did not find units at base ${from}`};
         }
         
         units.forEach(p => {
-            p.UnitState = (new MoveState(p,this, toBase, action));
+            p.unitState = (new MoveState(p,this, toBase, action));
         });
         this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({ volume: this.soundVolume * this.masterVolume });
 

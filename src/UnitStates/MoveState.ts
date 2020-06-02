@@ -33,11 +33,11 @@ export class MoveState extends UnitState {
         if (Phaser.Math.Distance.Between(this.Unit.x, this.Unit.y, this.toBase.x, this.toBase.y) < 40) {
             if(this.toBase.team.teamId == this.Unit.team.teamId){
                 this.removeFromAction();
-                this.Unit.UnitState = (new OrbitState(this.Unit, this.Scene));
+                this.Unit.unitState = (new OrbitState(this.Unit, this.Scene));
             }
             else {
                 this.removeFromAction();
-                this.Unit.UnitState = (new AttackState(this.Unit, this.Scene, this.toBase));
+                this.Unit.unitState = (new AttackState(this.Unit, this.Scene, this.toBase));
             }
             this.Unit.currentBase = this.toBase;
         }
