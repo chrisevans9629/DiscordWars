@@ -22,7 +22,7 @@ export class HealthBar implements IHealthBar {
         this.x = x;
         this.y = y;
         this.health = 100;
-        this.maxHealth = 300;
+        this.maxHealth = 100;
         this.p = 76 / 100;
 
         this.draw();

@@ -1,10 +1,11 @@
+import { UnitChange } from "./BaseState";
 
-export interface IBase {
+export interface IHealth {
     health: number;
     maxHealth: number;
 }
 
-export let addHealth = (amt: number, base: IBase) => {
+export function addHealth(amt: number, base: IHealth): UnitChange {
     //health = 5;
     //max = 12;
 

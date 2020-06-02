@@ -37,12 +37,12 @@ export class Unit extends Phaser.GameObjects.Container implements IUnit {
 
     }
     get unitState() {
-        return this.unitState;
+        return this._unitState;
     }
     
     set unitState(state: UnitState){
-        this.unitState.removing(state);
-        this.unitState = state;
+        this._unitState.removing(state);
+        this._unitState = state;
     }
 
 

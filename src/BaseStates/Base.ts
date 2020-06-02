@@ -73,6 +73,7 @@ export class Base extends Phaser.GameObjects.Container implements IBase {
         //this.maxHealth = 300;
         //this.teamId = teamId;
         this.team = getTeam(teamId);
+        this.xp = new LevelSystem();
         let hp = new HealthBar(scene, 0, 20);
         this.hp = hp;
         this.setDepth(1);
