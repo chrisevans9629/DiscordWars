@@ -18,7 +18,7 @@ updates packages
 
 #### Supporting
 
-Healthbar
+[Healthbar](src/healthbar.ts)
 - health: number;
 - maxHealth: number;
 
@@ -27,10 +27,14 @@ LevelSystem
 - nextLevel: number;
 - experience: number;
 - nextRatio: number;
+- maxLevel: number;
+- upgrade(value: number): number;
 
 TeamSystem
 each team has a color and an image.  This class allows to change the base team add any time.
-- ImgKey: string;
+The team system also includes a neutral team.  This will be the default team for a base.
+- UnitImgKey: string;
+- BaseImgKey: string;
 - teamId: number;
 - color: number;
 
@@ -38,14 +42,14 @@ each team has a color and an image.  This class allows to change the base team a
 
 ##### Base
 
-GenerateState
+[GenerateState](src/BaseStates/GenerateState.ts)
 create units every second based on the level of the base.
 
 - base: Base;
 - generate(): void;
 - unitHit(unit: Unit): void;
 
-NeutralState
+[NeutralState](src/BaseStates/NeutralState.ts)
 must be repaired before it can be used to generate units.
 
 - base: Base;
@@ -54,41 +58,43 @@ must be repaired before it can be used to generate units.
 
 ##### Unit
 
-MoveState
+[MoveState](src/UnitStates/MoveState.ts)
 move from the current base to the toBase.
 - speed: number;
 - toBase: Base;
 
-AttackState
+[AttackState](src/UnitStates/AttackState.ts)
 attacks the current base
 - speed: number;
 
-OribitState
+[OribitState](src/UnitStates/OrbitState.ts)
 rotates around the current base
 - speed: number;
 
-SpawnState
+[SpawnState](src/UnitStates/SpawnState.ts)
 moves to the orbit state
 - speed: number;
 - distance: number;
 
 #### Main
 
-Base
+[Base](src/BaseStates/Base.ts)
 - hp: Healthbar;
-- team: number;
+- team: TeamSystem;
+- levelScale: number;
 - xp: LevelSystem;
 - baseState: BaseState;
 - imageKey: string;
 - tint: number;
 
-Unit
+[Unit](src/UnitStates/Unit.ts)
 - value: number;
-- team: number;
+- team: TeamSystem;
 - unitState: UnitState;
 - currentBase: Base;
 - imageKey: string;
 - tint: number;
+- maxScale: number;
 
 ### Attacks
 Occurs when an opposite unit attacks another base
@@ -120,7 +126,9 @@ Occurs when health = 0
   - change to the generate state
 - if an opposing team hits the base, decrease the health
 
-
+### Combining Units
+when fps is low, units of the same team are combined, increasing their value
+- the unit scale will be increased to the max
 
 # How does the game work?
 

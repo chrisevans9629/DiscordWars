@@ -5,7 +5,6 @@ import { Base } from "../BaseStates/Base";
 import { UnitState } from "./UnitState";
 export class Unit extends Phaser.GameObjects.Container {
     currentBase: Base;
-    spawning: boolean;
     unitImg: Phaser.Physics.Arcade.Image;
     private unitState: UnitState;
     teamId: number;
@@ -21,7 +20,6 @@ export class Unit extends Phaser.GameObjects.Container {
         this.unitState = new SpawnState(this, scene);
         this.value = 1;
         //unit.baseLocation = new Phaser.Math.Vector2(p.x + x * distance,p.y + y * distance);
-        this.spawning = true;
         this.add(this.unitImg);
         scene.sys.displayList.add(this);
 
