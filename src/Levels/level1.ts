@@ -55,7 +55,7 @@ class GamePlayingState extends ResumeState {
 
         this.Unit.units.forEach(p => p.UnitState.update());
         this.Unit.actions.forEach(p => p.update());
-        let teams = this.Unit.bases.map(p => p.teamId).filter(p => p >= 0);
+        let teams = this.Unit.bases.map(p => p.team.teamId).filter(p => p >= 0);
 
         teams.forEach(p => {
             if(teams.every(r => r == p)){

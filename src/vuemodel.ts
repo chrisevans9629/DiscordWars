@@ -2,7 +2,7 @@ import login from './bot';
 
 import { move, retreat, upgrade, reset, getColor, updateVolume, getVolumes } from './game';
 import { toastInfo, toastError } from './vueapp';
-import { ITeamSystem } from './support/TeamSystem';
+import { ITeamSystem, getTeam } from './support/TeamSystem';
 export interface Player {
   name: string;
   team: ITeamSystem;
@@ -78,10 +78,10 @@ let model = {
        });
      },
      move: function(){
-       move(this.moveFrom,this.moveTo,this.amount, { name: '', team: this.selectedTeam, style: {color: getColor(this.selectedTeam)}, avatarUrl: null});
+       move(this.moveFrom,this.moveTo,this.amount, { name: '', team: getTeam(this.selectedTeam), style: {color: getColor(this.selectedTeam)}, avatarUrl: null});
      },
      retreat: function(){
-       retreat(this.moveTo, { name: '', team: this.selectedTeam, style: {color: getColor(this.selectedTeam)}, avatarUrl: null});
+       retreat(this.moveTo, { name: '', team: getTeam(this.selectedTeam), style: {color: getColor(this.selectedTeam)}, avatarUrl: null});
      },
      upgrade: function() {
         upgrade(this.moveTo, this.selectedTeam);

@@ -115,7 +115,6 @@ represents the move a player makes.  this includes multiple units.
 - levelScale: number;
 - xp: LevelSystem;
 - baseState: BaseState;
-- imageKey: string;
 - tint: number;
 - baseId;
 
@@ -124,7 +123,6 @@ represents the move a player makes.  this includes multiple units.
 - team: TeamSystem;
 - unitState: UnitState;
 - currentBase: Base;
-- imageKey: string;
 - tint: number;
 - maxScale: number;
 
