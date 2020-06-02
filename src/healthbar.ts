@@ -1,7 +1,17 @@
-export class HealthBar {
+import { UnitChange } from "./BaseStates/BaseState";
+import { addHealth } from "./BaseStates/IBase";
+
+export interface IHealthBar {
+    health: number;
+    maxHealth: number;
+    addHealth(amt: number): UnitChange;
+}
+
+export class HealthBar implements IHealthBar {
     x:number;
     y:number;
-    value:number;
+    health:number;
+    maxHealth:number;
     p:number;
     bar: Phaser.GameObjects.Graphics;
     constructor (scene: Phaser.Scene, x: number, y:number)
@@ -10,26 +20,28 @@ export class HealthBar {
 
         this.x = x;
         this.y = y;
-        this.value = 100;
+        this.health = 100;
         this.p = 76 / 100;
 
         this.draw();
 
         scene.add.existing(this.bar);
     }
-
+    addHealth(amt: number){
+        return addHealth(amt, this);
+    }
     decrease (amount: number)
     {
-        this.value -= amount;
+        this.health -= amount;
 
-        if (this.value < 0)
+        if (this.health < 0)
         {
-            this.value = 0;
+            this.health = 0;
         }
 
         this.draw();
 
-        return (this.value === 0);
+        return (this.health === 0);
     }
 
     draw ()
@@ -45,7 +57,7 @@ export class HealthBar {
         this.bar.fillStyle(0xffffff);
         this.bar.fillRect(this.x + 2, this.y + 2, 76, 12);
 
-        if (this.value < 30)
+        if (this.health < 30)
         {
             this.bar.fillStyle(0xff0000);
         }
@@ -54,7 +66,7 @@ export class HealthBar {
             this.bar.fillStyle(0x00ff00);
         }
 
-        var d = Math.floor(this.p * this.value);
+        var d = Math.floor(this.p * this.health);
 
         this.bar.fillRect(this.x + 2, this.y + 2, d, 12);
     }

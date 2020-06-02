@@ -18,19 +18,30 @@ updates packages
 
 #### Supporting
 
+UnitChange
+- valueUsed: number;
+- shouldDestroy: bool;
+
+ChangeableState
+- currentValue: number;
+- max: number;
+
+change(value: number, state: ChangeableState): UnitChange;
+
 [Healthbar](src/healthbar.ts)
 - health: number;
 - maxHealth: number;
+- addHealth(amt: number): UnitChange;
 
-LevelSystem
+[LevelSystem](src/support/LevelSystem.ts)
 - level: number;
 - nextLevel: number;
 - experience: number;
 - nextRatio: number;
 - maxLevel: number;
-- upgrade(value: number): number;
+- upgrade(value: number): UnitChange;
 
-TeamSystem
+[TeamSystem](src/support/TeamSystem.ts)
 each team has a color and an image.  This class allows to change the base team add any time.
 The team system also includes a neutral team.  This will be the default team for a base.
 - UnitImgKey: string;
