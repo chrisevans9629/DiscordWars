@@ -17,7 +17,7 @@ export class UnitState extends State<Unit> {
         let unit1 = img1.parentContainer as Unit;
         let unit2 = img2.parentContainer as Unit;
         let lvl = this.Scene as Level1;
-        if(unit1.teamId != unit2.teamId){
+        if(unit1.team.teamId != unit2.team.teamId){
             let u1val = unit1.value;
             unit1.value -= unit2.value;
             unit2.value -= u1val;

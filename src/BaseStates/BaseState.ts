@@ -1,6 +1,6 @@
 import { State } from '../UnitStates/State';
 import { Unit } from '../UnitStates/Unit';
-import { Base } from "./Base";
+import { Base, IBase } from "./Base";
 import Level1 from '../Levels/level1';
 
 export interface UnitChange {
@@ -8,7 +8,7 @@ export interface UnitChange {
     shouldDestroy: boolean;
 }
 
-export class BaseState extends State<Base> {
+export class BaseState extends State<IBase> {
     secondPassed() {
     }
     unitHit(unit: Unit) : UnitChange {

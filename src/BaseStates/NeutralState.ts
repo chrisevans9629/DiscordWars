@@ -2,17 +2,18 @@ import { Scene } from 'phaser';
 import { Unit } from '../UnitStates/Unit';
 import { BaseState } from './BaseState';
 import { GenerateState } from './GenerateState';
-import { Base } from "./Base";
+import { Base, IBase } from "./Base";
+import { getTeam } from '../game';
 export class NeutralState extends BaseState {
-    constructor(base: Base, scene: Scene) {
+    constructor(base: IBase, scene: Scene) {
         super(base, scene);
-        this.Unit.changeTeam(-1);
-        this.Unit.setHealth(0);
+        this.Unit.team = getTeam(-1);//.changeTeam(-1);
+        this.Unit.hp.setHealth(0);
     }
     unitHit(unit: Unit) {
         super.unitHit(unit);
         this.Unit.baseState = new GenerateState(this.Unit, this.Scene);
-        this.Unit.changeTeam(unit.teamId);
-        return this.Unit.addHealth(1);
+        this.Unit.team = unit.team;//.changeTeam(unit.teamId);
+        return this.Unit.hp.addHealth(1);
     }
 }

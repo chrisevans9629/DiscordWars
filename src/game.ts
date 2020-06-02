@@ -3,6 +3,7 @@ import Level1 from './Levels/level1';
 
 import {MainMenu} from './Levels/mainmenu';
 import { Player, Chat } from './vuemodel';
+import { teams, getTeam } from './support/TeamSystem';
 
 let config = {
     type: Phaser.AUTO,
@@ -61,9 +62,7 @@ function getColor(teamId: number){
     console.log(t);
     return `rgb(${t[0]},${t[1]},${t[2]})`;
 }
-function getTeam(teamId: number){
-    return level1.teamBaseImgs.find(p => p.teamId == teamId);
-}
+
 
 function addAvatar(player: Player){
     level1.load.image(player.name,player.avatarUrl);

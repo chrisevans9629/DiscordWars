@@ -1,18 +1,20 @@
 import { State } from '../UnitStates/State';
 import { SpawnState } from '../UnitStates/SpawnState';
 import { Level1 } from '../Levels/level1';
-import { Base } from "../BaseStates/Base";
+import { Base, IBase } from "../BaseStates/Base";
 import { UnitState } from "./UnitState";
+import { ITeamSystem } from '../support/TeamSystem';
 export class Unit extends Phaser.GameObjects.Container {
-    currentBase: Base;
+    currentBase: IBase;
     unitImg: Phaser.Physics.Arcade.Image;
     private unitState: UnitState;
-    teamId: number;
+    team: ITeamSystem;
+    //teamId: number;
     value: number;
     maxScale: number;
-    constructor(scene: Level1, base: Base, teamid: number, key: string) {
+    constructor(scene: Level1, base: IBase, team: ITeamSystem, key: string) {
         super(scene, base.x, base.y, []);
-        this.teamId = teamid;
+        this.team = team;
         this.currentBase = base;
         this.unitImg = scene.physics.add.image(0, 0, key).setOrigin(0.5, 0.5);
         this.scale = 0.08;

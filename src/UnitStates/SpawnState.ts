@@ -4,23 +4,24 @@ import { OrbitState } from './OrbitState';
 import { Unit } from "./Unit";
 import { UnitState } from './UnitState';
 export class SpawnState extends UnitState {
-    location: Phaser.Math.Vector2;
+    destination: Phaser.Math.Vector2;
     speed: number;
+    distance: number;
     constructor(unit: Unit, scene: Scene) {
         super(unit, scene);
-        let x = Phaser.Math.FloatBetween(-30, 30);
-        let y = Phaser.Math.FloatBetween(-30, 30);
+        let x = Phaser.Math.FloatBetween(-1, 1);
+        let y = Phaser.Math.FloatBetween(-1, 1);
         let v = new Phaser.Math.Vector2(x, y).normalize();
         this.speed = 1;
-        let distance = Phaser.Math.FloatBetween(40, 75);
-        this.location = new Phaser.Math.Vector2(unit.x + v.x * distance, unit.y + v.y * distance);
+        this.distance = Phaser.Math.FloatBetween(40, 75);
+        this.destination = new Phaser.Math.Vector2(unit.x + v.x * this.distance, unit.y + v.y * this.distance);
     }
     update() {
-        let dir = new Phaser.Math.Vector2(this.location.x - this.Unit.x, this.location.y - this.Unit.y);
+        let dir = new Phaser.Math.Vector2(this.destination.x - this.Unit.x, this.destination.y - this.Unit.y);
         dir = dir.normalize();
         this.Unit.x += dir.x * this.speed;
         this.Unit.y += dir.y * this.speed;
-        if (Phaser.Math.Distance.Between(this.Unit.x, this.Unit.y, this.location.x, this.location.y) < 5) {
+        if (Phaser.Math.Distance.Between(this.Unit.x, this.Unit.y, this.destination.x, this.destination.y) < 5) {
             this.Unit.UnitState = (new OrbitState(this.Unit, this.Scene));
         }
         super.update();

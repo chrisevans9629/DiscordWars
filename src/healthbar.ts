@@ -5,6 +5,7 @@ export interface IHealthBar {
     health: number;
     maxHealth: number;
     addHealth(amt: number): UnitChange;
+    setHealth(amt: number): void;
 }
 
 export class HealthBar implements IHealthBar {
@@ -21,6 +22,7 @@ export class HealthBar implements IHealthBar {
         this.x = x;
         this.y = y;
         this.health = 100;
+        this.maxHealth = 300;
         this.p = 76 / 100;
 
         this.draw();
@@ -28,7 +30,13 @@ export class HealthBar implements IHealthBar {
         scene.add.existing(this.bar);
     }
     addHealth(amt: number){
-        return addHealth(amt, this);
+        let t = addHealth(amt, this);
+        this.draw();
+        return t;
+    }
+    setHealth(amt: number){
+        this.health = amt;
+        this.draw();
     }
     decrease (amount: number)
     {

@@ -1,14 +1,14 @@
 import { Scene } from 'phaser';
 import { State } from './State';
 import { Level1 } from '../Levels/level1';
-import { Base } from "../BaseStates/Base";
+import { Base, IBase } from "../BaseStates/Base";
 import { Unit } from "./Unit";
 import { UnitState } from './UnitState';
 import { SpawnState } from './SpawnState';
 export class AttackState extends UnitState {
-    toBase: Base;
+    toBase: IBase;
     speed: number;
-    constructor(unit: Unit, scene: Scene, toBase: Base) {
+    constructor(unit: Unit, scene: Scene, toBase: IBase) {
         super(unit, scene);
         this.speed = 1;
         this.toBase = toBase;

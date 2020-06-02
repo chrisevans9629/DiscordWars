@@ -84,10 +84,12 @@ must be repaired before it can be used to generate units.
 move from the current base to the toBase.
 - speed: number;
 - toBase: Base;
+- user: UserAction;
 
 [AttackState](src/UnitStates/AttackState.ts)
-attacks the current base
+attacks the to base
 - speed: number;
+- toBase: Base;
 
 [OribitState](src/UnitStates/OrbitState.ts)
 rotates around the current base
@@ -97,6 +99,7 @@ rotates around the current base
 moves to the orbit state
 - speed: number;
 - distance: number;
+- destination: Vector2;
 
 #### Main
 
@@ -114,6 +117,7 @@ represents the move a player makes.  this includes multiple units.
 - baseState: BaseState;
 - imageKey: string;
 - tint: number;
+- baseId;
 
 [Unit](src/UnitStates/Unit.ts)
 - value: number;

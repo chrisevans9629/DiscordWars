@@ -1,17 +1,17 @@
 import { Scene } from 'phaser';
 import { State } from './State';
 import { AttackState } from './AttackState';
-import { Base } from "../BaseStates/Base";
+import { Base, IBase } from "../BaseStates/Base";
 import { Unit } from "./Unit";
 import { UnitState } from './UnitState';
 import { OrbitState } from './OrbitState';
 import { UserAction } from './UserAction';
 
 export class MoveState extends UnitState {
-    toBase: Base;
+    toBase: IBase;
     speed: number;
     user: UserAction;
-    constructor(unit: Unit, scene: Scene, toBase: Base, user: UserAction) {
+    constructor(unit: Unit, scene: Scene, toBase: IBase, user: UserAction) {
         super(unit, scene);
         this.speed = 0.5;
         this.toBase = toBase;
@@ -31,7 +31,7 @@ export class MoveState extends UnitState {
         this.Unit.x += dir.x * this.speed;
         this.Unit.y += dir.y * this.speed;
         if (Phaser.Math.Distance.Between(this.Unit.x, this.Unit.y, this.toBase.x, this.toBase.y) < 40) {
-            if(this.toBase.teamId == this.Unit.teamId){
+            if(this.toBase.team.teamId == this.Unit.team.teamId){
                 this.removeFromAction();
                 this.Unit.UnitState = (new OrbitState(this.Unit, this.Scene));
             }
