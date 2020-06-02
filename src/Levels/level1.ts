@@ -338,8 +338,6 @@ export class Level1 extends Phaser.Scene {
    
 
     secondPassed(){
-        
-
         this.bases.forEach(p => {
             p.baseState.secondPassed();
         });
@@ -348,7 +346,7 @@ export class Level1 extends Phaser.Scene {
     update(time: number, delta: number) {
         this.gameState.update();
         let f = 1000/delta;
-        model.data.fps = f;
+        model.data.fps = Math.round(f);
         this.fps = f;
     }
 }
