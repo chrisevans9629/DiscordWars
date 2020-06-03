@@ -12,8 +12,23 @@ export interface IHealthBar {
 export class HealthBar implements IHealthBar {
     x:number;
     y:number;
-    health:number;
-    maxHealth:number;
+    private _health:number;
+    get health(){
+        return this._health;
+    }
+    set health(hp){
+        this._health = hp;
+        this.draw();
+    }
+    private _maxHealth:number;
+    get maxHealth(){
+        return this._maxHealth;
+    }
+    set maxHealth(hp){
+        this._maxHealth = hp;
+        this.draw();
+    }
+
     p:number;
     bar: Phaser.GameObjects.Graphics;
     get isFullHealth(){
@@ -25,8 +40,8 @@ export class HealthBar implements IHealthBar {
 
         this.x = x;
         this.y = y;
-        this.health = 100;
-        this.maxHealth = 100;
+        //this.health = 100;
+        //this.maxHealth = 100;
         this.p = 76 / 100;
 
         this.draw();

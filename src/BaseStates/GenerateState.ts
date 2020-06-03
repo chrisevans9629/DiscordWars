@@ -10,6 +10,9 @@ export class GenerateState extends BaseState {
     //speed: number;
     constructor(base: IBase, scene: Scene) {
         super(base, scene);
+        base.hp.maxHealth = 100;
+        base.hp.health = 100;
+        
         //this.speed = 1;
     }
     secondPassed() {
