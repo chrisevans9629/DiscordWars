@@ -1,13 +1,28 @@
 
-function componentToHex(c: number) {
+export function componentToHex(c: number) {
     var hex = c.toString(16);
     return hex.length == 1 ? "0" + hex : hex;
 }
 
-function rgbToHex(r: number, g: number, b: number) {
-    return componentToHex(r) + componentToHex(g) + componentToHex(b);
+export function rgbToHex(r: number, g: number, b: number) {
+    let hex = componentToHex(r) + componentToHex(g) + componentToHex(b);
+    console.log(hex);
+    return parseInt(hex, 16);
 }
 
+export interface tweenConfig {
+    from: number, 
+    to: number,
+    percent: number,
+}
+
+export function tween(p: tweenConfig){
+    let from = p.from;//Math.min(p.from, p.to);
+    let to = p.to;//Math.max(p.from,p.to);
+    let range = to-from;
+    let avg = from + range * p.percent;
+    return avg;
+}
 
 export interface ITeamSystem {
     UnitImgKey: string;

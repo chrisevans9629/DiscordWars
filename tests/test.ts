@@ -1,5 +1,6 @@
 
 import { addHealth } from '../src/BaseStates/IBase';
+import { tween } from '../src/support/TeamSystem';
 describe('calculate', function() {
     it('add', function() {
       let result = 5 + 2;
@@ -43,6 +44,32 @@ describe('health', function(){
 
 });
 
+
+describe('color', () => {
+  let cases = [
+    { from: 0, to: 10, percent: 0.5, result: 5 },
+    { from: 0, to: 20, percent: 0.5, result: 10 },
+    { from: 10, to: 20, percent: 0.5, result: 15 },
+    { from: 20, to: 20, percent: 0.5, result: 20 },
+    { from: 20, to: 10, percent: 0.5, result: 15 },
+    { from: 0, to: 100, percent: 0.25, result: 25 },
+    { from: 100, to: 100, percent: 1, result: 100 },
+    { from: 100, to: 100, percent: 0.5, result: 100 },
+    { from: 100, to: 100, percent: 0.25, result: 100 },
+    { from: 50, to: 150, percent: 0.25, result: 75 },
+    { from: 255, to: 0, percent: 0.2, result: 255-51 },
+    { from: 100, to: 0, percent: 0.1, result: 90 },
+    { from: 100, to: 0, percent: 0.2, result: 80 },
+    { from: 100, to: 0, percent: 0.3, result: 70 },
+  ];
+
+  cases.forEach(p => {
+    it(`f:${p.from} t:${p.to} %:${p.percent} r:${p.result}`, () => {
+       let avg = tween(p);
+       expect(avg).toBe(p.result);
+    });
+  });
+});
 
 
 
