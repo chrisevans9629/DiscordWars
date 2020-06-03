@@ -131,8 +131,8 @@ export class Level1 extends Phaser.Scene {
 
     preload() {
         this.load.image('base','assets/images/base.png');
-        this.load.image('red','assets/images/red.png');
-        this.load.image('blue','assets/images/blue.png');
+        //this.load.image('red','assets/images/red.png');
+        //this.load.image('blue','assets/images/blue.png');
         this.load.image('particle','assets/images/white.png');
         this.load.audio('theme','assets/audio/discordwars.wav');
         this.load.audio('exp_9','assets/audio/Explosion9.wav');

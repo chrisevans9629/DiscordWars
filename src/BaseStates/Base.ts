@@ -47,7 +47,19 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
     }
     levelScaleRatio: number;
     xp: ILevelSystem;
-    tint: number;
+    //private _tint: number;
+    get tint(){
+        if(this.img){
+            return this.img.tintTopLeft;
+        }
+        return 0;
+    }
+    set tint(value) {
+        if(this.img) {
+            this.img.tint = value;
+        }
+    }
+
     baseId: number;
     baseState: BaseState;
     //private soldierCount: Phaser.GameObjects.Text;
@@ -65,7 +77,13 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
         this.img = scene.add.sprite(0, 0, key).setOrigin(0.5, 0.5);
         //this.img.scale = 0.5;
         this.levelScale = 0.5;
-
+        
+        //let clr = this.team.color;
+        
+        //let hex = clr[2].toString(16) + clr[1].toString(16) + clr[0].toString(16);
+        //console.log(hex);
+        this.tint = this.team.tint;
+        console.log(this.tint);
         this.baseName = scene.add.text(0, -70, `${baseId}`, { color: 'white', fontSize: '36px', fontFamily: 'ethno' }).setOrigin(0.5, 0.5);
         //this.soldierCount = scene.add.text(0, 0, '0', { color: 'black', fontSize: '15px', fontFamily: 'ethno' }).setOrigin(0.5, 0.5);
         //this.healthText = scene.add.text(0, 0, this.health.toString(), { color: 'black', fontSize: '15px', fontFamily: 'ethno' }).setOrigin(0.5, 0.5);

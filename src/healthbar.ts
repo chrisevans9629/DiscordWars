@@ -4,6 +4,7 @@ import { addHealth } from "./BaseStates/IBase";
 export interface IHealthBar {
     health: number;
     maxHealth: number;
+    isFullHealth: boolean;
     addHealth(amt: number): UnitChange;
     setHealth(amt: number): void;
 }
@@ -15,6 +16,9 @@ export class HealthBar implements IHealthBar {
     maxHealth:number;
     p:number;
     bar: Phaser.GameObjects.Graphics;
+    get isFullHealth(){
+        return this.health >= this.maxHealth;
+    }
     constructor (scene: Phaser.Scene, x: number, y:number)
     {
         this.bar = new Phaser.GameObjects.Graphics(scene);

@@ -1,5 +1,5 @@
 import { State } from '../UnitStates/State';
-import { Unit } from '../UnitStates/Unit';
+import { Unit, IUnit } from '../UnitStates/Unit';
 import { Base, IBase } from "./Base";
 import Level1 from '../Levels/level1';
 
@@ -11,7 +11,7 @@ export interface UnitChange {
 export class BaseState extends State<IBase> {
     secondPassed() {
     }
-    unitHit(unit: Unit) : UnitChange {
+    unitHit(unit: IUnit) : UnitChange {
         let lvl = this.Scene as Level1;
         let y = Phaser.Math.FloatBetween(-1,1) * 30;
         let x = Phaser.Math.FloatBetween(-1,1) * 30;

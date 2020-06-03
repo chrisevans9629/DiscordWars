@@ -31,7 +31,7 @@ export class MoveState extends UnitState {
         this.Unit.x += dir.x * this.speed;
         this.Unit.y += dir.y * this.speed;
         if (Phaser.Math.Distance.Between(this.Unit.x, this.Unit.y, this.toBase.x, this.toBase.y) < 40) {
-            if(this.toBase.team.teamId == this.Unit.team.teamId){
+            if(this.toBase.team.teamId == this.Unit.team.teamId && this.toBase.hp.isFullHealth){
                 this.removeFromAction();
                 this.Unit.unitState = (new OrbitState(this.Unit, this.Scene));
             }

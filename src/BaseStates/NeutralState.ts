@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import { Unit } from '../UnitStates/Unit';
+import { Unit, IUnit } from '../UnitStates/Unit';
 import { BaseState } from './BaseState';
 import { GenerateState } from './GenerateState';
 import { Base, IBase } from "./Base";
@@ -10,10 +10,24 @@ export class NeutralState extends BaseState {
         this.Unit.team = getTeam(-1);//.changeTeam(-1);
         this.Unit.hp.setHealth(0);
     }
-    unitHit(unit: Unit) {
-        super.unitHit(unit);
-        this.Unit.baseState = new GenerateState(this.Unit, this.Scene);
-        this.Unit.team = unit.team;//.changeTeam(unit.teamId);
-        return this.Unit.hp.addHealth(1);
+    unitHit(unit: IUnit) {
+        let change = super.unitHit(unit);
+        
+        if(this.Unit.hp.health <= 0){
+            this.Unit.team = unit.team;
+            change = this.Unit.hp.addHealth(unit.value);
+        }
+        else if(this.Unit.team.teamId == unit.team.teamId) {
+            change = this.Unit.hp.addHealth(unit.value);
+        }
+        else if(this.Unit.team.teamId != unit.team.teamId) {
+            change = this.Unit.hp.addHealth(-unit.value);
+        }
+
+        if(this.Unit.hp.health >= this.Unit.hp.maxHealth){
+            this.Unit.baseState = new GenerateState(this.Unit, this.Scene);
+        }
+        //this.Unit.team = unit.team;//.changeTeam(unit.teamId);
+        return change;
     }
 }

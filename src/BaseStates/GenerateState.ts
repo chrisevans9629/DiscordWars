@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import { Unit } from '../UnitStates/Unit';
+import { Unit, IUnit } from '../UnitStates/Unit';
 import { BaseState, UnitChange } from './BaseState';
 import { Level1 } from '../Levels/level1';
 import { Base, IBase } from "./Base";
@@ -24,7 +24,7 @@ export class GenerateState extends BaseState {
         this.Unit.pulse();
         
     }
-    unitHit(unit: Unit) : UnitChange {
+    unitHit(unit: IUnit) : UnitChange {
         let x = { valueUsed: 0, shouldDestroy: false };
         super.unitHit(unit);
         if (unit.team.teamId == this.Unit.team.teamId) {

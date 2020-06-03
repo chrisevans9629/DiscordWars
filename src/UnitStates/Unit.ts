@@ -21,7 +21,18 @@ export class Unit extends Phaser.GameObjects.Container implements IUnit {
     team: ITeamSystem;
     value: number;
     maxScale: number;
-    tint: number;
+    //tint: number;
+    get tint(){
+        if(this.unitImg){
+            return this.unitImg.tintTopLeft;
+        }
+        return 0;
+    }
+    set tint(value) {
+        if(this.unitImg) {
+            this.unitImg.tint = value;
+        }
+    }
     constructor(scene: Level1, base: IBase, team: ITeamSystem, key: string) {
         super(scene, base.x, base.y, []);
         this.team = team;
@@ -31,6 +42,7 @@ export class Unit extends Phaser.GameObjects.Container implements IUnit {
         this.maxScale = 0.16;
         this._unitState = new SpawnState(this, scene);
         this.value = 1;
+        this.tint = this.team.tint;
         //unit.baseLocation = new Phaser.Math.Vector2(p.x + x * distance,p.y + y * distance);
         this.add(this.unitImg);
         scene.sys.displayList.add(this);
