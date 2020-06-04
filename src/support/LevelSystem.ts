@@ -28,11 +28,12 @@ export class LevelSystem implements ILevelSystem {
     constructor(scale: ILevelScale, scene: Scene, x: number, y:number){
         this.scale = scale;
         this.level = 1;
-        this.nextLevel = 10;
+        this.nextLevel = 20;
         this.nextRatio = 1.5;
         this.experience = 0;
         this.maxLevel = 3;
         this.progressBar = new ProgressBar(scene, x, y);
+        this.progressBar.alpha = 0.5;
         this.progressBar.draw();
     }
     upgrade(value: number): UnitChange {

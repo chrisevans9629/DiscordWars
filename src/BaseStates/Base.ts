@@ -42,6 +42,9 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
     }
     set levelScale(scale){
         if(this.img){
+            if(this.tween){
+                this.scene.tweens.remove(this.tween);
+            }
             this.img.scale = scale;
         }
     }
@@ -73,7 +76,7 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
         let hp = new HealthBar(scene, 0, 20);
         this.hp = hp;
         this.setDepth(1);
-        this.levelScaleRatio = 1.3;
+        this.levelScaleRatio = 1.2;
         this.baseState = new GenerateState(this, scene);
         this.img = scene.add.sprite(0, 0, key).setOrigin(0.5, 0.5);
         //this.img.scale = 0.5;
@@ -93,8 +96,9 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
         this.baseId = baseId;
         scene.sys.displayList.add(this);
     }
+    tween: Phaser.Tweens.Tween;
     pulse() {
-        this.scene.tweens.add({
+        this.tween = this.scene.tweens.add({
             targets: this.img,
             scale: this.img.scale + .05,
             duration: 300,
