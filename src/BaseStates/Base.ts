@@ -68,7 +68,8 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
     constructor(baseId: number, scene: Phaser.Scene, key: string, teamId: number) {
         super(scene, 50, 50, []);
         this.team = getTeam(teamId);
-        this.xp = new LevelSystem(this);
+        let xp = new LevelSystem(this, scene, 0,40);
+        this.xp = xp;
         let hp = new HealthBar(scene, 0, 20);
         this.hp = hp;
         this.setDepth(1);
@@ -87,7 +88,8 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
         this.baseName = scene.add.text(0, -70, `${baseId}`, { color: 'white', fontSize: '36px', fontFamily: 'ethno' }).setOrigin(0.5, 0.5);
         //this.soldierCount = scene.add.text(0, 0, '0', { color: 'black', fontSize: '15px', fontFamily: 'ethno' }).setOrigin(0.5, 0.5);
         //this.healthText = scene.add.text(0, 0, this.health.toString(), { color: 'black', fontSize: '15px', fontFamily: 'ethno' }).setOrigin(0.5, 0.5);
-        this.add([this.img, this.baseName, hp.bar]);
+        this.add([this.img, this.baseName, hp.progressBar.bar, xp.progressBar.bar]);
+        xp.progressBar.draw();
         this.baseId = baseId;
         scene.sys.displayList.add(this);
     }

@@ -16,7 +16,7 @@ export class NeutralState extends BaseState {
         this.fromTint = this.Unit.team.tint;
         this.fromColor = this.Unit.team.color;
         console.log(this.Unit.team);
-        this.Unit.hp.maxHealth = 10;
+        this.Unit.hp.maxHealth = 30;
     }
     unitHit(unit: IUnit) {
         let change = super.unitHit(unit);
