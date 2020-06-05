@@ -111,28 +111,21 @@ function getCache(key: string, defa?: string) {
 
 export class Level1 extends Phaser.Scene {
     //baseCount: number;
-    unitSpeed: number;
-    baseArea: number;
-    baseAreaMin: number;
+    //unitSpeed: number;
+    //baseArea: number;
+    //baseAreaMin: number;
     circle1: Phaser.Geom.Circle;
     gameState: GameState;
     fps: number;
     particleEngine: ParticleEngine;
     constructor() {
         super('level1');
-       // this.baseCount = 4;
         console.log(this);
-        //events.currentLevel = this;
-        this.unitSpeed = 20;
-        this.baseArea = 30;
-        this.baseAreaMin = 20;
         this.actions = [];
     }
 
     preload() {
         this.load.image('base','assets/images/base.png');
-        //this.load.image('red','assets/images/red.png');
-        //this.load.image('blue','assets/images/blue.png');
         this.load.image('particle','assets/images/white.png');
         this.load.audio('theme','assets/audio/discordwars.wav');
         this.load.audio('exp_9','assets/audio/Explosion9.wav');
@@ -150,7 +143,6 @@ export class Level1 extends Phaser.Scene {
         this.load.audio('hit_9', 'assets/audio/Hit_Hurt8.wav');
         this.load.audio('hit_10','assets/audio/Hit_Hurt9.wav');
         this.load.audio('hit_11','assets/audio/Hit_Hurt10.wav');
-        //this.load.bitmapFont('ethno','assets/fonts/ethno14.png','assets/fonts/ethno14.xml');
     }
     bases: Base[];
     units: Unit[];
@@ -164,12 +156,7 @@ export class Level1 extends Phaser.Scene {
     create() {
         this.particleEngine = new ParticleEngine(this);
         this.gameState = new GamePlayingState(this);
-        //this.teamBaseImgs = [];
-
-        // this.teamBaseImgs.push({teamId: 1, BaseImgKey: 'red', UnitImgKey: 'red', color: [0xFF,0,0]});
-        // this.teamBaseImgs.push({teamId: 2, BaseImgKey: 'blue', UnitImgKey: 'blue', color: [0,0,0xFF]});
-        // this.teamBaseImgs.push({teamId: -1, BaseImgKey: 'base', UnitImgKey: 'base', color: [0xFF,0xFF,0xFF]});
-
+        
         this.units = [];
         let midx = this.scale.width/2;
         let midy = this.scale.height/2;
