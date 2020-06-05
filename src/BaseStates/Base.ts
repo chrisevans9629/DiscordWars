@@ -72,6 +72,8 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
         super(scene, 50, 50, []);
         this.team = getTeam(teamId);
         let xp = new LevelSystem(this, scene, 0,40);
+        xp.progressBar.goodColor = 0x0000ff;
+        xp.progressBar.badColor = 0x0000ff;
         this.xp = xp;
         let hp = new HealthBar(scene, 0, 20);
         this.hp = hp;

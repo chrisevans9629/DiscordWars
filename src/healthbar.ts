@@ -21,6 +21,8 @@ export class ProgressBar {
     maxValue: number;
     alpha: number;
     scene: Scene;
+    goodColor: number;
+    badColor: number;
     constructor(scene: Scene,x: number, y: number){
         this.bar = new Phaser.GameObjects.Graphics(scene);
         this.width = 80;
@@ -28,6 +30,8 @@ export class ProgressBar {
         this.padding = 2;
         this.x = x;
         this.y = y;
+        this.goodColor = 0x00ff00;
+        this.badColor = 0xff0000;
         this.maxValue = 100;
         this.alpha = 1;
         this.scene = scene;
@@ -89,11 +93,11 @@ export class ProgressBar {
 
         if (this.value < this.maxValue / 3)
         {
-            this.bar.fillStyle(0xff0000, this.alpha);
+            this.bar.fillStyle(this.badColor, this.alpha);
         }
         else
         {
-            this.bar.fillStyle(0x00ff00, this.alpha);
+            this.bar.fillStyle(this.goodColor, this.alpha);
         }
 
         var d = Math.floor(valueRatio * this.value);
