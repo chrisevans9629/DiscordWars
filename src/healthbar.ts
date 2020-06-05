@@ -20,6 +20,7 @@ export class ProgressBar {
     padding: number;
     maxValue: number;
     alpha: number;
+    scene: Scene;
     constructor(scene: Scene,x: number, y: number){
         this.bar = new Phaser.GameObjects.Graphics(scene);
         this.width = 80;
@@ -29,15 +30,39 @@ export class ProgressBar {
         this.y = y;
         this.maxValue = 100;
         this.alpha = 1;
+        this.scene = scene;
         //this.health = 100;
         //this.maxHealth = 100;
         scene.add.existing(this.bar);
-
+        //this.timer = scene.time.addEvent({delay: 1000, callback: this.fadeOut, callbackScope: this});
         //this.draw();
     }
 
+    //timer: Phaser.Time.TimerEvent;
+    
+    tween: Phaser.Tweens.Tween;
     draw() {
+       this.alpha = 1;
+       this.render();
+       if(this.tween){
+           this.scene.tweens.remove(this.tween);
+       }
+       this.tween = this.scene.tweens.addCounter({
+            from: 1,
+            to: 0,
+            duration: 1000,
+            delay: 1000,
+            onUpdate: function (tween)
+            {
+                var value = tween.getValue();
+                this.alpha = value;
+                this.render();
+            },
+            onUpdateScope: this,
+        });
+    }
 
+    render(){
         if(this.value > this.maxValue) {
             this.value = this.maxValue;
         }
