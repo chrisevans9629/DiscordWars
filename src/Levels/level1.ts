@@ -228,10 +228,14 @@ export class Level1 extends Phaser.Scene {
         this.bases = [];
 
         let baseSetup = [
-            [1,-1],
-            [2,1],
+            [1,1],
+            [2,-1],
             [3,-1],
-            [4,2],
+            [4,-1],
+            [5,2],
+            [6,-1],
+            [7,-1],
+            [8,-1],
         ];
 
         baseSetup.forEach(p => {
@@ -251,7 +255,7 @@ export class Level1 extends Phaser.Scene {
         //this.circle1 = new Phaser.Geom.Circle(midx,midy, midy/2);
         this.circle1.x = midx;
         this.circle1.y = midy;
-        this.circle1.radius = midy/2;
+        this.circle1.radius = midy/1.3;
         this.bases = Phaser.Actions.PlaceOnCircle(this.bases,this.circle1);
     }
     resize (gameSize: Phaser.Structs.Size, baseSize: Phaser.Structs.Size, displaySize: Phaser.Structs.Size, resolution: number)
