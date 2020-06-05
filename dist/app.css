@@ -7,12 +7,13 @@
 :root {
     --textColor: white;
     font-family: ethno;
+    font-size: 0.75em;
+
 }
 
 p {
     color: var(--textColor);
     font-family: ethno;
-    font-size: 1em;
 }
 
 html {
@@ -52,7 +53,7 @@ h1 {
     width: 50px;
 }
 .message {
-    width:40%; 
+    width:50%; 
     word-wrap:break-word; 
     display:inline-block;
 }

@@ -13,7 +13,7 @@ export class MoveState extends UnitState {
     user: UserAction;
     constructor(unit: Unit, scene: Scene, toBase: IBase, user: UserAction) {
         super(unit, scene);
-        this.speed = 2;
+        this.speed = 0.5;
         this.toBase = toBase;
         this.user = user;
         user.units.push(unit);
