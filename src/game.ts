@@ -14,6 +14,9 @@ let config = {
             debug: false,
         }
     },
+    dom: {
+        createContainer: true
+    },
     scale: {
         mode: Phaser.Scale.RESIZE,
         width: '100%',
