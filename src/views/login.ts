@@ -4,6 +4,9 @@ export class LoginView {
     view: Phaser.GameObjects.DOMElement;
     constructor(scene: Scene, x: number, y: number){
         this.view = scene.add.dom(x, y).createFromCache('login');
+
+        //scene.add.dom(0,0).createFromHTML('<script>console.log(\'wohoo!\')</script>');
+
         let login = this.view;
         
         let btn = login.getChildByName('login') as HTMLButtonElement;
