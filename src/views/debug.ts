@@ -1,20 +1,22 @@
 import { Scene } from "phaser";
-
+import { Chat, Player } from "../vuemodel";
+let chat: Chat[] = []
+let players: Player[] = [];
 export class DebugView {
     view: Phaser.GameObjects.DOMElement;
-    constructor(scene: Scene, x: number, y: number){
-        this.view = scene.add.dom(x, y).createFromCache('login');
-        let login = this.view;
+        moveFrom = 1;
+        moveTo = 4;
+        amount = 100;
+        isDebugging = false;
+        teams = [1,2];
+        selectedTeam = 1
+        players = players
+        selectedPlayer = ''
+        chat = chat
+        fps = 0
+    constructor(scene: Scene){
+        this.view = scene.add.dom(scene.scale.width, 0).setOrigin(1,0).createFromCache('debug');
         
-        let btn = login.getChildByName('login') as HTMLButtonElement;
-        btn.onclick = () => {
-            let token = login.getChildByName("token") as HTMLInputElement;
-            login.destroy();
-            
-            console.log(token.value);
-            //model.methods.tokenLogin(token.value);
-            scene.scene.start('level1');
-        };
     }
 
 }

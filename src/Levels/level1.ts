@@ -11,6 +11,9 @@ import { AttackState } from '../UnitStates/AttackState';
 import { model, Player, Chat } from '../vuemodel';
 import { NeutralState } from '../BaseStates/NeutralState';
 import { ITeamSystem, teams } from '../support/TeamSystem';
+import { DebugView } from '../views/debug';
+import { assets } from '../assets';
+import { SettingsView } from '../views/settings';
 class GameState extends State<Level1> {
     constructor(scene: Level1){
         super(scene,scene);
@@ -125,6 +128,9 @@ export class Level1 extends Phaser.Scene {
     }
 
     preload() {
+        this.load.html(assets.debug, 'assets/html/debug.html');
+        this.load.html(assets.settings, 'assets/html/settings.html');
+
         this.load.image('base','assets/images/base.png');
         this.load.image('particle','assets/images/white.png');
         this.load.audio('theme','assets/audio/discordwars.wav');
@@ -161,7 +167,8 @@ export class Level1 extends Phaser.Scene {
         let midx = this.scale.width/2;
         let midy = this.scale.height/2;
         this.circle1 = new Phaser.Geom.Circle(midx,midy, midy/2);
-
+        let debug = new DebugView(this);
+        let settings = new SettingsView(this);
         this.createBases();
         console.log(this.bases);
         this.sound.pauseOnBlur = false;

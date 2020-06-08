@@ -1,4 +1,4 @@
-import { model } from '../vuemodel';
+import { model, TryLogin } from '../vuemodel';
 import { assets } from '../assets';
 import { LoginView } from '../views/login';
 export class MainMenu extends Phaser.Scene{
@@ -28,7 +28,10 @@ export class MainMenu extends Phaser.Scene{
         let midx = this.scale.width/2;
         let midy = this.scale.height/2;
         //let login = this.add.dom(midx,midy).createFromCache(assets.login);
+
+        
         let login = new LoginView(this, midx, midy);
+        
         
         //console.log(login);
         //login.setPerspective(10);

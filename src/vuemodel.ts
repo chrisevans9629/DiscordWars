@@ -19,6 +19,8 @@ export interface Chat {
 let chat: Chat[] = []
 let players: Player[] = [];
 
+
+
 let model = {
     el: '#app',
     data: {
@@ -44,11 +46,7 @@ let model = {
     },
     delimiters: ['((','))'],
     mounted: function(){
-      let token = sessionStorage.getItem('magic');
-      if(token){
-        this.tokenLogin(token);
-      }
-      
+       TryLogin();
     },
     methods: {
       settings: function() {
@@ -62,20 +60,20 @@ let model = {
         updateVolume(this.music, this.effects, this.master);
         this.isSettings = !this.isSettings;
       },
-      tokenLogin: function(token: string){
-       login(token).then(p => {
-         this.token = null;
-         toastInfo('ready!');
-         sessionStorage.setItem('magic',p);
-         this.showToken = false;
-         console.log(this.showToken);
-       }, p => {
-         console.log(p);
-         toastError(p);
-       }).catch(p => {
-         console.log(p);
-         toastError(p);
-       });
+      tokenLogin: async function(token: string){
+        try {
+          let t = await login(token);
+          this.token = null;
+          toastInfo('ready!');
+          sessionStorage.setItem('magic',t);
+          this.showToken = false;
+          console.log(this.showToken);
+          return true;
+        } catch (error) {
+          console.log(error);
+          toastError(error);
+          return false;
+        }
      },
      move: function(){
        move(this.moveFrom,this.moveTo,this.amount, { name: '', team: getTeam(this.selectedTeam), style: {color: getColor(this.selectedTeam)}, avatarUrl: null});
@@ -95,6 +93,12 @@ let model = {
     }
   }
 
-
+  export async function TryLogin(){
+    let token = sessionStorage.getItem('magic');
+    if(token){
+      return await model.methods.tokenLogin(token);
+    }
+    return false;
+  }
 
 export {model};
