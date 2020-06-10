@@ -167,7 +167,7 @@ export class Level1 extends Phaser.Scene {
         let midx = this.scale.width/2;
         let midy = this.scale.height/2;
         this.circle1 = new Phaser.Geom.Circle(midx,midy, midy/2);
-        let debug = new DebugView(this);
+        //let debug = new DebugView(this);
         let settings = new SettingsView(this);
         this.createBases();
         console.log(this.bases);

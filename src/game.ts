@@ -74,6 +74,7 @@ function addAvatar(player: Player){
 }
 
 function updateVolume(music: number, sound: number, master: number){
+    console.log('updated sound!');
     level1.updateVolume(music, sound, master);
 }
 

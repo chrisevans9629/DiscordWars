@@ -1,10 +1,12 @@
-<button v-on:click="settings" class="btn">Settings</button>
-<div v-if="isSettings">
-  <label>Master</label>
-  <input type="range" v-model="master" min="0" max="1" step="0.1">
-  <label>Music</label>
-  <input type="range" v-model="music" min="0" max="1" step="0.1">
-  <label>Effects</label>
-  <input type="range" v-model="effects" min="0" max="1" step="0.1">
-  <button v-on:click="saveSettings" class="btn form-control">Save</button>
+<div style="width: 300px;">
+  <button id="settings" v-on:click="settings" class="btn">Settings</button>
+  <div v-if="isSettings" id="isSettings">
+    <label>Master</label>
+    <input id="master" type="range" v-model="master" min="0" max="1" step="0.1">
+    <label>Music</label>
+    <input id="music" type="range" v-model="music" min="0" max="1" step="0.1">
+    <label>Effects</label>
+    <input id="effects" type="range" v-model="effects" min="0" max="1" step="0.1">
+    <button id="saveSettings" v-on:click="saveSettings" class="btn form-control">Save</button>
+  </div>
 </div>
