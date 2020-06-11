@@ -3,22 +3,6 @@ import login from './bot';
 import { move, retreat, upgrade, reset, getColor, updateVolume, getVolumes } from './game';
 import { toastInfo, toastError } from './vueapp';
 import { ITeamSystem, getTeam } from './support/TeamSystem';
-export interface Player {
-  name: string;
-  team: ITeamSystem;
-  style: object;
-  avatarUrl: string;
-}
-
-export interface Chat {
-  name: string;
-  message: string;
-  player: Player;
-}
-
-let chat: Chat[] = []
-let players: Player[] = [];
-
 
 
 let model = {
@@ -33,9 +17,9 @@ let model = {
         isDebugging: false,
         teams: [1,2],
         selectedTeam: 1,
-        players: players,
+        //players: players,
         selectedPlayer: '',
-        chat: chat,
+        //chat: chat,
         fps: 0,
         showToken: true,
         isSettings: false,

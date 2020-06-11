@@ -1,8 +1,9 @@
 
 import { Client, Message } from 'discord.js';
 import { move, upgrade, retreat, say, getColor, getTeam, addAvatar } from './game';
-import { model, Chat, Player } from './vuemodel';
+import { model } from './vuemodel';
 import { toastInfo } from './vueapp';
+import { TeamInteraction, Chat } from './support/TeamSystem';
 
 const client = new Client();
 //client.commands = new Collection();
@@ -17,7 +18,7 @@ interface ICommand {
 }
 
 let getPlayer = (msg: Message) => {
-  return model.data.players.find(p => p.name == msg.author.username)
+  return TeamInteraction.players.find(p => p.name == msg.author.username)
 };
 let hasJoined = (msg: Message) => {
   let team = getPlayer(msg);
@@ -61,7 +62,7 @@ let joinCmd = {
       return;
     }
     let play = {team: team, name: msg.author.username, style: {color: getColor(tm)}, avatarUrl: msg.author.avatarURL()};
-    model.data.players.push(play);
+    TeamInteraction.addPlayer(play);
 
     addAvatar(play);
     toastInfo(`player ${msg.author.username} joined!`);
@@ -86,7 +87,7 @@ let leaveCmd = {
     if(!hasJoined(msg).joined){
       return;
     }
-    model.data.players = model.data.players.filter(p => p.name != msg.author.username);
+    TeamInteraction.removePlayer(msg.author.username);
     msg.reply('thanks for playing!');
   },
 }
@@ -115,7 +116,7 @@ let sayCmd = {
     }
     
     let chat: Chat = { name: msg.author.username, message: args, player: joined.team };
-    model.data.chat.push(chat);
+    TeamInteraction.addChat(chat);
     say(chat);
   }
 }

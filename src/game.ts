@@ -2,8 +2,7 @@ import * as Phaser from 'phaser';
 import Level1 from './Levels/level1';
 
 import {MainMenu} from './Levels/mainmenu';
-import { Player, Chat } from './vuemodel';
-import { teams, getTeam } from './support/TeamSystem';
+import { teams, getTeam, Player, Chat } from './support/TeamSystem';
 
 let config = {
     type: Phaser.AUTO,

@@ -1,7 +1,5 @@
 import { Scene } from "phaser";
-import { Chat, Player } from "../vuemodel";
-let chat: Chat[] = []
-let players: Player[] = [];
+import { TeamInteraction } from "../support/TeamSystem";
 export class DebugView {
     view: Phaser.GameObjects.DOMElement;
         moveFrom = 1;
@@ -10,9 +8,9 @@ export class DebugView {
         isDebugging = false;
         teams = [1,2];
         selectedTeam = 1
-        players = players
+        players = TeamInteraction.players
         selectedPlayer = ''
-        chat = chat
+        chat = TeamInteraction.chat
         fps = 0
     constructor(scene: Scene){
         this.view = scene.add.dom(scene.scale.width, 0).setOrigin(1,0).createFromCache('debug');

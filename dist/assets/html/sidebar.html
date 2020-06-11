@@ -1,5 +1,5 @@
 <h3>Players</h3>
-<ul>
+<ul id="players">
     <li v-for="player in players">
         <div class="row">
             <div class="col-auto">
@@ -12,7 +12,7 @@
     </li>
 </ul>
 <h3>Chat</h3>
-<ul>
+<ul id="chat">
     <li v-for="msg in chat">
         <p class="message"><span :style="msg.player.style">((msg.name)):</span> ((msg.message))</p>
     </li>

@@ -1,6 +1,6 @@
 import { Unit } from "./Unit";
-import { Player } from '../vuemodel';
 import Level1 from '../Levels/level1';
+import { Player } from "../support/TeamSystem";
 export class UserAction {
     id: number;
     user: Player;

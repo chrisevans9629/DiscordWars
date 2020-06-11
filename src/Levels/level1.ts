@@ -8,12 +8,13 @@ import { Base } from '../BaseStates/Base';
 import { State } from '../UnitStates/State';
 import { OrbitState } from '../UnitStates/OrbitState';
 import { AttackState } from '../UnitStates/AttackState';
-import { model, Player, Chat } from '../vuemodel';
+import { model } from '../vuemodel';
 import { NeutralState } from '../BaseStates/NeutralState';
-import { ITeamSystem, teams } from '../support/TeamSystem';
+import { ITeamSystem, teams, Chat, Player } from '../support/TeamSystem';
 import { DebugView } from '../views/debug';
 import { assets } from '../assets';
 import { SettingsView } from '../views/settings';
+import { Sidebar } from '../views/sidebar';
 class GameState extends State<Level1> {
     constructor(scene: Level1){
         super(scene,scene);
@@ -130,6 +131,7 @@ export class Level1 extends Phaser.Scene {
     preload() {
         this.load.html(assets.debug, 'assets/html/debug.html');
         this.load.html(assets.settings, 'assets/html/settings.html');
+        this.load.html(assets.settings, 'assets/html/sidebar.html');
 
         this.load.image('base','assets/images/base.png');
         this.load.image('particle','assets/images/white.png');
@@ -169,6 +171,7 @@ export class Level1 extends Phaser.Scene {
         this.circle1 = new Phaser.Geom.Circle(midx,midy, midy/2);
         //let debug = new DebugView(this);
         let settings = new SettingsView(this);
+        let sideView = new Sidebar(this);
         this.createBases();
         console.log(this.bases);
         this.sound.pauseOnBlur = false;
