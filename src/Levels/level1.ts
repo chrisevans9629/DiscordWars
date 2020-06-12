@@ -1,11 +1,10 @@
 'use strict';
 
-import { Tilemaps, Physics, Scene } from 'phaser';
+import { Tilemaps, Physics } from 'phaser';
 import { MoveState } from '../UnitStates/MoveState';
 import { UserAction } from "../UnitStates/UserAction";
 import { Unit } from '../UnitStates/Unit';
 import { Base } from '../BaseStates/Base';
-import { State } from '../UnitStates/State';
 import { OrbitState } from '../UnitStates/OrbitState';
 import { AttackState } from '../UnitStates/AttackState';
 import { model } from '../vuemodel';
@@ -16,99 +15,9 @@ import { assets } from '../assets';
 import { SettingsView } from '../views/settings';
 import { Sidebar } from '../views/sidebar';
 import { GameOverView } from '../views/gameOver';
-class GameState extends State<Level1> {
-    constructor(scene: Level1){
-        super(scene,scene);
-    }
-}
-
-class PauseState extends GameState {
-    constructor(scene: Level1){
-        super(scene);
-        scene.time.paused = true;
-    }
-    
-}
-
-class ResumeState extends GameState {
-    constructor(scene: Level1){
-        super(scene);
-        scene.time.paused = false;
-    }
-}
-
-class GameOverState extends PauseState {
-    constructor(scene: Level1, team: number){
-        super(scene);
-        let gameOverView = new GameOverView(scene, team);
-
-        //model.data.gameOver = true;
-        //model.data.title = `Team ${team} won!`;
-    }
-    update(){
-        
-    }
-}
-
-
-  
-
-class GamePlayingState extends ResumeState {
-    constructor(scene: Level1){
-        super(scene);
-        
-        //model.data.gameOver = false;
-    }
-    update() {
-
-        this.Unit.units.forEach(p => p.unitState.update());
-        this.Unit.actions.forEach(p => p.update());
-        let teams = this.Unit.bases.map(p => p.team.teamId).filter(p => p >= 0);
-
-        teams.forEach(p => {
-            if(teams.every(r => r == p)){
-                this.Unit.gameState = new GameOverState(this.Unit, p);
-                return;
-            }
-        });
-
-    }
-}
-
-
-class ParticleEngine {
-    scene: Scene;
-    constructor(scene: Scene){
-        this.scene = scene;
-    }
-    explosion(x: number, y:number, amt:number, scale: number, duration: number){
-        for(let i = 0;i < amt;i++){
-            let img = this.scene.physics.add.sprite(0,0,'particle').setOrigin(0.5,0.5).setScale(scale);
-            img.setBlendMode(Phaser.BlendModes.ADD);
-            img.x = x+64;
-            img.y = y+64;
-            img.setVelocity(Phaser.Math.FloatBetween(-30,30), Phaser.Math.FloatBetween(-30,30));
-            img.setDepth(2);
-            this.scene.tweens.add({
-                targets: img,
-                scale: 0,
-                duration: duration,
-                ease: 'Sine.easeInOut',
-                onComplete: (p,s,t) => {
-                    img.destroy();
-                }
-            });
-        }
-    }
-    
-}
-
-// class TeamImg {
-//     teamId: number;
-//     key: string;
-//     color: string;
-// }
-
+import { ParticleEngine } from '../support/ParticleEngine';
+import { GameState } from '../GameStates/GameState';
+import { GamePlayingState } from '../GameStates/GamePlayingState';
 function getCache(key: string, defa?: string) {
      let item = localStorage.getItem(key);
      if(item){
