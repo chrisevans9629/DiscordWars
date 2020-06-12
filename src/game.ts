@@ -3,6 +3,8 @@ import Level1 from './Levels/level1';
 
 import {MainMenu} from './Levels/mainmenu';
 import { teams, getTeam, Player, Chat } from './support/TeamSystem';
+import { LevelSelect } from './Levels/levelSelect';
+import { Level2 } from './Levels/level2';
 
 let config = {
     type: Phaser.AUTO,
@@ -30,9 +32,25 @@ let game = new Phaser.Game(config);
 let menu = new MainMenu();
 
 let level1 = new Level1();
+let select = new LevelSelect();
+
+export interface ILevel {
+    title: string
+    description: string
+    sys: Phaser.Scenes.Systems
+}
+
+
+let level2 = new Level2();
+
+
+export let Levels: ILevel[] = [level1, level2];
+
 
 game.scene.add('MainMenu', menu);
 game.scene.add('level1', level1);
+game.scene.add('LevelSelect', select);
+game.scene.add('level2', level2);
 
 game.scene.start('MainMenu');
 

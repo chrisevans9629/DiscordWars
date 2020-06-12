@@ -15,7 +15,10 @@ import { ParticleEngine } from '../support/ParticleEngine';
 import { GameState } from '../GameStates/GameState';
 import { GamePlayingState } from '../GameStates/GamePlayingState';
 import { getCache } from './getCache';
-export class Level1 extends Phaser.Scene {
+import { ILevel } from '../game';
+export class Level1 extends Phaser.Scene implements ILevel {
+    title = "Level 1"
+    description = "Let's keep it simple"
     circle1: Phaser.Geom.Circle;
     gameState: GameState;
     fps: number;
@@ -38,29 +41,7 @@ export class Level1 extends Phaser.Scene {
     }
 
     preload() {
-        this.load.html(assets.debug, 'assets/html/debug.html');
-        this.load.html(assets.settings, 'assets/html/settings.html');
-        //this.load.html(assets.sidebar, 'assets/html/sidebar.html');
-        this.load.html(assets.gameOver, 'assets/html/gameover.html');
-
-        this.load.image('base','assets/images/base.png');
-        this.load.image('particle','assets/images/white.png');
-        this.load.audio('theme','assets/audio/discordwars.wav');
-        this.load.audio('exp_9','assets/audio/Explosion9.wav');
-        this.load.audio('exp_10','assets/audio/Explosion10.wav');
-        this.load.audio('exp_11','assets/audio/Explosion11.wav');
-        this.load.audio('exp_14','assets/audio/Explosion14.wav');
-
-        this.load.audio('blip_5','assets/audio/Blip_Select5.wav');
-        this.load.audio('blip_6','assets/audio/Blip_Select6.wav');
-        this.load.audio('blip_7','assets/audio/Blip_Select7.wav');
-        this.load.audio('blip_8','assets/audio/Blip_Select8.wav');
-
-        this.load.audio('hit_7','assets/audio/Blip_Select8.wav');
-        this.load.audio('hit_8', 'assets/audio/Hit_Hurt7.wav');
-        this.load.audio('hit_9', 'assets/audio/Hit_Hurt8.wav');
-        this.load.audio('hit_10','assets/audio/Hit_Hurt9.wav');
-        this.load.audio('hit_11','assets/audio/Hit_Hurt10.wav');
+        
     }
     
     destroyUnit(unit: Unit){

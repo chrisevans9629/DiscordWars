@@ -4,6 +4,7 @@ import { model, TryLogin } from "../vuemodel";
 export class LoginView {
     view: Phaser.GameObjects.DOMElement;
     scene: Phaser.Scene;
+    goTo = 'LevelSelect'
     constructor(scene: Scene, x: number, y: number){
         this.view = scene.add.dom(x, y).createFromCache('login');
         this.scene = scene;
@@ -20,7 +21,7 @@ export class LoginView {
             
             console.log(token.value);
             model.methods.tokenLogin(token.value);
-            scene.scene.start('level1');
+            scene.scene.start(this.goTo);
         };
     }
 
@@ -30,7 +31,7 @@ export class LoginView {
         if(tryLogin){
             console.log('starting level');
             this.view.destroy();
-            this.scene.scene.start('level1');
+            this.scene.scene.start(this.goTo);
         }
     }
 
