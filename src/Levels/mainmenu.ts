@@ -9,6 +9,8 @@ export class MainMenu extends Phaser.Scene{
     preload(){
         //this.load.image('background','assets/images/background.png');
         this.load.html(assets.login, 'assets/html/login.html');
+        this.load.html(assets.sidebar, 'assets/html/sidebar.html');
+
     }
     //cell: Phaser.Math.Vector2;
     create() {

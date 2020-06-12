@@ -1,20 +1,16 @@
 'use strict';
 
-import { Tilemaps, Physics } from 'phaser';
 import { MoveState } from '../UnitStates/MoveState';
 import { UserAction } from "../UnitStates/UserAction";
 import { Unit } from '../UnitStates/Unit';
 import { Base } from '../BaseStates/Base';
 import { OrbitState } from '../UnitStates/OrbitState';
 import { AttackState } from '../UnitStates/AttackState';
-import { model } from '../vuemodel';
 import { NeutralState } from '../BaseStates/NeutralState';
-import { ITeamSystem, teams, Chat, Player } from '../support/TeamSystem';
-import { DebugView } from '../views/debug';
+import { teams, Chat, Player } from '../support/TeamSystem';
 import { assets } from '../assets';
 import { SettingsView } from '../views/settings';
 import { Sidebar } from '../views/sidebar';
-import { GameOverView } from '../views/gameOver';
 import { ParticleEngine } from '../support/ParticleEngine';
 import { GameState } from '../GameStates/GameState';
 import { GamePlayingState } from '../GameStates/GamePlayingState';
@@ -34,7 +30,6 @@ export class Level1 extends Phaser.Scene {
     explosionSounds: Phaser.Sound.BaseSound[];
     hitSounds: Phaser.Sound.BaseSound[];
     blipSounds: Phaser.Sound.BaseSound[];
-    actionid: number;
 
     constructor() {
         super('level1');
@@ -45,7 +40,7 @@ export class Level1 extends Phaser.Scene {
     preload() {
         this.load.html(assets.debug, 'assets/html/debug.html');
         this.load.html(assets.settings, 'assets/html/settings.html');
-        this.load.html(assets.sidebar, 'assets/html/sidebar.html');
+        //this.load.html(assets.sidebar, 'assets/html/sidebar.html');
         this.load.html(assets.gameOver, 'assets/html/gameover.html');
 
         this.load.image('base','assets/images/base.png');
@@ -198,9 +193,9 @@ export class Level1 extends Phaser.Scene {
         if(!this.bases.some(p => p.baseId == to)){
             return { success: false, reason: `base ${to} does not exist.`};
         }
-        this.actionid++;
+        //this.actionid++;
 
-        let action = new UserAction(this, this.actionid, user);
+        let action = new UserAction(this, user);
         this.actions.push(action);
         let units = this.units.filter(p => p.unitState instanceof MoveState && p.unitState.toBase.baseId == to && p.team.teamId == user.team.teamId);
         if(units.length == 0){
@@ -226,8 +221,7 @@ export class Level1 extends Phaser.Scene {
             return { success: false, reason: `to base ${to} does not exist`}
         }
 
-        this.actionid++;
-        let action = new UserAction(this, this.actionid, user);
+        let action = new UserAction(this, user);
         this.actions.push(action);
 
         let units = this.units.filter(p => p.currentBase.baseId == from && p.unitState instanceof MoveState != true && p.team.teamId == user.team.teamId).slice(0,count);
