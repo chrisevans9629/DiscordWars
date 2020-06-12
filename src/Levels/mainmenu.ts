@@ -16,21 +16,21 @@ export class MainMenu extends Phaser.Scene{
         //  background.setOrigin(0,0);
         //   background.displayHeight = this.scale.height;
 
-        // let cell = new Phaser.Math.Vector2(this.scale.width / 12, this.scale.height / 12);
+        let cell = new Phaser.Math.Vector2(this.scale.width / 12, this.scale.height / 12);
         // this.cell = cell;
-        //let title = this.add.text(cell.x * 6, cell.y * 6, "Discord Wars", { color: 'white', fontSize: '5em', fontFamily: 'ethno' }).setOrigin(0.5);
+        let title = this.add.text(cell.x * 6, cell.y * 6, "Discord Wars", { color: 'white', fontSize: '5em', fontFamily: 'ethno' }).setOrigin(0.5);
         
         // this.createBtn(() => {
         //     this.scene.start("level1");
         //     model.data.isMainMenu = false;
         // }, "Start");
 
-        let midx = this.scale.width/2;
-        let midy = this.scale.height/2;
+        //let midx = this.scale.width/2;
+        //let midy = this.scale.height/2;
         //let login = this.add.dom(midx,midy).createFromCache(assets.login);
 
         
-        let login = new LoginView(this, midx, midy);
+        let login = new LoginView(this, cell.x * 6, cell.y * 7);
         
         
         //console.log(login);

@@ -11,7 +11,7 @@ export class LoginView {
 
         let login = this.view;
         
-        //this.trylogin();
+        this.trylogin();
 
         let btn = login.getChildByName('login') as HTMLButtonElement;
         btn.onclick = () => {
@@ -27,7 +27,7 @@ export class LoginView {
    async trylogin(){
         let tryLogin = await TryLogin();
         console.log(tryLogin);
-        if(!tryLogin){
+        if(tryLogin){
             console.log('starting level');
             this.view.destroy();
             this.scene.scene.start('level1');

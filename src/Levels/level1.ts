@@ -15,6 +15,7 @@ import { DebugView } from '../views/debug';
 import { assets } from '../assets';
 import { SettingsView } from '../views/settings';
 import { Sidebar } from '../views/sidebar';
+import { GameOverView } from '../views/gameOver';
 class GameState extends State<Level1> {
     constructor(scene: Level1){
         super(scene,scene);
@@ -39,8 +40,10 @@ class ResumeState extends GameState {
 class GameOverState extends PauseState {
     constructor(scene: Level1, team: number){
         super(scene);
-        model.data.gameOver = true;
-        model.data.title = `Team ${team} won!`;
+        let gameOverView = new GameOverView(scene, team);
+
+        //model.data.gameOver = true;
+        //model.data.title = `Team ${team} won!`;
     }
     update(){
         
@@ -53,7 +56,8 @@ class GameOverState extends PauseState {
 class GamePlayingState extends ResumeState {
     constructor(scene: Level1){
         super(scene);
-        model.data.gameOver = false;
+        
+        //model.data.gameOver = false;
     }
     update() {
 
@@ -132,6 +136,7 @@ export class Level1 extends Phaser.Scene {
         this.load.html(assets.debug, 'assets/html/debug.html');
         this.load.html(assets.settings, 'assets/html/settings.html');
         this.load.html(assets.sidebar, 'assets/html/sidebar.html');
+        this.load.html(assets.gameOver, 'assets/html/gameover.html');
 
         this.load.image('base','assets/images/base.png');
         this.load.image('particle','assets/images/white.png');
@@ -347,7 +352,7 @@ export class Level1 extends Phaser.Scene {
     update(time: number, delta: number) {
         this.gameState.update();
         let f = 1000/delta;
-        model.data.fps = Math.round(f);
+        //model.data.fps = Math.round(f);
         this.fps = f;
     }
 }

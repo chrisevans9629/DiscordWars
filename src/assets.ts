@@ -3,4 +3,5 @@ export let assets = {
     debug: 'debug',
     settings: 'settings',
     sidebar: 'sidebar',
+    gameOver: 'gameover',
 }
