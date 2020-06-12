@@ -101,8 +101,8 @@ export class ProgressBar {
         }
 
         var d = Math.floor(valueRatio * this.value);
-        console.log(this);
-        console.log(d);
+        //console.log(this);
+        //console.log(d);
         this.bar.fillRect(x + this.padding, y + this.padding, d, heightPad);
     }
 }

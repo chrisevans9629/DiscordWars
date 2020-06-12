@@ -131,7 +131,7 @@ export class Level1 extends Phaser.Scene {
     preload() {
         this.load.html(assets.debug, 'assets/html/debug.html');
         this.load.html(assets.settings, 'assets/html/settings.html');
-        this.load.html(assets.settings, 'assets/html/sidebar.html');
+        this.load.html(assets.sidebar, 'assets/html/sidebar.html');
 
         this.load.image('base','assets/images/base.png');
         this.load.image('particle','assets/images/white.png');
