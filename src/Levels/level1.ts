@@ -18,23 +18,24 @@ import { GameOverView } from '../views/gameOver';
 import { ParticleEngine } from '../support/ParticleEngine';
 import { GameState } from '../GameStates/GameState';
 import { GamePlayingState } from '../GameStates/GamePlayingState';
-function getCache(key: string, defa?: string) {
-     let item = localStorage.getItem(key);
-     if(item){
-         return item;
-     }
-     return defa;
-}
-
+import { getCache } from './getCache';
 export class Level1 extends Phaser.Scene {
-    //baseCount: number;
-    //unitSpeed: number;
-    //baseArea: number;
-    //baseAreaMin: number;
     circle1: Phaser.Geom.Circle;
     gameState: GameState;
     fps: number;
     particleEngine: ParticleEngine;
+    bases: Base[];
+    units: Unit[];
+    actions: UserAction[];
+    musicVolume: number;
+    soundVolume: number;
+    masterVolume: number;
+    music: Phaser.Sound.BaseSound;
+    explosionSounds: Phaser.Sound.BaseSound[];
+    hitSounds: Phaser.Sound.BaseSound[];
+    blipSounds: Phaser.Sound.BaseSound[];
+    actionid: number;
+
     constructor() {
         super('level1');
         console.log(this);
@@ -66,9 +67,7 @@ export class Level1 extends Phaser.Scene {
         this.load.audio('hit_10','assets/audio/Hit_Hurt9.wav');
         this.load.audio('hit_11','assets/audio/Hit_Hurt10.wav');
     }
-    bases: Base[];
-    units: Unit[];
-    actions: UserAction[];
+    
     destroyUnit(unit: Unit){
         unit.destroy();
         this.units = this.units.filter(p => p !== unit);
@@ -117,9 +116,7 @@ export class Level1 extends Phaser.Scene {
         this.music.play({ volume: this.musicVolume * this.masterVolume, loop: true });
         this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
     }
-    musicVolume: number;
-    soundVolume: number;
-    masterVolume: number;
+    
     updateVolume(music: number, sound: number, master: number){
         this.musicVolume = music;
         this.soundVolume = sound;
@@ -130,10 +127,7 @@ export class Level1 extends Phaser.Scene {
         this.music.play({ volume: this.musicVolume * this.masterVolume, loop: true });
     }
 
-    music: Phaser.Sound.BaseSound;
-    explosionSounds: Phaser.Sound.BaseSound[];
-    hitSounds: Phaser.Sound.BaseSound[];
-    blipSounds: Phaser.Sound.BaseSound[];
+    
     //teamBaseImgs: ITeamSystem[];
     createBases(){
         this.bases = [];
@@ -199,7 +193,6 @@ export class Level1 extends Phaser.Scene {
         this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({volume: this.masterVolume * this.soundVolume });
 
     }
-    actionid: number;
     retreat(to: number, user: Player){
 
         if(!this.bases.some(p => p.baseId == to)){
