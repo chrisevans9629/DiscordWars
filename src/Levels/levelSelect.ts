@@ -9,21 +9,21 @@ export class LevelSelect extends Phaser.Scene {
         super('LevelSelect');
     }
     create(){
-        this.view = this.add.dom(this.scale.width/2,this.scale.height/4).createFromHTML(`
-        <div class="m-2">
+        this.view = this.add.dom(this.scale.width/2,this.scale.height/4).setOrigin(0.5,0).createFromHTML(`
+        <div class="d-flex justify-content-center flex-column text-center">
             <button class="btn" id="MainMenu">MainMenu</button>
             <h1>Level Select</h1>
         </div>`);
 
         let div = this.view.node as HTMLDivElement;
 
-        div.style.width = (this.scale.width/2).toString();
-        div.style.height = this.scale.height.toString();
+        //div.style.width = (this.scale.width/2).toString();
+        //div.style.height = this.scale.height.toString();
 
 
         Levels.forEach(p => {
             div.innerHTML += `
-            <div>
+            <div class="d-flex justify-content-center flex-column text-center p-2 mt-4">
                 <h2>${p.title}</h2>
                 <p>${p.description}</p>
                 <button class="btn" id="${p.sys.settings.key}">Play</button>
