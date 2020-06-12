@@ -18,6 +18,13 @@ export class SettingsView {
         let effects = this.view.getChildByID('effects') as HTMLInputElement;
         
         content.hidden = this.isSettings;
+
+        let exit = this.view.getChildByID('exit') as HTMLButtonElement;
+
+        exit.onclick = e => {
+            scene.scene.start('LevelSelect');
+        };
+
         saveBtn.onclick = e => {
             updateVolume(Number(music.value), Number(effects.value), Number(master.value));
             this.isSettings = !this.isSettings;

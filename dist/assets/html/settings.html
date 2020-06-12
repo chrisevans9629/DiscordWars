@@ -1,5 +1,6 @@
 <div style="width: 300px;">
   <button id="settings" v-on:click="settings" class="btn">Settings</button>
+  <button id="exit" class="btn">Exit</button>
   <div v-if="isSettings" id="isSettings">
     <label>Master</label>
     <input id="master" type="range" v-model="master" min="0" max="1" step="0.1">
