@@ -5,7 +5,7 @@ import { addHealth } from './IBase';
 import { LevelSystem, ILevelSystem, ILevelScale } from '../support/LevelSystem';
 import { ITeamSystem, teams } from '../support/TeamSystem';
 import { IHealthBar, HealthBar } from '../healthbar';
-import { getTeam } from '../game';
+import { getTeam, ILevel } from '../game';
 
 
 export interface IBase {
@@ -68,7 +68,8 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
     //private soldierCount: Phaser.GameObjects.Text;
     private baseName: Phaser.GameObjects.Text;
     private img: Phaser.GameObjects.Sprite;
-    constructor(baseId: number, scene: Phaser.Scene, key: string, teamId: number) {
+    constructor(baseId: number, lvl: ILevel, key: string, teamId: number) {
+        let scene = lvl.scene.scene;
         super(scene, 50, 50, []);
         this.team = getTeam(teamId);
         let xp = new LevelSystem(this, scene, 0,40);
@@ -79,7 +80,7 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
         this.hp = hp;
         this.setDepth(1);
         this.levelScaleRatio = 1.2;
-        this.baseState = new GenerateState(this, scene);
+        this.baseState = new GenerateState(this, lvl);
         this.img = scene.add.sprite(0, 0, key).setOrigin(0.5, 0.5);
         //this.img.scale = 0.5;
         this.levelScale = 0.5;

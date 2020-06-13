@@ -5,6 +5,10 @@ import {MainMenu} from './Levels/mainmenu';
 import { teams, getTeam, Player, Chat } from './support/TeamSystem';
 import { LevelSelect } from './Levels/levelSelect';
 import { Level2 } from './Levels/level2';
+import { Base } from './BaseStates/Base';
+import { Unit } from './UnitStates/Unit';
+import { UserAction } from './UnitStates/UserAction';
+import { ISoundSystem } from './support/SoundSystem';
 
 let config = {
     type: Phaser.AUTO,
@@ -38,6 +42,13 @@ export interface ILevel {
     title: string
     description: string
     sys: Phaser.Scenes.Systems
+    bases: Base[];
+    units: Unit[];
+    actions: UserAction[];
+    SoundSystem: ISoundSystem;
+    physics: Phaser.Physics.Arcade.ArcadePhysics;
+    add: Phaser.GameObjects.GameObjectFactory;
+    scene: Phaser.Scenes.ScenePlugin;
 }
 
 
@@ -92,11 +103,11 @@ function addAvatar(player: Player){
 
 function updateVolume(music: number, sound: number, master: number){
     console.log('updated sound!');
-    level1.updateVolume(music, sound, master);
+    level1.SoundSystem.updateVolume(music, sound, master);
 }
 
 function getVolumes(){
-    return { music: level1.musicVolume, effects: level1.soundVolume, master: level1.masterVolume };
+    return { music: level1.SoundSystem.musicVolume, effects: level1.SoundSystem.soundVolume, master: level1.SoundSystem.masterVolume };
 }
 
 export { game, move, retreat, upgrade, reset, say, getColor, getTeam, addAvatar, updateVolume, getVolumes };

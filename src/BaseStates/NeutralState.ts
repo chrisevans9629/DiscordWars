@@ -3,12 +3,12 @@ import { Unit, IUnit } from '../UnitStates/Unit';
 import { BaseState } from './BaseState';
 import { GenerateState } from './GenerateState';
 import { Base, IBase } from "./Base";
-import { getTeam } from '../game';
+import { getTeam, ILevel } from '../game';
 import { rgbToHex, tween } from '../support/TeamSystem';
 export class NeutralState extends BaseState {
     fromTint: number;
     fromColor: [number,number,number];
-    constructor(base: IBase, scene: Scene) {
+    constructor(base: IBase, scene: ILevel) {
         super(base, scene);
         this.Unit.team = getTeam(-1);//.changeTeam(-1);
         this.Unit.hp.setHealth(0);

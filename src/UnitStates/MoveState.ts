@@ -6,12 +6,13 @@ import { Unit } from "./Unit";
 import { UnitState } from './UnitState';
 import { OrbitState } from './OrbitState';
 import { UserAction } from './UserAction';
+import { ILevel } from '../game';
 
 export class MoveState extends UnitState {
     toBase: IBase;
     speed: number;
     user: UserAction;
-    constructor(unit: Unit, scene: Scene, toBase: IBase, user: UserAction) {
+    constructor(unit: Unit, scene: ILevel, toBase: IBase, user: UserAction) {
         super(unit, scene);
         this.speed = 0.5;
         this.toBase = toBase;

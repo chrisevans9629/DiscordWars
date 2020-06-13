@@ -5,10 +5,11 @@ import { Base, IBase } from "../BaseStates/Base";
 import { Unit } from "./Unit";
 import { UnitState } from './UnitState';
 import { SpawnState } from './SpawnState';
+import { ILevel } from '../game';
 export class AttackState extends UnitState {
     toBase: IBase;
     speed: number;
-    constructor(unit: Unit, scene: Scene, toBase: IBase) {
+    constructor(unit: Unit, scene: ILevel, toBase: IBase) {
         super(unit, scene);
         this.speed = 1;
         this.toBase = toBase;

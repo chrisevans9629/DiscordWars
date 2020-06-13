@@ -1,15 +1,16 @@
 import { Unit } from "./Unit";
 import Level1 from '../Levels/level1';
 import { Player } from "../support/TeamSystem";
+import { ILevel } from "../game";
 export class UserAction {
     //id: number;
     user: Player;
     text: Phaser.GameObjects.Text;
     avatar: Phaser.GameObjects.Image;
     units: Unit[];
-    scene: Level1;
+    scene: ILevel;
     offsetY: number;
-    constructor(scene: Level1, user: Player) {
+    constructor(scene: ILevel, user: Player) {
         this.units = [];
         //this.id = id;
         this.user = user;

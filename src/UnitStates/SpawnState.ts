@@ -3,11 +3,12 @@ import { State } from './State';
 import { OrbitState } from './OrbitState';
 import { Unit } from "./Unit";
 import { UnitState } from './UnitState';
+import { ILevel } from '../game';
 export class SpawnState extends UnitState {
     destination: Phaser.Math.Vector2;
     speed: number;
     distance: number;
-    constructor(unit: Unit, scene: Scene) {
+    constructor(unit: Unit, scene: ILevel) {
         super(unit, scene);
         let x = Phaser.Math.FloatBetween(-1, 1);
         let y = Phaser.Math.FloatBetween(-1, 1);

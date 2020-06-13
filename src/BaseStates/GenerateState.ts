@@ -4,11 +4,12 @@ import { BaseState, UnitChange } from './BaseState';
 import { Level1 } from '../Levels/level1';
 import { Base, IBase } from "./Base";
 import { NeutralState } from "./NeutralState";
+import { ILevel } from '../game';
 
 
 export class GenerateState extends BaseState {
     //speed: number;
-    constructor(base: IBase, scene: Scene) {
+    constructor(base: IBase, scene: ILevel) {
         super(base, scene);
         base.hp.maxHealth = 100;
         base.hp.health = 100;

@@ -16,7 +16,13 @@ import { GameState } from '../GameStates/GameState';
 import { GamePlayingState } from '../GameStates/GamePlayingState';
 import { getCache } from './getCache';
 import { ILevel } from '../game';
-export class Level1 extends Phaser.Scene implements ILevel {
+import { IBotHandler } from '../support/BotHandler';
+import { ISoundSystem, SoundSystem } from '../support/SoundSystem';
+
+
+
+
+export class Level1 extends Phaser.Scene implements ILevel, IBotHandler {
     title = "Level 1"
     description = "Let's keep it simple"
     circle1: Phaser.Geom.Circle;
@@ -26,13 +32,14 @@ export class Level1 extends Phaser.Scene implements ILevel {
     bases: Base[];
     units: Unit[];
     actions: UserAction[];
-    musicVolume: number;
-    soundVolume: number;
-    masterVolume: number;
-    music: Phaser.Sound.BaseSound;
-    explosionSounds: Phaser.Sound.BaseSound[];
-    hitSounds: Phaser.Sound.BaseSound[];
-    blipSounds: Phaser.Sound.BaseSound[];
+    SoundSystem: ISoundSystem;
+    // musicVolume: number;
+    // soundVolume: number;
+    // masterVolume: number;
+    // music: Phaser.Sound.BaseSound;
+    // explosionSounds: Phaser.Sound.BaseSound[];
+    // hitSounds: Phaser.Sound.BaseSound[];
+    // blipSounds: Phaser.Sound.BaseSound[];
 
     constructor() {
         super('level1');
@@ -64,44 +71,12 @@ export class Level1 extends Phaser.Scene implements ILevel {
         this.createBases();
         console.log(this.bases);
         this.sound.pauseOnBlur = false;
+        this.SoundSystem = new SoundSystem(this.sound);
         
-        this.soundVolume = Number(getCache('sound',"1"));
-        this.musicVolume = Number(getCache('music',"1"));
-        this.masterVolume = Number(getCache('master',"1"));
-
-        this.explosionSounds = [
-            this.sound.add('exp_9'), 
-            this.sound.add('exp_10'),
-            this.sound.add('exp_11'),
-            this.sound.add('exp_14')];
-        this.blipSounds = [
-            this.sound.add('blip_5'),
-            this.sound.add('blip_6'),
-            this.sound.add('blip_7'),
-            this.sound.add('blip_8'),
-        ];
-        this.hitSounds = [
-            this.sound.add('hit_7'),
-            this.sound.add('hit_8'),
-            this.sound.add('hit_9'),
-            this.sound.add('hit_10'),
-            this.sound.add('hit_11'),
-        ];
-        this.music = this.sound.add('theme', { loop: true, });
-        
-        this.music.play({ volume: this.musicVolume * this.masterVolume, loop: true });
         this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
     }
     
-    updateVolume(music: number, sound: number, master: number){
-        this.musicVolume = music;
-        this.soundVolume = sound;
-        this.masterVolume = master;
-        localStorage.setItem('master', master.toString());
-        localStorage.setItem('sound', sound.toString());
-        localStorage.setItem('music', music.toString());
-        this.music.play({ volume: this.musicVolume * this.masterVolume, loop: true });
-    }
+    
 
     
     //teamBaseImgs: ITeamSystem[];
@@ -159,15 +134,16 @@ export class Level1 extends Phaser.Scene implements ILevel {
             p.text.text = `${chat.message}`
             console.log(p.text.text);
         });
-        this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({ volume: this.masterVolume * this.soundVolume });
-
+        this.SoundSystem.playRandom(this.SoundSystem.blipSounds);
+        //this.SoundSystem.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({ volume: this.masterVolume * this.soundVolume });
     }
     upgrade(to: number, team: number){
         this.units.filter(p => p.currentBase.baseId == to && p.unitState instanceof OrbitState && p.team.teamId == team).forEach(p => {
             p.unitState = (new AttackState(p, this, p.currentBase));
         });
-        this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({volume: this.masterVolume * this.soundVolume });
-
+        this.SoundSystem.playRandom(this.SoundSystem.blipSounds);
+        //this.SoundSystem.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({volume: this.masterVolume * this.soundVolume });
+        
     }
     retreat(to: number, user: Player){
 
@@ -186,7 +162,9 @@ export class Level1 extends Phaser.Scene implements ILevel {
         units.forEach(p => {
             p.unitState = (new MoveState(p, this, p.currentBase, action));
         });
-        this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({ volume: this.masterVolume * this.soundVolume });
+        
+        this.SoundSystem.playRandom(this.SoundSystem.blipSounds);
+        //this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({ volume: this.masterVolume * this.soundVolume });
         return { success: true, reason: `${units.length} are retreating!`};
     }
     move(from: number,to: number,count: number, user: Player) {
@@ -214,7 +192,8 @@ export class Level1 extends Phaser.Scene implements ILevel {
         units.forEach(p => {
             p.unitState = (new MoveState(p,this, toBase, action));
         });
-        this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({ volume: this.soundVolume * this.masterVolume });
+        this.SoundSystem.playRandom(this.SoundSystem.blipSounds);
+        //this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({ volume: this.soundVolume * this.masterVolume });
 
         return {success: true, reason: `moving ${units.length} units from ${from} to ${to}`};
     }
@@ -224,6 +203,7 @@ export class Level1 extends Phaser.Scene implements ILevel {
         this.bases.forEach(p => {
             p.baseState.secondPassed();
         });
+        
     }
 
     update(time: number, delta: number) {
