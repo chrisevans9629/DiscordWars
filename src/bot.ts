@@ -131,8 +131,8 @@ let helpCmd = {
 let commands = [moveCmd, joinCmd, upgradeCmd, leaveCmd, retreatCmd, sayCmd, helpCmd];
 
 client.on('message', msg => {
-  commands.filter(p => msg.content.startsWith(p.name)).forEach(p => {
-    let t = msg.content.replace(p.name,'').substr(0,100);
+  commands.filter(p => msg.content.toLocaleLowerCase().startsWith(p.name)).forEach(p => {
+    let t = msg.content.substr(p.name.length,100);
     p.execute(msg,t);
   });
 });
