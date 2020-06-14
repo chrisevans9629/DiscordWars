@@ -1,8 +1,9 @@
 import { ResumeState } from './ResumeState';
 import { Level1 } from '../Levels/level1';
 import { GameOverState } from './GameOverState';
+import { ILevel } from '../game';
 export class GamePlayingState extends ResumeState {
-    constructor(scene: Level1) {
+    constructor(scene: ILevel) {
         super(scene);
 
         //model.data.gameOver = false;

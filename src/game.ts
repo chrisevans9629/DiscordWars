@@ -10,6 +10,7 @@ import { Unit } from './UnitStates/Unit';
 import { UserAction } from './UnitStates/UserAction';
 import { ISoundSystem } from './support/SoundSystem';
 import { botHandler } from './support/BotHandler';
+import { State } from './UnitStates/State';
 
 let config = {
     type: Phaser.AUTO,
@@ -51,6 +52,8 @@ export interface ILevel {
     add: Phaser.GameObjects.GameObjectFactory;
     scene: Phaser.Scenes.ScenePlugin;
     reset(): void;
+    time: Phaser.Time.Clock;
+    gameState: State<ILevel>
 }
 
 

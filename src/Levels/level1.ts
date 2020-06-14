@@ -18,21 +18,16 @@ import { getCache } from './getCache';
 import { ILevel } from '../game';
 import { IBotHandler, botHandler } from '../support/BotHandler';
 import { ISoundSystem, SoundSystem } from '../support/SoundSystem';
+import { LevelBase } from './levelBase';
 
 
 
 
-export class Level1 extends Phaser.Scene implements ILevel {
+export class Level1 extends LevelBase implements ILevel {
     title = "Level 1"
     description = "Let's keep it simple"
     circle1: Phaser.Geom.Circle;
-    gameState: GameState;
-    fps: number;
-    particleEngine: ParticleEngine;
-    bases: Base[];
-    units: Unit[];
-    actions: UserAction[];
-    SoundSystem: ISoundSystem;
+    
 
     constructor() {
         super('level1');
@@ -40,34 +35,13 @@ export class Level1 extends Phaser.Scene implements ILevel {
         this.actions = [];
     }
 
-    preload() {
-        
-    }
-    
-    destroyUnit(unit: Unit){
-        unit.destroy();
-        this.units = this.units.filter(p => p !== unit);
-        this.actions.forEach(p => p.units = p.units.filter(r => r !== unit));
-    }
-
     create() {
-        botHandler.Level = this;
-        this.particleEngine = new ParticleEngine(this);
-        this.gameState = new GamePlayingState(this);
         
-        this.units = [];
         let midx = this.scale.width/2;
         let midy = this.scale.height/2;
         this.circle1 = new Phaser.Geom.Circle(midx,midy, midy/2);
-        //let debug = new DebugView(this);
-        let settings = new SettingsView(this);
-        let sideView = new Sidebar(this);
-        this.createBases();
-        console.log(this.bases);
-        this.sound.pauseOnBlur = false;
-        this.SoundSystem = new SoundSystem(this.sound);
         
-        this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
+        super.create();
     }
     
     createBases(){
@@ -104,28 +78,7 @@ export class Level1 extends Phaser.Scene implements ILevel {
         this.circle1.radius = midy/1.3;
         this.bases = Phaser.Actions.PlaceOnCircle(this.bases,this.circle1);
     }
-    reset() {
-        this.units.forEach(p => this.destroyUnit(p));
-        //this.units.forEach(p => p.destroy());
-        this.units = [];
-        this.bases.forEach(p => p.destroy());
-        this.createBases();
-        this.gameState = new GamePlayingState(this);
-    }
 
-    secondPassed(){
-        this.bases.forEach(p => {
-            p.baseState.secondPassed();
-        });
-        
-    }
-
-    update(time: number, delta: number) {
-        this.gameState.update();
-        let f = 1000/delta;
-        //model.data.fps = Math.round(f);
-        this.fps = f;
-    }
 }
 
 export default Level1;
