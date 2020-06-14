@@ -15,6 +15,7 @@ import { Level3 } from './Levels/level3';
 import { Level4 } from './Levels/level4';
 import { Level5 } from './Levels/level5';
 import { ParticleEngine } from './support/ParticleEngine';
+import { Login } from './Levels/login';
 
 let config = {
     type: Phaser.AUTO,
@@ -76,13 +77,13 @@ export let Levels: ILevel[] = [
 
 game.scene.add('MainMenu', menu);
 game.scene.add('LevelSelect', select);
-
+game.scene.add('login', new Login());
 Levels.forEach(p => {
     let s = p as unknown as Phaser.Scene;
     game.scene.add(p.sys.settings.key, s);
 });
 
-game.scene.start('MainMenu');
+game.scene.start('login');
 export let soundSystem: SoundSystem = new SoundSystem(game.sound);
 
 let handler = botHandler;

@@ -4,7 +4,7 @@ import { model, TryLogin } from "../vuemodel";
 export class LoginView {
     view: Phaser.GameObjects.DOMElement;
     scene: Phaser.Scene;
-    goTo = 'LevelSelect'
+    goTo = 'MainMenu'
     constructor(scene: Scene, x: number, y: number){
         this.view = scene.add.dom(x, y).createFromCache('login');
         this.scene = scene;
