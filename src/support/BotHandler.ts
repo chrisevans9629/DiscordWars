@@ -21,6 +21,9 @@ export interface IBotHandler {
 export class BotHandler implements IBotHandler {
     Level: ILevel
     say(chat: Chat){
+        if(!this.Level){
+            return;
+        }
         this.Level.actions.filter(p => p.user.name == chat.name).forEach(p => {
             p.text.text = `${chat.message}`
             console.log(p.text.text);
@@ -28,6 +31,9 @@ export class BotHandler implements IBotHandler {
         this.Level.SoundSystem.playRandom(this.Level.SoundSystem.blipSounds);
     }
     upgrade(to: number, team: number){
+        if(!this.Level){
+            return;
+        }
         this.Level.units.filter(p => p.currentBase.baseId == to && p.unitState instanceof OrbitState && p.team.teamId == team).forEach(p => {
             p.unitState = (new AttackState(p, this.Level, p.currentBase));
         });
@@ -35,7 +41,9 @@ export class BotHandler implements IBotHandler {
         //this.SoundSystem.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({volume: this.masterVolume * this.soundVolume });
     }
     retreat(to: number, user: Player){
-
+        if(!this.Level){
+            return;
+        }
         if(!this.Level.bases.some(p => p.baseId == to)){
             return { success: false, reason: `base ${to} does not exist.`};
         }
@@ -60,6 +68,9 @@ export class BotHandler implements IBotHandler {
     move(from: number,to: number,count: number, user: Player) {
         //this = manager.events.level;
         //let lvl = this;
+        if(!this.Level){
+            return;
+        }
         console.log(`from: ${from} to: ${to} count: ${count}`);
 
         let bases = this.Level.bases;
@@ -88,3 +99,5 @@ export class BotHandler implements IBotHandler {
         return {success: true, reason: `moving ${units.length} units from ${from} to ${to}`};
     }
 }
+
+export let botHandler = new BotHandler();

@@ -9,6 +9,7 @@ import { Base } from './BaseStates/Base';
 import { Unit } from './UnitStates/Unit';
 import { UserAction } from './UnitStates/UserAction';
 import { ISoundSystem } from './support/SoundSystem';
+import { botHandler } from './support/BotHandler';
 
 let config = {
     type: Phaser.AUTO,
@@ -49,6 +50,7 @@ export interface ILevel {
     physics: Phaser.Physics.Arcade.ArcadePhysics;
     add: Phaser.GameObjects.GameObjectFactory;
     scene: Phaser.Scenes.ScenePlugin;
+    reset(): void;
 }
 
 
@@ -65,27 +67,26 @@ game.scene.add('level2', level2);
 
 game.scene.start('MainMenu');
 
+let handler = botHandler;
+
 function move(fromBase: number, toBase: number, count: number, user: Player){
-    let scene = level1;
-    return scene.move(fromBase, toBase, count, user);
+    return handler.move(fromBase, toBase, count, user);
 }
 
 function retreat(toBase: number, user: Player){
-    let scene = level1;
-    return scene.retreat(toBase, user);
+    return handler.retreat(toBase, user);
 }
 
 function upgrade(toBase: number, team: number) {
-    let scene = level1;
-    return scene.upgrade(toBase, team);
+    return handler.upgrade(toBase, team);
 }
 
 function reset(){
-    level1.reset();
+    handler.Level.reset();
 }
 
 function say(chat: Chat){
-    level1.say(chat);
+    handler.say(chat);
 }
 
 function getColor(teamId: number){
