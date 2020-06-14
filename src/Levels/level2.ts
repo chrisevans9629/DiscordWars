@@ -22,13 +22,13 @@ export class Level2 extends LevelBase implements ILevel {
         this.bases = [];
 
         let baseSetup = [
-            {id: 1,team:-1,xCell: 1, yCell: 1,maxLvl: 1},
+            {id: 1,team:-1,xCell: 1, yCell: 1,maxLvl: 2},
             {id: 2,team: 1,xCell: 1, yCell: 2,maxLvl: 1},
-            {id: 3,team:-1,xCell: 1, yCell: 3,maxLvl: 1},
+            {id: 3,team:-1,xCell: 1, yCell: 3,maxLvl: 2},
             {id: 4,team:-1,xCell: 2, yCell: 2,maxLvl: 3},
-            {id: 5,team:-1,xCell: 3, yCell: 1,maxLvl: 1},
+            {id: 5,team:-1,xCell: 3, yCell: 1,maxLvl: 2},
             {id: 6,team: 2,xCell: 3, yCell: 2,maxLvl: 1},
-            {id: 7,team:-1,xCell: 3, yCell: 3,maxLvl: 1},
+            {id: 7,team:-1,xCell: 3, yCell: 3,maxLvl: 2},
         ];
         let cell = new Phaser.Math.Vector2(this.scale.width/4,this.scale.height/4);
 

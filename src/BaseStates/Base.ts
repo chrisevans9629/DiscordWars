@@ -60,14 +60,16 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
     set tint(value) {
         if(this.img) {
             this.img.tint = value;
-            this.rings.forEach(p => p.tint = value);
+        }
+        if(this.ring){
+            this.ring.tint = value;
         }
     }
 
     baseId: number;
     baseState: BaseState;
     //private soldierCount: Phaser.GameObjects.Text;
-    private rings: Phaser.GameObjects.Sprite[] = [];
+    private ring: Phaser.GameObjects.Sprite;
     private baseName: Phaser.GameObjects.Text;
     private img: Phaser.GameObjects.Sprite;
     constructor(baseId: number, lvl: ILevel, key: string, teamId: number, maxLevel: number) {
@@ -89,28 +91,32 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
         this.baseName = scene.add.text(0, -70, `${baseId}`, { color: 'white', fontSize: '36px', fontFamily: 'ethno' }).setOrigin(0.5, 0.5);
 
         
-        for(let i = 1; i < maxLevel; i++){
-            let t = scene.add.sprite(0,0, 'ring').setOrigin(0.5,0.5);
-            t.scale = 0.2 * i;
-            t.alpha = 0.5;
-            this.rings.push(t);
-            this.add(t);
-        }
+        let ring = scene.add.sprite(0,0, 'ring').setOrigin(0.5,0.5);
+        ring.scale = 0;
+        this.ring = ring;
+        this.add(ring);
         this.tint = this.team.tint;
 
         this.add([this.img, this.baseName, hp.progressBar.bar, xp.progressBar.bar]);
         xp.progressBar.draw();
         this.baseId = baseId;
         scene.sys.displayList.add(this);
+
         this.scene.tweens.add({
-            targets: this.rings,
-            scale: 0.3,
-            duration: 1000,
+            targets: this.ring,
+            scale: maxLevel * 0.15,
+            alpha: 0,
+            duration: 5000,
             ease: 'Power2',
-            yoyo: true,
-            repeat: 3,
-            delay: 1000
+            //yoyo: true,
+            loop: -1,
+            hold: 0,
+            onComplete: () => {
+                this.ring.alpha = 0.5;
+                this.ring.scale = 0;
+            }
         });
+       
     }
     tween: Phaser.Tweens.Tween;
     pulse() {
