@@ -34,13 +34,13 @@ export class Level2 extends LevelBase implements ILevel {
 
         baseSetup.forEach(p => {
             let team = p.team;
-            let con = new Base(p.id,this, teams.find(p => p.teamId == team).BaseImgKey, team);
+            let con = new Base(p.id,this, teams.find(p => p.teamId == team).BaseImgKey, team, p.maxLvl);
             if(team < 0){
                 con.baseState = new NeutralState(con, this);
             }
             con.x = cell.x * p.xCell;
             con.y = cell.y * p.yCell;
-            con.xp.maxLevel = p.maxLvl;
+            //con.xp.maxLevel = p.maxLvl;
             
             this.bases.push(con);
         });

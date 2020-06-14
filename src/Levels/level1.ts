@@ -52,7 +52,7 @@ export class Level1 extends LevelBase implements ILevel {
 
         baseSetup.forEach(p => {
             let team = p[1];
-            let con = new Base(p[0],this, teams.find(p => p.teamId == team).BaseImgKey, team);
+            let con = new Base(p[0],this, teams.find(p => p.teamId == team).BaseImgKey, team, 3);
             if(team < 0){
                 con.baseState = new NeutralState(con, this);
             }

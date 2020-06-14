@@ -25,13 +25,14 @@ export class LevelSystem implements ILevelSystem {
     maxLevel: number;
     scale: ILevelScale;
     progressBar: ProgressBar;
-    constructor(scale: ILevelScale, scene: Scene, x: number, y:number){
+    rings: Phaser.GameObjects.GameObject[] = []
+    constructor(scale: ILevelScale, scene: Scene, x: number, y:number, maxLevel: number){
         this.scale = scale;
         this.level = 1;
         this.nextLevel = 20;
         this.nextRatio = 1.5;
         this.experience = 0;
-        this.maxLevel = 3;
+        this.maxLevel = maxLevel;
         this.progressBar = new ProgressBar(scene, x, y);
         this.progressBar.alpha = 0.5;
         this.progressBar.draw();
@@ -48,7 +49,7 @@ export class LevelSystem implements ILevelSystem {
             this.level++;
             
             this.scale.levelScale = this.scale.levelScaleRatio * this.scale.levelScale;
-            console.log(`upgraded! level:${this.level} scale:${this.scale.levelScale} nextLevel:${this.nextLevel}`);
+            //console.log(`upgraded! level:${this.level} scale:${this.scale.levelScale} nextLevel:${this.nextLevel}`);
             if(this.level != this.maxLevel){
                 this.experience = 0;
                 this.nextLevel *= this.nextRatio;

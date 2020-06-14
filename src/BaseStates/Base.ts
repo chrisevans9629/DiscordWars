@@ -60,19 +60,21 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
     set tint(value) {
         if(this.img) {
             this.img.tint = value;
+            this.rings.forEach(p => p.tint = value);
         }
     }
 
     baseId: number;
     baseState: BaseState;
     //private soldierCount: Phaser.GameObjects.Text;
+    private rings: Phaser.GameObjects.Sprite[] = [];
     private baseName: Phaser.GameObjects.Text;
     private img: Phaser.GameObjects.Sprite;
-    constructor(baseId: number, lvl: ILevel, key: string, teamId: number) {
+    constructor(baseId: number, lvl: ILevel, key: string, teamId: number, maxLevel: number) {
+        super(lvl.scene.scene, 50, 50, []);
         let scene = lvl.scene.scene;
-        super(scene, 50, 50, []);
         this.team = getTeam(teamId);
-        let xp = new LevelSystem(this, scene, 0,40);
+        let xp = new LevelSystem(this, scene, 0,40, maxLevel);
         xp.progressBar.goodColor = 0x0000ff;
         xp.progressBar.badColor = 0x0000ff;
         this.xp = xp;
@@ -82,22 +84,33 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
         this.levelScaleRatio = 1.2;
         this.baseState = new GenerateState(this, lvl);
         this.img = scene.add.sprite(0, 0, key).setOrigin(0.5, 0.5);
-        //this.img.scale = 0.5;
         this.levelScale = 0.5;
-        
-        //let clr = this.team.color;
-        
-        //let hex = clr[2].toString(16) + clr[1].toString(16) + clr[0].toString(16);
-        //console.log(hex);
-        this.tint = this.team.tint;
         console.log(this.tint);
         this.baseName = scene.add.text(0, -70, `${baseId}`, { color: 'white', fontSize: '36px', fontFamily: 'ethno' }).setOrigin(0.5, 0.5);
-        //this.soldierCount = scene.add.text(0, 0, '0', { color: 'black', fontSize: '15px', fontFamily: 'ethno' }).setOrigin(0.5, 0.5);
-        //this.healthText = scene.add.text(0, 0, this.health.toString(), { color: 'black', fontSize: '15px', fontFamily: 'ethno' }).setOrigin(0.5, 0.5);
+
+        
+        for(let i = 1; i < maxLevel; i++){
+            let t = scene.add.sprite(0,0, 'ring').setOrigin(0.5,0.5);
+            t.scale = 0.2 * i;
+            t.alpha = 0.5;
+            this.rings.push(t);
+            this.add(t);
+        }
+        this.tint = this.team.tint;
+
         this.add([this.img, this.baseName, hp.progressBar.bar, xp.progressBar.bar]);
         xp.progressBar.draw();
         this.baseId = baseId;
         scene.sys.displayList.add(this);
+        this.scene.tweens.add({
+            targets: this.rings,
+            scale: 0.3,
+            duration: 1000,
+            ease: 'Power2',
+            yoyo: true,
+            repeat: 3,
+            delay: 1000
+        });
     }
     tween: Phaser.Tweens.Tween;
     pulse() {
@@ -108,6 +121,7 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
             ease: 'Sine.easeInOut',
             yoyo: true,
         });
+        
     }
     //updateBase = (cnt: number) => this.soldierCount.setText(cnt.toString());
     //getCount = () => Number(this.soldierCount.text);
