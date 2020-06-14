@@ -110,7 +110,7 @@ function say(chat: Chat){
 
 function getColor(teamId: number){
     let t = getTeam(teamId).color;
-    console.log(t);
+    //console.log(t);
     return `rgb(${t[0]},${t[1]},${t[2]})`;
 }
 
@@ -121,7 +121,7 @@ function addAvatar(player: IPlayer){
 }
 
 function updateVolume(music: number, sound: number, master: number){
-    console.log('updated sound!');
+    //console.log('updated sound!');
     soundSystem.updateVolume(music, sound, master);
 }
 

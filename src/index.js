@@ -3,6 +3,6 @@ const v = require('./vueapp.ts');
 const game = require('./game.ts');
 
 
-console.log(v);
+//console.log(v);
 
 

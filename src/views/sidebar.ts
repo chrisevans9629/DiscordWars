@@ -37,9 +37,9 @@ export class Sidebar {
 
     render(){
         let players = this.view.getChildByID('players');
-        console.log(players);
+        //console.log(players);
         players.innerHTML = "";
-        console.log(TeamInteraction);
+       // console.log(TeamInteraction);
         TeamInteraction.players.forEach(p => {
             players.innerHTML += playerHtml(p);
         });

@@ -7,7 +7,7 @@ export function componentToHex(c: number) {
 
 export function rgbToHex(r: number, g: number, b: number) {
     let hex = componentToHex(r) + componentToHex(g) + componentToHex(b);
-    console.log(hex);
+    //console.log(hex);
     return parseInt(hex, 16);
 }
 

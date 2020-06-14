@@ -41,7 +41,7 @@ export class LevelSelect extends Phaser.Scene {
                 return;
             }
 
-            console.log(btn);
+            //console.log(btn);
             scene.scene.start(btn.id);
             scene.view.destroy();
         }, this);

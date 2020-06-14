@@ -19,7 +19,7 @@ export class LoginView {
             let token = login.getChildByName("token") as HTMLInputElement;
             login.destroy();
             
-            console.log(token.value);
+            //console.log(token.value);
             model.methods.tokenLogin(token.value);
             scene.scene.start(this.goTo);
         };
@@ -27,9 +27,9 @@ export class LoginView {
 
    async trylogin(){
         let tryLogin = await TryLogin();
-        console.log(tryLogin);
+        //console.log(tryLogin);
         if(tryLogin){
-            console.log('starting level');
+            //console.log('starting level');
             this.view.destroy();
             this.scene.scene.start(this.goTo);
         }

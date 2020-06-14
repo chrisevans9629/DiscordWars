@@ -41,7 +41,7 @@ let moveCmd = {
     let actions = args.split(' ');
     let result = move(Number(actions[1]),Number(actions[2]),100,team.team);
     msg.reply(result.reason);
-    console.log("moving");
+    //console.log("moving");
   }
 };
 

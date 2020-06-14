@@ -26,7 +26,7 @@ export class BotHandler implements IBotHandler {
         }
         this.Level.actions.filter(p => p.user.name == chat.name).forEach(p => {
             p.text.text = `${chat.message}`
-            console.log(p.text.text);
+            //console.log(p.text.text);
         });
         soundSystem.playRandom(soundSystem.blipSounds);
     }

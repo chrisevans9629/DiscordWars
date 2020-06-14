@@ -58,7 +58,7 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         let settings = new SettingsView(this);
         let sideView = new Sidebar(this);
         this.createBases();
-        console.log(this.bases);
+        //console.log(this.bases);
         this.ai = new AI();
         //this.SoundSystem = new SoundSystem(this.sound);
         

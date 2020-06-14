@@ -51,7 +51,7 @@ let model = {
           toastInfo('ready!');
           sessionStorage.setItem('magic',t);
           this.showToken = false;
-          console.log(this.showToken);
+          //console.log(this.showToken);
           return true;
         } catch (error) {
           console.log(error);

@@ -15,7 +15,7 @@ export class NeutralState extends BaseState {
         this.Unit.tint = this.Unit.team.tint;
         this.fromTint = this.Unit.team.tint;
         this.fromColor = this.Unit.team.color;
-        console.log(this.Unit.team);
+        //console.log(this.Unit.team);
         this.Unit.hp.maxHealth = 30;
     }
     unitHit(unit: IUnit) {
@@ -38,7 +38,7 @@ export class NeutralState extends BaseState {
         let t = this.Unit.team.color;
 
         let ratio = this.Unit.hp.health / this.Unit.hp.maxHealth;
-        console.log(ratio);
+        //console.log(ratio);
 
         let r = tween({ from: this.fromColor[0], to: t[0], percent: ratio });
         let g = tween({ from: this.fromColor[1], to: t[1], percent: ratio });

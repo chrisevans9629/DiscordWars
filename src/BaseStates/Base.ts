@@ -87,7 +87,7 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
         this.baseState = new GenerateState(this, lvl);
         this.img = scene.add.sprite(0, 0, key).setOrigin(0.5, 0.5);
         this.levelScale = 0.5;
-        console.log(this.tint);
+        //console.log(this.tint);
         this.baseName = scene.add.text(0, -70, `${baseId}`, { color: 'white', fontSize: '36px', fontFamily: 'ethno' }).setOrigin(0.5, 0.5);
 
         

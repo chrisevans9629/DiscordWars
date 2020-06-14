@@ -34,14 +34,14 @@ export class GenerateState extends BaseState {
         if (unit.team.teamId == this.Unit.team.teamId) {
 
             if(this.Unit.hp.health < this.Unit.hp.maxHealth){
-                console.log(`repairing base with value ${unit.value}`);
+                //console.log(`repairing base with value ${unit.value}`);
                 x = this.Unit.hp.addHealth(unit.value);
-                console.log(x);
+                //console.log(x);
             }
             else {
-                console.log(`upgrading base with value ${unit.value}`);
+                //console.log(`upgrading base with value ${unit.value}`);
                 x = this.Unit.xp.upgrade(unit.value);
-                console.log(x);
+                //console.log(x);
             }
         } else {
             //value: 100 = 100 used; health = -90;
