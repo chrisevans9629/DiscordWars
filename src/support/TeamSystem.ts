@@ -40,6 +40,8 @@ export interface ITeamSystem {
 export let teams: ITeamSystem[] = [
     { teamId: 1, BaseImgKey: 'base', UnitImgKey: 'base', color: [0xFF, 0, 0], tint: 0xFF0000 },
     { teamId: 2, BaseImgKey: 'base', UnitImgKey: 'base', color: [0, 0, 0xFF], tint: 0x0000FF },
+    { teamId: 3, BaseImgKey: 'base', UnitImgKey: 'base', color: [0, 0xFF, 0], tint: 0x00FF00 },
+    { teamId: 4, BaseImgKey: 'base', UnitImgKey: 'base', color: [0xFF, 0XFF, 0], tint: 0xFFFF00 },
     { teamId: -1, BaseImgKey: 'base', UnitImgKey: 'base', color: [0xFF, 0xFF, 0xFF], tint: 0xFFFFFF },
 ];
 

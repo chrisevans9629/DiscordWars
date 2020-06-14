@@ -11,6 +11,7 @@ import { UserAction } from './UnitStates/UserAction';
 import { ISoundSystem } from './support/SoundSystem';
 import { botHandler } from './support/BotHandler';
 import { State } from './UnitStates/State';
+import { Level3 } from './Levels/level3';
 
 let config = {
     type: Phaser.AUTO,
@@ -58,15 +59,16 @@ export interface ILevel {
 
 
 let level2 = new Level2();
+let level3 = new Level3();
 
-
-export let Levels: ILevel[] = [level1, level2];
+export let Levels: ILevel[] = [level1, level2, level3];
 
 
 game.scene.add('MainMenu', menu);
 game.scene.add('level1', level1);
 game.scene.add('LevelSelect', select);
 game.scene.add('level2', level2);
+game.scene.add('level3', level3);
 
 game.scene.start('MainMenu');
 
