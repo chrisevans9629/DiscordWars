@@ -15,6 +15,7 @@ export class MainMenu extends Phaser.Scene{
         this.load.html(assets.mainMenu, 'assets/html/mainmenu.html');
 
         this.load.image('base','assets/images/base.png');
+        this.load.image('AI','assets/images/bot1.png');
         this.load.image('ring','assets/images/ring1.png');
         this.load.image('particle','assets/images/white.png');
         this.load.audio('theme','assets/audio/discordwars.wav');

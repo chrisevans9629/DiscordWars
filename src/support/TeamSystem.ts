@@ -1,3 +1,4 @@
+import { getColor } from "../game";
 
 export function componentToHex(c: number) {
     var hex = c.toString(16);
@@ -53,20 +54,32 @@ export interface Style {
     color: string;
 }
 
-export interface Player {
+export interface IPlayer {
     name: string;
     team: ITeamSystem;
     style: Style;
     avatarUrl: string;
 }
 
+export class AIPlayer implements IPlayer {
+    name = 'AI'
+    team: ITeamSystem;
+    style: Style;
+    avatarUrl:string = null;
+    constructor(tm: number){
+        let team = getTeam(tm);
+        this.team = team;
+        this.style = {color: getColor(tm)};
+    }
+}
+
 export interface Chat {
     name: string;
     message: string;
-    player: Player;
+    player: IPlayer;
 }
 let c: Chat[] = [];
-let p: Player[] = [];
+let p: IPlayer[] = [];
 
 interface IRender {
     render(): void;
@@ -74,7 +87,7 @@ interface IRender {
 
 class TeamInteractor {
     private _chat: Chat[]
-    private _players: Player[]
+    private _players: IPlayer[]
     get chat() {
         return this._chat;
     }
@@ -92,7 +105,7 @@ class TeamInteractor {
             this.renderer.render();
         }
     }
-    addPlayer(p: Player) {
+    addPlayer(p: IPlayer) {
         this._players.push(p);
         if (this.renderer) {
             this.renderer.render();

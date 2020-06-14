@@ -1,16 +1,16 @@
 import { Unit } from "./Unit";
 import Level1 from '../Levels/level1';
-import { Player } from "../support/TeamSystem";
+import { IPlayer } from "../support/TeamSystem";
 import { ILevel } from "../game";
 export class UserAction {
     //id: number;
-    user: Player;
+    user: IPlayer;
     text: Phaser.GameObjects.Text;
     avatar: Phaser.GameObjects.Image;
     units: Unit[];
     scene: ILevel;
     offsetY: number;
-    constructor(scene: ILevel, user: Player) {
+    constructor(scene: ILevel, user: IPlayer) {
         this.units = [];
         //this.id = id;
         this.user = user;
@@ -20,6 +20,7 @@ export class UserAction {
             user.name = "noname";
         }
         console.log(user.name);
+        
         this.avatar = scene.add.image(0, 0, user.name).setScale(0.25).setAlpha(0.5).setDepth(3);
         this.text = scene.add.text(0, 0, '', { fontSize: '20px', color: 'white', fontFamily: 'ethno' });
     }

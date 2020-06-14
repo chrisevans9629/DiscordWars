@@ -1,5 +1,5 @@
 import { ILevel, soundSystem } from "../game";
-import { Chat, Player } from "./TeamSystem";
+import { Chat, IPlayer } from "./TeamSystem";
 import { OrbitState } from "../UnitStates/OrbitState";
 import { AttackState } from "../UnitStates/AttackState";
 import { UserAction } from "../UnitStates/UserAction";
@@ -13,8 +13,8 @@ export interface IAction{
 export interface IBotHandler {
     say(chat: Chat): void;
     upgrade(to: number, team: number): void;
-    retreat(to: number, user: Player): IAction;
-    move(from: number,to: number,count: number, user: Player): IAction;
+    retreat(to: number, user: IPlayer): IAction;
+    move(from: number,to: number,count: number, user: IPlayer): IAction;
 }
 
 
@@ -40,7 +40,7 @@ export class BotHandler implements IBotHandler {
         soundSystem.playRandom(soundSystem.blipSounds);
         //this.SoundSystem.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({volume: this.masterVolume * this.soundVolume });
     }
-    retreat(to: number, user: Player){
+    retreat(to: number, user: IPlayer){
         if(!this.Level){
             return;
         }
@@ -65,13 +65,13 @@ export class BotHandler implements IBotHandler {
         return { success: true, reason: `${units.length} are retreating!`};
     }
 
-    move(from: number,to: number,count: number, user: Player) {
+    move(from: number,to: number,count: number, user: IPlayer) {
         //this = manager.events.level;
         //let lvl = this;
         if(!this.Level){
             return;
         }
-        console.log(`from: ${from} to: ${to} count: ${count}`);
+        //console.log(`from: ${from} to: ${to} count: ${count}`);
 
         let bases = this.Level.bases;
 

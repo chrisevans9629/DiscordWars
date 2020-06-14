@@ -9,6 +9,29 @@ import { GamePlayingState } from "../GameStates/GamePlayingState";
 import { ILevel } from "../game";
 import { SettingsView } from "../views/settings";
 import { Sidebar } from "../views/sidebar";
+import { TeamInteraction, AIPlayer } from "../support/TeamSystem";
+import { NeutralState } from "../BaseStates/NeutralState";
+import { GameOverState } from "../GameStates/GameOverState";
+
+class AI {
+
+    makeMove(bases: Base[]){
+        
+        //let teams = bases.map(p => p.team.teamId);
+        let teamsWithNoPlayers = bases.filter(p => !TeamInteraction.players.some(r => r.team.teamId == p.team.teamId) && p.team.teamId > 0);
+        teamsWithNoPlayers.forEach(p => {
+
+            let chance = Phaser.Math.FloatBetween(0,1);
+
+            let opposite = bases.find(r => r.team.teamId != p.team.teamId || r.baseState instanceof NeutralState && r.team.teamId == p.team.teamId);
+            if(opposite && chance > 0.8){
+                botHandler.move(p.baseId, opposite.baseId, 100, new AIPlayer(p.team.teamId));
+            }
+        });
+    }
+
+}
+
 
 export class LevelBase extends Phaser.Scene implements ILevel {
     title: string
@@ -19,12 +42,15 @@ export class LevelBase extends Phaser.Scene implements ILevel {
     bases: Base[];
     units: Unit[];
     actions: UserAction[];
+    ai: AI;
     //SoundSystem: ISoundSystem;
 
     create() {
         botHandler.Level = this;
         this.particleEngine = new ParticleEngine(this);
         this.gameState = new GamePlayingState(this);
+        //this.gameState = new GameOverState(this,1);
+        
         this.actions = [];
         
         this.units = [];
@@ -33,7 +59,7 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         let sideView = new Sidebar(this);
         this.createBases();
         console.log(this.bases);
-        
+        this.ai = new AI();
         //this.SoundSystem = new SoundSystem(this.sound);
         
         this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
@@ -42,7 +68,7 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         this.bases.forEach(p => {
             p.baseState.secondPassed();
         });
-        
+        this.ai.makeMove(this.bases);
     }
     destroyUnit(unit: Unit){
         unit.destroy();

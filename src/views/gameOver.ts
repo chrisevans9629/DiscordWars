@@ -14,8 +14,9 @@ export class GameOverView {
 
         let resetBtn = this.view.getChildByID('reset') as HTMLButtonElement;
         resetBtn.onclick = e => {
-            reset();
             this.view.destroy();
+            this.view.removeElement();
+            reset();
         };
     }
 }

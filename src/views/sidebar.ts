@@ -1,8 +1,8 @@
 import { Scene } from "phaser";
-import { TeamInteraction, Player, Chat } from "../support/TeamSystem";
+import { TeamInteraction, IPlayer, Chat } from "../support/TeamSystem";
 import { assets } from "../assets";
 
-function playerHtml(p: Player){
+function playerHtml(p: IPlayer){
     let img = '';
     if(p.avatarUrl){
         img = `<img class="avatar" src="${p.avatarUrl}">`;
