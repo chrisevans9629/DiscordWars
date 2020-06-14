@@ -20,27 +20,19 @@ import { IBotHandler, botHandler } from '../support/BotHandler';
 import { ISoundSystem, SoundSystem } from '../support/SoundSystem';
 import { LevelBase } from './levelBase';
 
-
-
-
 export class Level1 extends LevelBase implements ILevel {
     title = "Level 1"
     description = "Let's keep it simple"
     circle1: Phaser.Geom.Circle;
-    
 
     constructor() {
         super('level1');
-        console.log(this);
-        this.actions = [];
     }
 
     create() {
-        
         let midx = this.scale.width/2;
         let midy = this.scale.height/2;
         this.circle1 = new Phaser.Geom.Circle(midx,midy, midy/2);
-        
         super.create();
     }
     

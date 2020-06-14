@@ -25,10 +25,9 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         botHandler.Level = this;
         this.particleEngine = new ParticleEngine(this);
         this.gameState = new GamePlayingState(this);
+        this.actions = [];
         
         this.units = [];
-        let midx = this.scale.width/2;
-        let midy = this.scale.height/2;
         //let debug = new DebugView(this);
         let settings = new SettingsView(this);
         let sideView = new Sidebar(this);
