@@ -24,14 +24,14 @@ export class UnitState extends State<Unit> {
             if(unit1.value <= 0)
             {
                 lvl.destroyUnit(unit1);
-                lvl.particleEngine.explosion(unit1.x,unit1.y,10,0.05, 500);
+                lvl.particleEngine.explosion(unit1.x,unit1.y,10,0.05, 500, unit1.team.tint);
                 // let m = lvl.explosionSounds[Math.floor(Math.random() * lvl.explosionSounds.length)];
                 // m.play({ volume: lvl.masterVolume * lvl.soundVolume });
                 lvl.SoundSystem.playRandom(lvl.SoundSystem.explosionSounds);
             }
             if(unit2.value <= 0){
                 lvl.destroyUnit(unit2);
-                lvl.particleEngine.explosion(unit2.x,unit2.y,10,0.05, 500);
+                lvl.particleEngine.explosion(unit2.x,unit2.y,10,0.05, 500, unit2.team.tint);
                 // let m = lvl.explosionSounds[Math.floor(Math.random() * lvl.explosionSounds.length)];
                 // m.play({ volume: lvl.masterVolume * lvl.soundVolume });
                 lvl.SoundSystem.playRandom(lvl.SoundSystem.explosionSounds);

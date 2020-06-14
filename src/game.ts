@@ -14,6 +14,7 @@ import { State } from './UnitStates/State';
 import { Level3 } from './Levels/level3';
 import { Level4 } from './Levels/level4';
 import { Level5 } from './Levels/level5';
+import { ParticleEngine } from './support/ParticleEngine';
 
 let config = {
     type: Phaser.AUTO,
@@ -57,6 +58,7 @@ export interface ILevel {
     reset(): void;
     time: Phaser.Time.Clock;
     gameState: State<ILevel>
+    particleEngine: ParticleEngine
 }
 
 
