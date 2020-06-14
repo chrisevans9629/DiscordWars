@@ -12,6 +12,7 @@ import { ISoundSystem } from './support/SoundSystem';
 import { botHandler } from './support/BotHandler';
 import { State } from './UnitStates/State';
 import { Level3 } from './Levels/level3';
+import { Level4 } from './Levels/level4';
 
 let config = {
     type: Phaser.AUTO,
@@ -60,15 +61,17 @@ export interface ILevel {
 
 let level2 = new Level2();
 let level3 = new Level3();
-
-export let Levels: ILevel[] = [level1, level2, level3];
+let level4 = new Level4();
+export let Levels: ILevel[] = [level1, level2, level3, level4];
 
 
 game.scene.add('MainMenu', menu);
-game.scene.add('level1', level1);
 game.scene.add('LevelSelect', select);
-game.scene.add('level2', level2);
-game.scene.add('level3', level3);
+
+Levels.forEach(p => {
+    let s = p as unknown as Phaser.Scene;
+    game.scene.add(p.sys.settings.key, s);
+});
 
 game.scene.start('MainMenu');
 
