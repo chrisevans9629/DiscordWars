@@ -1,4 +1,4 @@
-import { ILevel } from "../game";
+import { ILevel, soundSystem } from "../game";
 import { Chat, Player } from "./TeamSystem";
 import { OrbitState } from "../UnitStates/OrbitState";
 import { AttackState } from "../UnitStates/AttackState";
@@ -28,7 +28,7 @@ export class BotHandler implements IBotHandler {
             p.text.text = `${chat.message}`
             console.log(p.text.text);
         });
-        this.Level.SoundSystem.playRandom(this.Level.SoundSystem.blipSounds);
+        soundSystem.playRandom(soundSystem.blipSounds);
     }
     upgrade(to: number, team: number){
         if(!this.Level){
@@ -37,7 +37,7 @@ export class BotHandler implements IBotHandler {
         this.Level.units.filter(p => p.currentBase.baseId == to && p.unitState instanceof OrbitState && p.team.teamId == team).forEach(p => {
             p.unitState = (new AttackState(p, this.Level, p.currentBase));
         });
-        this.Level.SoundSystem.playRandom(this.Level.SoundSystem.blipSounds);
+        soundSystem.playRandom(soundSystem.blipSounds);
         //this.SoundSystem.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({volume: this.masterVolume * this.soundVolume });
     }
     retreat(to: number, user: Player){
@@ -60,7 +60,7 @@ export class BotHandler implements IBotHandler {
             p.unitState = (new MoveState(p, this.Level, p.currentBase, action));
         });
         
-        this.Level.SoundSystem.playRandom(this.Level.SoundSystem.blipSounds);
+        soundSystem.playRandom(soundSystem.blipSounds);
         //this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({ volume: this.masterVolume * this.soundVolume });
         return { success: true, reason: `${units.length} are retreating!`};
     }
@@ -93,7 +93,7 @@ export class BotHandler implements IBotHandler {
         units.forEach(p => {
             p.unitState = (new MoveState(p,this.Level, toBase, action));
         });
-        this.Level.SoundSystem.playRandom(this.Level.SoundSystem.blipSounds);
+        soundSystem.playRandom(soundSystem.blipSounds);
         //this.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({ volume: this.soundVolume * this.masterVolume });
 
         return {success: true, reason: `moving ${units.length} units from ${from} to ${to}`};

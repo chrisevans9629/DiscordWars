@@ -1,23 +1,9 @@
 'use strict';
 
-import { MoveState } from '../UnitStates/MoveState';
-import { UserAction } from "../UnitStates/UserAction";
-import { Unit } from '../UnitStates/Unit';
 import { Base } from '../BaseStates/Base';
-import { OrbitState } from '../UnitStates/OrbitState';
-import { AttackState } from '../UnitStates/AttackState';
 import { NeutralState } from '../BaseStates/NeutralState';
-import { teams, Chat, Player } from '../support/TeamSystem';
-import { assets } from '../assets';
-import { SettingsView } from '../views/settings';
-import { Sidebar } from '../views/sidebar';
-import { ParticleEngine } from '../support/ParticleEngine';
-import { GameState } from '../GameStates/GameState';
-import { GamePlayingState } from '../GameStates/GamePlayingState';
-import { getCache } from './getCache';
+import { teams } from '../support/TeamSystem';
 import { ILevel } from '../game';
-import { IBotHandler, botHandler } from '../support/BotHandler';
-import { ISoundSystem, SoundSystem } from '../support/SoundSystem';
 import { LevelBase } from './levelBase';
 
 export class Level1 extends LevelBase implements ILevel {
@@ -27,6 +13,7 @@ export class Level1 extends LevelBase implements ILevel {
 
     constructor() {
         super('level1');
+        
     }
 
     create() {

@@ -19,7 +19,7 @@ export class LevelBase extends Phaser.Scene implements ILevel {
     bases: Base[];
     units: Unit[];
     actions: UserAction[];
-    SoundSystem: ISoundSystem;
+    //SoundSystem: ISoundSystem;
 
     create() {
         botHandler.Level = this;
@@ -33,8 +33,8 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         let sideView = new Sidebar(this);
         this.createBases();
         console.log(this.bases);
-        this.sound.pauseOnBlur = false;
-        this.SoundSystem = new SoundSystem(this.sound);
+        
+        //this.SoundSystem = new SoundSystem(this.sound);
         
         this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
     }

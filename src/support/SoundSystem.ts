@@ -26,11 +26,22 @@ export class SoundSystem implements ISoundSystem {
         this.musicVolume = Number(getCache('music',"1"));
         this.masterVolume = Number(getCache('master',"1"));
         this.sound = sound;
+        this.sound.pauseOnBlur = false;
+        
+        //this.start();
+    }
+   
+    start() {
+        if(this.explosionSounds){
+            return;
+        }
+
         this.explosionSounds = [
-            this.sound.add('exp_9'), 
+            this.sound.add('exp_9'),
             this.sound.add('exp_10'),
             this.sound.add('exp_11'),
-            this.sound.add('exp_14')];
+            this.sound.add('exp_14')
+        ];
         this.blipSounds = [
             this.sound.add('blip_5'),
             this.sound.add('blip_6'),
@@ -44,9 +55,9 @@ export class SoundSystem implements ISoundSystem {
             this.sound.add('hit_10'),
             this.sound.add('hit_11'),
         ];
-        
+
         this.music = this.sound.add('theme', { loop: true, });
-        
+
         this.music.play({ volume: this.musicVolume * this.masterVolume, loop: true });
     }
 

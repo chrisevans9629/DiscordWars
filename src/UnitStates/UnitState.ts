@@ -1,6 +1,7 @@
 import { State } from './State';
 import { Unit } from './Unit';
 import Level1 from '../Levels/level1';
+import { soundSystem } from '../game';
 
 export class UnitState extends State<Unit> {
     update(){
@@ -27,14 +28,14 @@ export class UnitState extends State<Unit> {
                 lvl.particleEngine.explosion(unit1.x,unit1.y,10,0.05, 500, unit1.team.tint);
                 // let m = lvl.explosionSounds[Math.floor(Math.random() * lvl.explosionSounds.length)];
                 // m.play({ volume: lvl.masterVolume * lvl.soundVolume });
-                lvl.SoundSystem.playRandom(lvl.SoundSystem.explosionSounds);
+                soundSystem.playRandom(soundSystem.explosionSounds);
             }
             if(unit2.value <= 0){
                 lvl.destroyUnit(unit2);
                 lvl.particleEngine.explosion(unit2.x,unit2.y,10,0.05, 500, unit2.team.tint);
                 // let m = lvl.explosionSounds[Math.floor(Math.random() * lvl.explosionSounds.length)];
                 // m.play({ volume: lvl.masterVolume * lvl.soundVolume });
-                lvl.SoundSystem.playRandom(lvl.SoundSystem.explosionSounds);
+                soundSystem.playRandom(soundSystem.explosionSounds);
             }
             
         }

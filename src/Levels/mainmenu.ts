@@ -1,6 +1,7 @@
 import { model, TryLogin } from '../vuemodel';
 import { assets } from '../assets';
 import { LoginView } from '../views/login';
+import { soundSystem } from '../game';
 export class MainMenu extends Phaser.Scene{
     constructor(){
         super('MainMenu');
@@ -37,6 +38,8 @@ export class MainMenu extends Phaser.Scene{
     }
     //cell: Phaser.Math.Vector2;
     create() {
+
+        soundSystem.start();
         //   let background = this.add.sprite(0,0,'background');
         //  background.setOrigin(0,0);
         //   background.displayHeight = this.scale.height;
