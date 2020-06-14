@@ -13,6 +13,7 @@ import { botHandler } from './support/BotHandler';
 import { State } from './UnitStates/State';
 import { Level3 } from './Levels/level3';
 import { Level4 } from './Levels/level4';
+import { Level5 } from './Levels/level5';
 
 let config = {
     type: Phaser.AUTO,
@@ -62,7 +63,7 @@ export interface ILevel {
 let level2 = new Level2();
 let level3 = new Level3();
 let level4 = new Level4();
-export let Levels: ILevel[] = [level1, level2, level3, level4];
+export let Levels: ILevel[] = [level1, level2, level3, level4, new Level5()];
 
 
 game.scene.add('MainMenu', menu);

@@ -9,7 +9,7 @@ export class LevelSelect extends Phaser.Scene {
         super('LevelSelect');
     }
     create(){
-        this.view = this.add.dom(this.scale.width/2,this.scale.height/4).setOrigin(0.5,0).createFromHTML(`
+        this.view = this.add.dom(this.scale.width/2,10).setOrigin(0.5,0).createFromHTML(`
         <div class="d-flex justify-content-center flex-column text-center">
             <button class="btn" id="MainMenu">MainMenu</button>
             <h1>Level Select</h1>
@@ -19,7 +19,9 @@ export class LevelSelect extends Phaser.Scene {
 
         //div.style.width = (this.scale.width/2).toString();
         //div.style.height = this.scale.height.toString();
-
+        div.style.overflowY = "scroll";
+        div.style.height = `${this.scale.height * 0.95}px`;
+        //div.style.overflow = 'hidden';
 
         Levels.forEach(p => {
             div.innerHTML += `
