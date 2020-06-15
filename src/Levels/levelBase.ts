@@ -16,29 +16,41 @@ import { GameOverState } from "../GameStates/GameOverState";
 class AI {
 
     makeMove(bases: Base[], units: Unit[]){
-        
-        //let teams = bases.map(p => p.team.teamId);
-
 
         let teamsWithNoPlayers = bases.filter(p => !TeamInteraction.players.some(r => r.team.teamId == p.team.teamId) && p.team.teamId > 0);
         teamsWithNoPlayers.forEach(p => {
 
             let chance = Phaser.Math.FloatBetween(0,1);
 
-            if(chance > 0.8){
-                let opposite = bases.filter(r => r.team.teamId != p.team.teamId || r.baseState instanceof NeutralState && r.team.teamId == p.team.teamId);
+            if(chance > 0.9){
+                //let opposite = bases.filter(r => r.team.teamId != p.team.teamId || r.baseState instanceof NeutralState && r.team.teamId == p.team.teamId);
 
-                let best = opposite.map(r => {
-                    return { 
-                        score: r.xp.maxLevel * 100 - r.hp.health - units.filter(t => t.currentBase.baseId == r.baseId).length - Phaser.Math.Distance.Between(p.x,p.y,r.x,r.y),
-                        base: r };
-                 }).sort((a,b) => a.score - b.score).pop();
+                let best = bases.map(r => this.calculateScore(p,r,units)).sort((a,b) => a.score - b.score).pop();
                 if(best){
                     botHandler.move(p.baseId, best.base.baseId, 100, new AIPlayer(p.team.teamId));
-
                 }
             }
         });
+    }
+
+    calculateScore(current: Base, attack: Base, units: Unit[]){
+        
+        if(current == attack){
+            return { score: -10000, base: attack };
+        }
+
+        let lvl = attack.xp.maxLevel * 100;
+        let health = attack.hp.health;
+        if(attack.team.teamId != current.team.teamId){
+            health = -health;
+        }
+
+        let protection = units.filter(t => t.currentBase.baseId == attack.baseId && t.team.teamId != current.team.teamId).length;
+
+        let distance = Phaser.Math.Distance.Between(current.x,current.y,attack.x,attack.y);
+        return { 
+            score: lvl + health - protection - distance,
+            base: attack };
     }
 
 }
