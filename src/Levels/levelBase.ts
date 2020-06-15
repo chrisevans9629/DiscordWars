@@ -1,6 +1,6 @@
 import { GameState } from "../GameStates/GameState";
 import { ParticleEngine } from "../support/ParticleEngine";
-import { Base } from "../BaseStates/Base";
+import { Base, IBase } from "../BaseStates/Base";
 import { Unit } from "../UnitStates/Unit";
 import { UserAction } from "../UnitStates/UserAction";
 import { ISoundSystem, SoundSystem } from "../support/SoundSystem";
@@ -9,23 +9,34 @@ import { GamePlayingState } from "../GameStates/GamePlayingState";
 import { ILevel } from "../game";
 import { SettingsView } from "../views/settings";
 import { Sidebar } from "../views/sidebar";
-import { TeamInteraction, AIPlayer } from "../support/TeamSystem";
+import { TeamInteraction, AIPlayer, teams } from "../support/TeamSystem";
 import { NeutralState } from "../BaseStates/NeutralState";
 import { GameOverState } from "../GameStates/GameOverState";
 
 class AI {
 
-    makeMove(bases: Base[]){
+    makeMove(bases: Base[], units: Unit[]){
         
         //let teams = bases.map(p => p.team.teamId);
+
+
         let teamsWithNoPlayers = bases.filter(p => !TeamInteraction.players.some(r => r.team.teamId == p.team.teamId) && p.team.teamId > 0);
         teamsWithNoPlayers.forEach(p => {
 
             let chance = Phaser.Math.FloatBetween(0,1);
 
-            let opposite = bases.find(r => r.team.teamId != p.team.teamId || r.baseState instanceof NeutralState && r.team.teamId == p.team.teamId);
-            if(opposite && chance > 0.8){
-                botHandler.move(p.baseId, opposite.baseId, 100, new AIPlayer(p.team.teamId));
+            if(chance > 0.8){
+                let opposite = bases.filter(r => r.team.teamId != p.team.teamId || r.baseState instanceof NeutralState && r.team.teamId == p.team.teamId);
+
+                let best = opposite.map(r => {
+                    return { 
+                        score: r.xp.maxLevel * 100 - r.hp.health - units.filter(t => t.currentBase.baseId == r.baseId).length - Phaser.Math.Distance.Between(p.x,p.y,r.x,r.y),
+                        base: r };
+                 }).sort((a,b) => a.score - b.score).pop();
+                if(best){
+                    botHandler.move(p.baseId, best.base.baseId, 100, new AIPlayer(p.team.teamId));
+
+                }
             }
         });
     }
@@ -68,7 +79,7 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         this.bases.forEach(p => {
             p.baseState.secondPassed();
         });
-        this.ai.makeMove(this.bases);
+        this.ai.makeMove(this.bases,this.units);
     }
     destroyUnit(unit: Unit){
         unit.destroy();
