@@ -15,7 +15,7 @@ export class GamePlayingState extends ResumeState {
         let teams = this.Unit.bases.map(p => p.team.teamId).filter(p => p >= 0);
 
         teams.forEach(p => {
-            if (teams.every(r => r == p)) {
+            if (teams.every(r => r == p) && this.Unit.gameState instanceof GameOverState != true) {
                 this.Unit.gameState = new GameOverState(this.Unit, p);
                 return;
             }

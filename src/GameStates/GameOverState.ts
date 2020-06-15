@@ -6,12 +6,7 @@ import { ILevel } from "../game";
 export class GameOverState extends PauseState {
     constructor(scene: ILevel, team: number){
         super(scene);
+        console.log('game over!');
         let gameOverView = new GameOverView(scene.scene.scene, team);
-
-        //model.data.gameOver = true;
-        //model.data.title = `Team ${team} won!`;
-    }
-    update(){
-        
     }
 }
