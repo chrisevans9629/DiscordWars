@@ -6,6 +6,7 @@ import { Scene } from "phaser";
 export interface ILevelScale {
     levelScaleRatio: number;
     levelScale: number;
+    reset(): void;
 }
 
 export interface ILevelSystem {
@@ -27,10 +28,10 @@ export class LevelSystem implements ILevelSystem {
     scale: ILevelScale;
     progressBar: ProgressBar;
     rings: Phaser.GameObjects.GameObject[] = []
-    defaultScale: number;
+    //defaultScale: number;
     constructor(scale: ILevelScale, scene: Scene, x: number, y:number, maxLevel: number){
         this.scale = scale;
-        this.defaultScale = scale.levelScale;
+        //this.defaultScale = scale.levelScale;
         this.reset();
         this.maxLevel = maxLevel;
         this.progressBar = new ProgressBar(scene, x, y);
@@ -42,7 +43,8 @@ export class LevelSystem implements ILevelSystem {
         this.nextLevel = 20;
         this.experience = 0;
         this.nextRatio = 1.5;
-        this.scale.levelScale = this.defaultScale;
+        this.scale.reset();
+        //this.scale.levelScale = this.defaultScale;
     }
     upgrade(value: number): UnitChange {
         if(this.level == this.maxLevel){
@@ -55,7 +57,7 @@ export class LevelSystem implements ILevelSystem {
         if(this.experience >= this.nextLevel){
             this.level++;
             
-            this.scale.levelScale = this.scale.levelScaleRatio * this.scale.levelScale;
+            this.scale.levelScale *= this.scale.levelScaleRatio;
             //console.log(`upgraded! level:${this.level} scale:${this.scale.levelScale} nextLevel:${this.nextLevel}`);
             if(this.level != this.maxLevel){
                 this.experience = 0;

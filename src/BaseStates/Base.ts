@@ -42,9 +42,14 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
     }
     set levelScale(scale){
         if(this.img){
+            if(scale == this.img.scale){
+                return;
+            }
+            
             if(this.tween){
                 this.scene.tweens.remove(this.tween);
             }
+            
             this.img.scale = scale;
         }
     }
@@ -76,6 +81,8 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
         super(lvl.scene.scene, 50, 50, []);
         let scene = lvl.scene.scene;
         this.team = getTeam(teamId);
+        this.img = scene.add.sprite(0, 0, key).setOrigin(0.5, 0.5);
+        this.levelScale = 0.5;
         let xp = new LevelSystem(this, scene, 0,40, maxLevel);
         xp.progressBar.goodColor = 0x0000ff;
         xp.progressBar.badColor = 0x0000ff;
@@ -85,8 +92,7 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
         this.setDepth(1);
         this.levelScaleRatio = 1.2;
         this.baseState = new GenerateState(this, lvl);
-        this.img = scene.add.sprite(0, 0, key).setOrigin(0.5, 0.5);
-        this.levelScale = 0.5;
+        
         //console.log(this.tint);
         this.baseName = scene.add.text(0, -70, `${baseId}`, { color: 'white', fontSize: '36px', fontFamily: 'ethno' }).setOrigin(0.5, 0.5);
 
@@ -117,6 +123,9 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
             }
         });
        
+    }
+    reset(){
+        this.levelScale = 0.5;
     }
     tween: Phaser.Tweens.Tween;
     pulse() {
