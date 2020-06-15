@@ -32,7 +32,7 @@ let hasJoined = (msg: Message) => {
 
 
 let moveCmd = {
-  name: '!move',
+  name: ['!move', '! move'],
   execute(msg: Message, args: string) {
     let team = hasJoined(msg);
     if(!team.joined){
@@ -46,7 +46,7 @@ let moveCmd = {
 };
 
 let joinCmd = {
-  name: '!join',
+  name: ['!join', '! join'],
   execute(msg: Message, args: string) {
     
     args = args.replace(' ','');
@@ -71,7 +71,7 @@ let joinCmd = {
 };
 
 let upgradeCmd = {
-  name: '!upgrade',
+  name: ['!upgrade', '! upgrade'],
   execute(msg: Message, args: string) {
     let team = hasJoined(msg);
     if(!team.joined){
@@ -82,7 +82,7 @@ let upgradeCmd = {
 };
 
 let leaveCmd = {
-  name: '!leave',
+  name: ['!leave',  '! leave'],
   execute(msg: Message, args: string) {
     if(!hasJoined(msg).joined){
       return;
@@ -93,7 +93,7 @@ let leaveCmd = {
 }
 
 let retreatCmd = {
-  name: '!retreat',
+  name: ['!retreat', '! retreat'],
   execute(msg: Message, args: string) {
     let team = hasJoined(msg);
     if(!team.joined){
@@ -107,7 +107,7 @@ let retreatCmd = {
 
 
 let sayCmd = {
-  name: '!say',
+  name: ['!say','! say'],
   execute(msg: Message, args: string){
     
     let joined = hasJoined(msg);
@@ -122,7 +122,7 @@ let sayCmd = {
 }
 
 let helpCmd = {
-  name: '!help',
+  name: ['!help', '! help'],
   execute(msg: Message, args: string){
     msg.reply("!join 1 -> joins team 1\r\n!move 2 4 -> moves from base 2 to base 4\r\n!upgrade 1 -> upgrades base 1\r\n!retreat 1 -> retreats all units away from base 1\r\n!say loser -> roasts the other team\r\n!leave -> leaves the game");
   }
@@ -131,9 +131,11 @@ let helpCmd = {
 let commands = [moveCmd, joinCmd, upgradeCmd, leaveCmd, retreatCmd, sayCmd, helpCmd];
 
 client.on('message', msg => {
-  commands.filter(p => msg.content.toLocaleLowerCase().startsWith(p.name)).forEach(p => {
-    let t = msg.content.substr(p.name.length,100);
-    p.execute(msg,t);
+  commands.forEach(p => {
+    p.name.filter(t => msg.content.toLocaleLowerCase().startsWith(t)).forEach(r => {
+      let t = msg.content.substr(r.length,100);
+      p.execute(msg,t);
+    });
   });
 });
 

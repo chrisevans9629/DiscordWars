@@ -13,43 +13,83 @@ import { TeamInteraction, AIPlayer, teams } from "../support/TeamSystem";
 import { NeutralState } from "../BaseStates/NeutralState";
 import { GameOverState } from "../GameStates/GameOverState";
 
+interface ICalculateParameters {
+    current: Base
+    attack: Base
+    units: Unit[]
+    maxDistance: number;
+    maxUnits: number;
+    maxLevel: number;
+}
+
 class AI {
 
     makeMove(bases: Base[], units: Unit[]){
 
+        let maxUnits = Math.max(...bases.map(p => units.filter(r => r.currentBase.baseId == p.baseId).length));
+        let maxLevel = Math.max(...bases.map(p => p.xp.maxLevel));
+
         let teamsWithNoPlayers = bases.filter(p => !TeamInteraction.players.some(r => r.team.teamId == p.team.teamId) && p.team.teamId > 0);
         teamsWithNoPlayers.forEach(p => {
+            //let opposite = bases.filter(r => r.team.teamId != p.team.teamId || r.baseState instanceof NeutralState && r.team.teamId == p.team.teamId);
+            let t = bases.map(r => Phaser.Math.Distance.Between(r.x,r.y,p.x,p.y));
+            let maxDistance = Math.max(...t);
 
-            let chance = Phaser.Math.FloatBetween(0,1);
-
-            if(chance > 0.9){
-                //let opposite = bases.filter(r => r.team.teamId != p.team.teamId || r.baseState instanceof NeutralState && r.team.teamId == p.team.teamId);
-
-                let best = bases.map(r => this.calculateScore(p,r,units)).sort((a,b) => a.score - b.score).pop();
-                if(best){
+            let best = bases.map(r => this.calculateScore({ current: p,attack: r,units: units, maxDistance: maxDistance, maxLevel: maxLevel, maxUnits: maxUnits })).sort((a,b) => a.score - b.score).pop();
+            if(best){
+                if(best.base.baseId == p.baseId){
+                    botHandler.upgrade(p.baseId,p.team.teamId);
+                }
+                else{
                     botHandler.move(p.baseId, best.base.baseId, 100, new AIPlayer(p.team.teamId));
                 }
             }
         });
     }
 
-    calculateScore(current: Base, attack: Base, units: Unit[]){
+    calculateScore(parameter: ICalculateParameters){
+        let current = parameter.current;
+        let attack = parameter.attack;
+        let units = parameter.units;
+
+        let lvl = attack.xp.maxLevel / parameter.maxLevel;
+        let health = attack.hp.health / attack.hp.maxHealth;
         
-        if(current == attack){
-            return { score: -10000, base: attack };
-        }
-
-        let lvl = attack.xp.maxLevel * 100;
-        let health = attack.hp.health;
-        if(attack.team.teamId != current.team.teamId){
+        let sameTeam = attack.team.teamId == current.team.teamId;
+        
+        let teamValue = 0;
+        if(!sameTeam){
             health = -health;
+            teamValue = 1;
         }
 
-        let protection = units.filter(t => t.currentBase.baseId == attack.baseId && t.team.teamId != current.team.teamId).length;
+        let neutralValue = 0;
 
-        let distance = Phaser.Math.Distance.Between(current.x,current.y,attack.x,attack.y);
+        if(attack.baseState instanceof NeutralState && attack.team.teamId == current.team.teamId){
+            neutralValue = 1;
+        }
+
+        let healValue = 0;
+
+        if(sameTeam && attack.hp.isFullHealth != true){
+            healValue = 1;
+        }
+
+        let upgradeValue = 0;
+
+        if(current.baseId == attack.baseId && current.xp.level < current.xp.maxLevel){
+            upgradeValue = 1;
+        }
+
+        let allyBaseUnits = units.filter(t => t.currentBase.baseId == attack.baseId && t.team.teamId == attack.team.teamId).length / parameter.maxUnits;
+        let enemyBaseUnits = units.filter(t => t.currentBase.baseId == attack.baseId && t.team.teamId != attack.team.teamId).length / parameter.maxUnits;
+
+        let distance = Phaser.Math.Distance.Between(current.x,current.y,attack.x,attack.y) / parameter.maxDistance;
+        let random = Phaser.Math.FloatBetween(0,1);
+        let score = lvl - allyBaseUnits * 2 - distance * 2 + teamValue + neutralValue + healValue + upgradeValue * 2 + random; 
+        console.log(`base ${attack.baseId} score ${score}`);
         return { 
-            score: lvl + health - protection - distance,
+            score: score,
             base: attack };
     }
 
@@ -86,12 +126,16 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         //this.SoundSystem = new SoundSystem(this.sound);
         
         this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
+        this.time.addEvent({loop: true, delay: 5000, callback: this.fivePassed, callbackScope: this})
     }
+    fivePassed(){
+        this.ai.makeMove(this.bases,this.units);
+    }
+
     secondPassed(){
         this.bases.forEach(p => {
             p.baseState.secondPassed();
         });
-        this.ai.makeMove(this.bases,this.units);
     }
     destroyUnit(unit: Unit){
         unit.destroy();

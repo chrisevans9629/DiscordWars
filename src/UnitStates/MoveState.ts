@@ -10,11 +10,10 @@ import { ILevel } from '../game';
 
 export class MoveState extends UnitState {
     toBase: IBase;
-    speed: number;
+    speed: number = 1;
     user: UserAction;
     constructor(unit: Unit, scene: ILevel, toBase: IBase, user: UserAction) {
         super(unit, scene);
-        this.speed = 0.5;
         this.toBase = toBase;
         this.user = user;
         user.units.push(unit);

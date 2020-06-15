@@ -17,6 +17,7 @@ export class NeutralState extends BaseState {
         this.fromColor = this.Unit.team.color;
         //console.log(this.Unit.team);
         this.Unit.hp.maxHealth = 30;
+        this.Unit.xp.reset();
     }
     unitHit(unit: IUnit) {
         let change = super.unitHit(unit);
