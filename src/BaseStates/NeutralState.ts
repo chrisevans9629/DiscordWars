@@ -19,6 +19,8 @@ export class NeutralState extends BaseState {
         this.Unit.hp.maxHealth = 30;
         this.Unit.xp.reset();
     }
+
+
     unitHit(unit: IUnit) {
         let change = super.unitHit(unit);
         
@@ -33,9 +35,7 @@ export class NeutralState extends BaseState {
             change = this.Unit.hp.addHealth(-unit.value);
         }
 
-        if(this.Unit.hp.health >= this.Unit.hp.maxHealth){
-            this.Unit.baseState = new GenerateState(this.Unit, this.Scene);
-        }
+        
         let t = this.Unit.team.color;
 
         let ratio = this.Unit.hp.health / this.Unit.hp.maxHealth;
@@ -46,7 +46,12 @@ export class NeutralState extends BaseState {
         let b = tween({ from: this.fromColor[2], to: t[2], percent: ratio });
         //0 255 50% health
         this.Unit.tint = rgbToHex(Math.round(r),Math.round(g),Math.round(b));
-        //this.Unit.team = unit.team;//.changeTeam(unit.teamId);
+
+        if(this.Unit.hp.health >= this.Unit.hp.maxHealth){
+            this.Unit.tint = this.Unit.team.tint;
+            this.Unit.baseState = new GenerateState(this.Unit, this.Scene);
+        }
+
         return change;
     }
 }

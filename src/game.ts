@@ -16,6 +16,7 @@ import { Level4 } from './Levels/level4';
 import { Level5 } from './Levels/level5';
 import { ParticleEngine } from './support/ParticleEngine';
 import { Login } from './Levels/login';
+import { Random } from './Levels/random';
 
 let config = {
     type: Phaser.AUTO,
@@ -74,7 +75,8 @@ export let Levels: ILevel[] = [
     new Level2(), 
     new Level3(), 
     new Level4(), 
-    new Level5()];
+    new Level5(),
+    new Random()];
 
 
 game.scene.add('MainMenu', menu);
