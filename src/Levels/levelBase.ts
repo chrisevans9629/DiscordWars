@@ -108,7 +108,16 @@ export class LevelBase extends Phaser.Scene implements ILevel {
     actions: UserAction[];
     ai: AI;
     //SoundSystem: ISoundSystem;
-    speed: number = 4;
+    private _speed: number = 1;
+    get speed(){
+        return this._speed;
+    }
+    set speed(value){
+        if(this.speed != value){
+            this._speed = value;
+            this.updateTime();
+        }
+    }
     create() {
         botHandler.Level = this;
         this.particleEngine = new ParticleEngine(this);
@@ -126,10 +135,33 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         this.ai = new AI();
         //this.SoundSystem = new SoundSystem(this.sound);
         
-        this.time.addEvent({loop: true, delay: 1000/this.speed, callback: this.secondPassed, callbackScope: this});
-        this.time.addEvent({loop: true, delay: 5000/this.speed, callback: this.fivePassed, callbackScope: this});
-        this.time.addEvent({loop: true, delay: 10000/this.speed, callback: this.tenPassed, callbackScope: this});
+        this.createTime();
     }
+    private createTime() {
+        this.second = this.time.addEvent({ loop: true, delay: 1000 / this.speed, callback: this.secondPassed, callbackScope: this });
+        this.five = this.time.addEvent({ loop: true, delay: 5000 / this.speed, callback: this.fivePassed, callbackScope: this });
+        this.ten = this.time.addEvent({ loop: true, delay: 10000 / this.speed, callback: this.tenPassed, callbackScope: this });
+    }
+
+    updateTime(){
+        if(this.five){
+            this.five.destroy();
+            this.five = null;
+        }
+        if(this.second){
+            this.second.destroy();
+            this.second = null;
+        }
+        if(this.ten){
+            this.ten.destroy();
+            this.ten = null;
+        }
+        this.createTime();
+    }
+
+    five: Phaser.Time.TimerEvent;
+    ten: Phaser.Time.TimerEvent;
+    second: Phaser.Time.TimerEvent;
     tenPassed(){
         this.units.forEach(p => {
             this.physics.overlap(p.unitImg,this.units.map(p => p.unitImg),this.collission,null,this);

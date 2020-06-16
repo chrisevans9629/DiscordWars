@@ -4,7 +4,8 @@ import { ILevel } from '../game';
 export class GamePlayingState extends ResumeState {
     constructor(scene: ILevel) {
         super(scene);
-
+        console.log('playing!');
+        scene.time.paused = false;
         //model.data.gameOver = false;
     }
     update() {

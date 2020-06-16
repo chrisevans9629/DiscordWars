@@ -2,6 +2,8 @@
   <button id="settings" v-on:click="settings" class="btn">Settings</button>
   <button id="exit" class="btn">Exit</button>
   <div v-if="isSettings" id="isSettings">
+    <label>Speed</label>
+    <input id="speed" type="range" min="1" max="5" step="1">
     <label>Master</label>
     <input id="master" type="range" v-model="master" min="0" max="1" step="0.1">
     <label>Music</label>
