@@ -3,99 +3,13 @@ import { ParticleEngine } from "../support/ParticleEngine";
 import { Base, IBase } from "../BaseStates/Base";
 import { Unit } from "../UnitStates/Unit";
 import { UserAction } from "../UnitStates/UserAction";
-import { ISoundSystem, SoundSystem } from "../support/SoundSystem";
 import { botHandler } from "../support/BotHandler";
 import { GamePlayingState } from "../GameStates/GamePlayingState";
 import { ILevel } from "../game";
 import { SettingsView } from "../views/settings";
 import { Sidebar } from "../views/sidebar";
-import { TeamInteraction, AIPlayer, teams } from "../support/TeamSystem";
-import { NeutralState } from "../BaseStates/NeutralState";
-import { GameOverState } from "../GameStates/GameOverState";
 import { CombineUnits } from "../UnitStates/UnitState";
-
-interface ICalculateParameters {
-    current: Base
-    attack: Base
-    units: Unit[]
-    maxDistance: number;
-    maxUnits: number;
-    maxLevel: number;
-}
-
-class AI {
-
-    makeMove(bases: Base[], units: Unit[]){
-
-        let maxUnits = Math.max(...bases.map(p => units.filter(r => r.currentBase.baseId == p.baseId).length));
-        let maxLevel = Math.max(...bases.map(p => p.xp.maxLevel));
-
-        let teamsWithNoPlayers = bases.filter(p => !TeamInteraction.players.some(r => r.team.teamId == p.team.teamId) && p.team.teamId > 0);
-        teamsWithNoPlayers.forEach(p => {
-            //let opposite = bases.filter(r => r.team.teamId != p.team.teamId || r.baseState instanceof NeutralState && r.team.teamId == p.team.teamId);
-            let t = bases.map(r => Phaser.Math.Distance.Between(r.x,r.y,p.x,p.y));
-            let maxDistance = Math.max(...t);
-
-            let best = bases.map(r => this.calculateScore({ current: p,attack: r,units: units, maxDistance: maxDistance, maxLevel: maxLevel, maxUnits: maxUnits })).sort((a,b) => a.score - b.score).pop();
-            if(best){
-                if(best.base.baseId == p.baseId){
-                    botHandler.upgrade(p.baseId,p.team.teamId);
-                }
-                else{
-                    botHandler.move(p.baseId, best.base.baseId, 100, new AIPlayer(p.team.teamId));
-                }
-            }
-        });
-    }
-
-    calculateScore(parameter: ICalculateParameters){
-        let current = parameter.current;
-        let attack = parameter.attack;
-        let units = parameter.units;
-
-        let lvl = attack.xp.maxLevel / parameter.maxLevel;
-        let health = attack.hp.health / attack.hp.maxHealth;
-        
-        let sameTeam = attack.team.teamId == current.team.teamId;
-        
-        let teamValue = 0;
-        if(!sameTeam){
-            health = -health;
-            teamValue = 1;
-        }
-
-        let neutralValue = 0;
-
-        if(attack.baseState instanceof NeutralState && attack.team.teamId == current.team.teamId){
-            neutralValue = 1;
-        }
-
-        let healValue = 0;
-
-        if(sameTeam && attack.hp.isFullHealth != true){
-            healValue = 1;
-        }
-
-        let upgradeValue = 0;
-
-        if(current.baseId == attack.baseId && current.xp.level < current.xp.maxLevel){
-            upgradeValue = 1;
-        }
-
-        let allyBaseUnits = units.filter(t => t.currentBase.baseId == attack.baseId && t.team.teamId == attack.team.teamId).length / parameter.maxUnits;
-        let enemyBaseUnits = units.filter(t => t.currentBase.baseId == attack.baseId && t.team.teamId != attack.team.teamId).length / parameter.maxUnits;
-
-        let distance = Phaser.Math.Distance.Between(current.x,current.y,attack.x,attack.y) / parameter.maxDistance;
-        let random = Phaser.Math.FloatBetween(0,1);
-        let score = lvl - allyBaseUnits * 2 - distance * 2 + teamValue + neutralValue + healValue + upgradeValue * 2 + random; 
-        //console.log(`base ${attack.baseId} score ${score}`);
-        return { 
-            score: score,
-            base: attack };
-    }
-
-}
-
+import { AI } from "../support/AI";
 
 export class LevelBase extends Phaser.Scene implements ILevel {
     title: string
