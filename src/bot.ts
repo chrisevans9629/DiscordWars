@@ -32,7 +32,7 @@ let hasJoined = (msg: Message) => {
 
 
 let moveCmd = {
-  name: ['!move', '! move'],
+  name: ['!move', '! move', '!m'],
   execute(msg: Message, args: string) {
     let team = hasJoined(msg);
     if(!team.joined){
@@ -46,7 +46,7 @@ let moveCmd = {
 };
 
 let joinCmd = {
-  name: ['!join', '! join'],
+  name: ['!join', '! join', '!j'],
   execute(msg: Message, args: string) {
     
     args = args.replace(' ','');
@@ -71,7 +71,7 @@ let joinCmd = {
 };
 
 let upgradeCmd = {
-  name: ['!upgrade', '! upgrade'],
+  name: ['!upgrade', '! upgrade', '!u'],
   execute(msg: Message, args: string) {
     let team = hasJoined(msg);
     if(!team.joined){
@@ -82,7 +82,7 @@ let upgradeCmd = {
 };
 
 let leaveCmd = {
-  name: ['!leave',  '! leave'],
+  name: ['!leave',  '! leave', '!l'],
   execute(msg: Message, args: string) {
     if(!hasJoined(msg).joined){
       return;
@@ -93,7 +93,7 @@ let leaveCmd = {
 }
 
 let retreatCmd = {
-  name: ['!retreat', '! retreat'],
+  name: ['!retreat', '! retreat','!r'],
   execute(msg: Message, args: string) {
     let team = hasJoined(msg);
     if(!team.joined){
@@ -107,7 +107,7 @@ let retreatCmd = {
 
 
 let sayCmd = {
-  name: ['!say','! say'],
+  name: ['!say','! say', '!s'],
   execute(msg: Message, args: string){
     
     let joined = hasJoined(msg);
@@ -122,7 +122,7 @@ let sayCmd = {
 }
 
 let helpCmd = {
-  name: ['!help', '! help'],
+  name: ['!help', '! help', '!h'],
   execute(msg: Message, args: string){
     msg.reply("!join 1 -> joins team 1\r\n!move 2 4 -> moves from base 2 to base 4\r\n!upgrade 1 -> upgrades base 1\r\n!retreat 1 -> retreats all units away from base 1\r\n!say loser -> roasts the other team\r\n!leave -> leaves the game");
   }
