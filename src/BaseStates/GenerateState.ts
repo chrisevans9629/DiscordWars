@@ -56,6 +56,9 @@ export class GenerateState extends BaseState {
             this.Unit.tint = this.Unit.team.tint;
             this.Unit.xp.reset();
         }
+        if(x.valueUsed != 0){
+            this.damageEffect();
+        }
         return x;
     }
 }

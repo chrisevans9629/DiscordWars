@@ -51,7 +51,9 @@ export class NeutralState extends BaseState {
             this.Unit.tint = this.Unit.team.tint;
             this.Unit.baseState = new GenerateState(this.Unit, this.Scene);
         }
-
+        if(change.valueUsed != 0){
+            this.damageEffect();
+        }
         return change;
     }
 }
