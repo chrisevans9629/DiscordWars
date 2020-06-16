@@ -33,22 +33,22 @@ let hasJoined = (msg: Message) => {
 
 
 let moveCmd = {
-  name: ['!move', '! move', '!m'],
+  name: ['!move', '! move', '!m '],
   execute(msg: Message, args: string) {
     let team = hasJoined(msg);
     if(!team.joined){
       return;
     }
-    let actions = args.split(' ');
+    let actions = args.split(' ').filter(p => p != ' ');
     console.log(actions);
-    if(actions[1] == 'a' || actions[1] == 'all'){
-        botHandler.moveAll(Number(actions[2]), 100, team.team);
+    if(actions[0] == 'a' || actions[0] == 'all'){
+        botHandler.moveAll(Number(actions[1]), 100, team.team);
     }
-    else if(actions.length == 2){
-       botHandler.moveAll(Number(actions[1]), 100, team.team);
+    else if(actions.length == 1){
+       botHandler.moveAll(Number(actions[0]), 100, team.team);
     }
     else {
-      let result = move(Number(actions[1]),Number(actions[2]),100,team.team);
+      let result = move(Number(actions[0]),Number(actions[1]),100,team.team);
       msg.reply(result.reason);
     }
     
@@ -57,7 +57,7 @@ let moveCmd = {
 };
 
 let joinCmd = {
-  name: ['!join', '! join', '!j'],
+  name: ['!join', '! join', '!j '],
   execute(msg: Message, args: string) {
     
     args = args.replace(' ','');
@@ -82,7 +82,7 @@ let joinCmd = {
 };
 
 let upgradeCmd = {
-  name: ['!upgrade', '! upgrade', '!u'],
+  name: ['!upgrade', '! upgrade', '!u '],
   execute(msg: Message, args: string) {
     let team = hasJoined(msg);
     if(!team.joined){
@@ -104,7 +104,7 @@ let leaveCmd = {
 }
 
 let retreatCmd = {
-  name: ['!retreat', '! retreat','!r'],
+  name: ['!retreat', '! retreat','!r '],
   execute(msg: Message, args: string) {
     let team = hasJoined(msg);
     if(!team.joined){
@@ -118,7 +118,7 @@ let retreatCmd = {
 
 
 let sayCmd = {
-  name: ['!say','! say', '!s'],
+  name: ['!say','! say', '!s '],
   execute(msg: Message, args: string){
     
     let joined = hasJoined(msg);
