@@ -10,7 +10,7 @@ export class NeutralState extends BaseState {
     fromColor: [number,number,number];
     constructor(base: IBase, scene: ILevel) {
         super(base, scene);
-        this.Unit.team = getTeam(-1);//.changeTeam(-1);
+        this.Unit.team = getTeam('-1');//.changeTeam(-1);
         this.Unit.hp.setHealth(0);
         this.Unit.tint = this.Unit.team.tint;
         this.fromTint = this.Unit.team.tint;

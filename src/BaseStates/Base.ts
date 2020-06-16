@@ -75,10 +75,12 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
     private ring: Phaser.GameObjects.Sprite;
     private baseName: Phaser.GameObjects.Text;
     private img: Phaser.GameObjects.Sprite;
+    private lvl: ILevel;
     constructor(baseId: number, lvl: ILevel, key: string, teamId: number, maxLevel: number) {
         super(lvl.scene.scene, 50, 50, []);
+        this.lvl = lvl;
         let scene = lvl.scene.scene;
-        this.team = getTeam(teamId);
+        this.team = getTeam(teamId.toString());
         this.img = scene.add.sprite(0, 0, key).setOrigin(0.5, 0.5);
         this.levelScale = 0.5;
         let xp = new LevelSystem(this, scene, 0,40, maxLevel);
@@ -130,7 +132,7 @@ export class Base extends Phaser.GameObjects.Container implements IBase, ILevelS
         this.tween = this.scene.tweens.add({
             targets: this.img,
             scale: this.img.scale + .05,
-            duration: 300,
+            duration: 300/this.lvl.speed,
             ease: 'Sine.easeInOut',
             yoyo: true,
         });

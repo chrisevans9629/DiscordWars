@@ -66,13 +66,12 @@ let joinCmd = {
       msg.reply('you are already joined');
       return;
     }
-    let tm = Number(args);
-    let team = getTeam(tm);
+    let team = getTeam(args);
     if(!team){
       msg.reply(`team '${args}' does not exist`);
       return;
     }
-    let play = {team: team, name: msg.author.username, style: {color: getColor(tm)}, avatarUrl: msg.author.avatarURL()};
+    let play = {team: team, name: msg.author.username, style: {color: getColor(team.teamId)}, avatarUrl: msg.author.avatarURL()};
     TeamInteraction.addPlayer(play);
 
     addAvatar(play);

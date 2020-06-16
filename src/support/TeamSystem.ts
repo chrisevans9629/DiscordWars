@@ -31,6 +31,7 @@ export interface ITeamSystem {
     teamId: number;
     color: [number, number, number];
     tint: number;
+    names: string[];
 }
 
 // this.teamBaseImgs.push({teamId: 1, BaseImgKey: 'red', UnitImgKey: 'red', color: [0xFF,0,0]});
@@ -39,15 +40,15 @@ export interface ITeamSystem {
 
 
 export let teams: ITeamSystem[] = [
-    { teamId: 1, BaseImgKey: 'base', UnitImgKey: 'base', color: [0xFF, 0, 0], tint: 0xFF0000 },
-    { teamId: 2, BaseImgKey: 'base', UnitImgKey: 'base', color: [0, 0, 0xFF], tint: 0x0000FF },
-    { teamId: 3, BaseImgKey: 'base', UnitImgKey: 'base', color: [0, 0xFF, 0], tint: 0x00FF00 },
-    { teamId: 4, BaseImgKey: 'base', UnitImgKey: 'base', color: [0xFF, 0XFF, 0], tint: 0xFFFF00 },
-    { teamId: -1, BaseImgKey: 'base', UnitImgKey: 'base', color: [0xFF, 0xFF, 0xFF], tint: 0xFFFFFF },
+    { teamId: 1, names: ['red','r'], BaseImgKey: 'base', UnitImgKey: 'base', color: [0xFF, 0, 0], tint: 0xFF0000 },
+    { teamId: 2, names: ['blue','b'], BaseImgKey: 'base', UnitImgKey: 'base', color: [0, 0, 0xFF], tint: 0x0000FF },
+    { teamId: 3, names: ['green', 'g'], BaseImgKey: 'base', UnitImgKey: 'base', color: [0, 0xFF, 0], tint: 0x00FF00 },
+    { teamId: 4, names: ['yellow', 'y'], BaseImgKey: 'base', UnitImgKey: 'base', color: [0xFF, 0XFF, 0], tint: 0xFFFF00 },
+    { teamId: -1, names: ['neutral'], BaseImgKey: 'base', UnitImgKey: 'base', color: [0xFF, 0xFF, 0xFF], tint: 0xFFFFFF },
 ];
 
-export function getTeam(teamId: number) {
-    return teams.find(p => p.teamId == teamId);
+export function getTeam(teamId: string) {
+    return teams.find(p => p.teamId == Number(teamId) || p.names.some(r => r == teamId.toLocaleLowerCase()));
 }
 
 export interface Style {
@@ -67,7 +68,7 @@ export class AIPlayer implements IPlayer {
     style: Style;
     avatarUrl:string = null;
     constructor(tm: number){
-        let team = getTeam(tm);
+        let team = getTeam(tm.toString());
         this.team = team;
         this.style = {color: getColor(tm)};
     }

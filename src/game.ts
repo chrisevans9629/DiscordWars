@@ -63,6 +63,7 @@ export interface ILevel {
     load: Phaser.Loader.LoaderPlugin;
     destroyUnit(unit: Unit): void;
     fps: number;
+    speed: number;
 }
 
 
@@ -113,7 +114,7 @@ function say(chat: Chat){
 }
 
 function getColor(teamId: number){
-    let t = getTeam(teamId).color;
+    let t = getTeam(teamId.toString()).color;
     //console.log(t);
     return `rgb(${t[0]},${t[1]},${t[2]})`;
 }
