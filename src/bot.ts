@@ -4,6 +4,7 @@ import { move, upgrade, retreat, say, getColor, getTeam, addAvatar } from './gam
 import { model } from './vuemodel';
 import { toastInfo } from './vueapp';
 import { TeamInteraction, Chat } from './support/TeamSystem';
+import { botHandler } from './support/BotHandler';
 
 const client = new Client();
 //client.commands = new Collection();
@@ -39,8 +40,18 @@ let moveCmd = {
       return;
     }
     let actions = args.split(' ');
-    let result = move(Number(actions[1]),Number(actions[2]),100,team.team);
-    msg.reply(result.reason);
+    console.log(actions);
+    if(actions[1] == 'a' || actions[1] == 'all'){
+        botHandler.moveAll(Number(actions[2]), 100, team.team);
+    }
+    else if(actions.length == 2){
+       botHandler.moveAll(Number(actions[1]), 100, team.team);
+    }
+    else {
+      let result = move(Number(actions[1]),Number(actions[2]),100,team.team);
+      msg.reply(result.reason);
+    }
+    
     //console.log("moving");
   }
 };

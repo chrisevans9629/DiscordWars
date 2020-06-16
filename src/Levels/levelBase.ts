@@ -12,6 +12,7 @@ import { Sidebar } from "../views/sidebar";
 import { TeamInteraction, AIPlayer, teams } from "../support/TeamSystem";
 import { NeutralState } from "../BaseStates/NeutralState";
 import { GameOverState } from "../GameStates/GameOverState";
+import { CombineUnits } from "../UnitStates/UnitState";
 
 interface ICalculateParameters {
     current: Base
@@ -125,8 +126,17 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         this.ai = new AI();
         //this.SoundSystem = new SoundSystem(this.sound);
         
-        this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this})
-        this.time.addEvent({loop: true, delay: 5000, callback: this.fivePassed, callbackScope: this})
+        this.time.addEvent({loop: true, delay: 1000, callback: this.secondPassed, callbackScope: this});
+        this.time.addEvent({loop: true, delay: 5000, callback: this.fivePassed, callbackScope: this});
+        this.time.addEvent({loop: true, delay: 10000, callback: this.tenPassed, callbackScope: this});
+    }
+    tenPassed(){
+        this.units.forEach(p => {
+            this.physics.overlap(p.unitImg,this.units.map(p => p.unitImg),this.collission,null,this);
+        });
+    }
+    collission(img1: Phaser.Physics.Arcade.Image, img2: Phaser.Physics.Arcade.Image){
+        CombineUnits(img1.parentContainer as Unit, img2.parentContainer as Unit, this);
     }
     fivePassed(){
         this.ai.makeMove(this.bases,this.units);
