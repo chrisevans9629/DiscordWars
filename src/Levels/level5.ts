@@ -34,10 +34,10 @@ export class Level5 extends LevelBase implements ILevel {
         ];
 
         let circleBases = [
-            {id: 2,team:-1,xCell: 2, yCell: 2,maxLvl: 1},
-            {id: 4,team:-1,xCell: 4, yCell: 2,maxLvl: 1},
-            {id: 6,team:-1,xCell: 4, yCell: 4,maxLvl: 1},
-            {id: 9,team:-1,xCell: 2, yCell: 4,maxLvl: 1},
+            {id: 2,team:-1,xCell: 2, yCell: 2,maxLvl: 2},
+            {id: 4,team:-1,xCell: 4, yCell: 2,maxLvl: 2},
+            {id: 6,team:-1,xCell: 4, yCell: 4,maxLvl: 2},
+            {id: 9,team:-1,xCell: 2, yCell: 4,maxLvl: 2},
         ];
 
         let cell = new Phaser.Math.Vector2(this.scale.width/6,this.scale.height/6);

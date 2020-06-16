@@ -11,8 +11,8 @@ export class GenerateState extends BaseState {
     //speed: number;
     constructor(base: IBase, scene: ILevel) {
         super(base, scene);
-        base.hp.maxHealth = 100;
-        base.hp.health = 100;
+        base.hp.maxHealth = 50;
+        base.hp.health = 50;
         
         //this.speed = 1;
     }

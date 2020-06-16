@@ -87,7 +87,7 @@ class AI {
         let distance = Phaser.Math.Distance.Between(current.x,current.y,attack.x,attack.y) / parameter.maxDistance;
         let random = Phaser.Math.FloatBetween(0,1);
         let score = lvl - allyBaseUnits * 2 - distance * 2 + teamValue + neutralValue + healValue + upgradeValue * 2 + random; 
-        console.log(`base ${attack.baseId} score ${score}`);
+        //console.log(`base ${attack.baseId} score ${score}`);
         return { 
             score: score,
             base: attack };
