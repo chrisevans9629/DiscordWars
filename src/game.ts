@@ -60,6 +60,8 @@ export interface ILevel {
     gameState: State<ILevel>;
     particleEngine: ParticleEngine;
     load: Phaser.Loader.LoaderPlugin;
+    destroyUnit(unit: Unit): void;
+    fps: number;
 }
 
 

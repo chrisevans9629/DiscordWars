@@ -1,7 +1,6 @@
 import { Scene } from 'phaser';
 import { Unit } from "./Unit";
 import { UnitState } from './UnitState';
-import Level1 from '../Levels/level1';
 import { ILevel } from '../game';
 
 export class OrbitState extends UnitState {

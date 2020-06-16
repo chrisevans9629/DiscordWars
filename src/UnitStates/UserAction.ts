@@ -1,5 +1,4 @@
 import { Unit } from "./Unit";
-import Level1 from '../Levels/level1';
 import { IPlayer } from "../support/TeamSystem";
 import { ILevel } from "../game";
 export class UserAction {

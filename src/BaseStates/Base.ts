@@ -1,7 +1,5 @@
 import { BaseState } from './BaseState';
 import { GenerateState } from './GenerateState';
-import Level1 from '../Levels/level1';
-import { addHealth } from './IBase';
 import { LevelSystem, ILevelSystem, ILevelScale } from '../support/LevelSystem';
 import { ITeamSystem, teams } from '../support/TeamSystem';
 import { IHealthBar, HealthBar } from '../healthbar';

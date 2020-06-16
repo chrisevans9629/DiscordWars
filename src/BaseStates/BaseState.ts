@@ -1,7 +1,6 @@
 import { State } from '../UnitStates/State';
 import { Unit, IUnit } from '../UnitStates/Unit';
 import { Base, IBase } from "./Base";
-import Level1 from '../Levels/level1';
 import { soundSystem } from '../game';
 
 export interface UnitChange {

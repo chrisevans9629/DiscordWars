@@ -1,4 +1,3 @@
-import Level1 from "../Levels/level1";
 import { GameOverView } from "../views/gameOver";
 import { PauseState } from "./PauseState";
 import { ILevel } from "../game";

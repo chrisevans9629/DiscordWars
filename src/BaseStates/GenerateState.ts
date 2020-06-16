@@ -1,7 +1,6 @@
 import { Scene } from 'phaser';
 import { Unit, IUnit } from '../UnitStates/Unit';
 import { BaseState, UnitChange } from './BaseState';
-import { Level1 } from '../Levels/level1';
 import { Base, IBase } from "./Base";
 import { NeutralState } from "./NeutralState";
 import { ILevel } from '../game';
@@ -17,7 +16,7 @@ export class GenerateState extends BaseState {
         //this.speed = 1;
     }
     secondPassed() {
-        let lvl = this.Scene as Level1;
+        let lvl = this.Scene;
         for (let index = 0; index < this.Unit.xp.level; index++) {
             let unit = new Unit(lvl, this.Unit, this.Unit.team, this.Unit.team.UnitImgKey);
             unit.currentBase = this.Unit;

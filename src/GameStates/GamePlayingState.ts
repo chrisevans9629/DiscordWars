@@ -1,5 +1,4 @@
 import { ResumeState } from './ResumeState';
-import { Level1 } from '../Levels/level1';
 import { GameOverState } from './GameOverState';
 import { ILevel } from '../game';
 export class GamePlayingState extends ResumeState {

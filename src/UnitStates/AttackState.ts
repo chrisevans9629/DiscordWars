@@ -1,6 +1,5 @@
 import { Scene } from 'phaser';
 import { State } from './State';
-import { Level1 } from '../Levels/level1';
 import { Base, IBase } from "../BaseStates/Base";
 import { Unit } from "./Unit";
 import { UnitState } from './UnitState';
@@ -22,7 +21,7 @@ export class AttackState extends UnitState {
         if (Phaser.Math.Distance.Between(this.Unit.x, this.Unit.y, this.toBase.x, this.toBase.y) < 1) {
             let hit = this.toBase.baseState.unitHit(this.Unit);
             if(hit.shouldDestroy) {
-                let lvl1 = this.Scene as Level1;
+                let lvl1 = this.Scene;
                 lvl1.destroyUnit(this.Unit);
             } else {
                 this.Unit.value -= hit.valueUsed;
