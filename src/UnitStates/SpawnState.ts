@@ -13,7 +13,7 @@ export class SpawnState extends UnitState {
         let x = Phaser.Math.FloatBetween(-1, 1);
         let y = Phaser.Math.FloatBetween(-1, 1);
         let v = new Phaser.Math.Vector2(x, y).normalize();
-        this.speed = 1;
+        this.speed = 1 * scene.speed;
         this.distance = Phaser.Math.FloatBetween(40, 75);
         this.destination = new Phaser.Math.Vector2(unit.x + v.x * this.distance, unit.y + v.y * this.distance);
     }

@@ -8,7 +8,7 @@ export class OrbitState extends UnitState {
     constructor(unit: Unit, scene: ILevel) {
         super(unit, scene);
 
-        this.speed = Phaser.Math.FloatBetween(-0.005,0.005);
+        this.speed = Phaser.Math.FloatBetween(-0.005,0.005) * scene.speed;
     }
     update() {
         super.update();

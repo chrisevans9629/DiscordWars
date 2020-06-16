@@ -108,7 +108,7 @@ export class LevelBase extends Phaser.Scene implements ILevel {
     actions: UserAction[];
     ai: AI;
     //SoundSystem: ISoundSystem;
-    speed: number = 2;
+    speed: number = 4;
     create() {
         botHandler.Level = this;
         this.particleEngine = new ParticleEngine(this);
@@ -127,8 +127,8 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         //this.SoundSystem = new SoundSystem(this.sound);
         
         this.time.addEvent({loop: true, delay: 1000/this.speed, callback: this.secondPassed, callbackScope: this});
-        this.time.addEvent({loop: true, delay: 5000, callback: this.fivePassed, callbackScope: this});
-        this.time.addEvent({loop: true, delay: 10000, callback: this.tenPassed, callbackScope: this});
+        this.time.addEvent({loop: true, delay: 5000/this.speed, callback: this.fivePassed, callbackScope: this});
+        this.time.addEvent({loop: true, delay: 10000/this.speed, callback: this.tenPassed, callbackScope: this});
     }
     tenPassed(){
         this.units.forEach(p => {
