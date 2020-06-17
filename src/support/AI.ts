@@ -48,7 +48,8 @@ export class AI {
                 else{
                     say = getRandom(Dialogs.normal);
                 }
-                let chat = { message: say, player: new AIPlayer(team.team.teamId), name: `AI-${team.team.teamId}`};
+                let player = new AIPlayer(team.team.teamId);
+                let chat = { message: say, player: player, name: player.name};
                 this.botHandler.say(chat);
                 this.TeamInteraction.addChat(chat);
             }

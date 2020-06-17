@@ -71,7 +71,12 @@ let joinCmd = {
       msg.reply(`team '${args}' does not exist`);
       return;
     }
-    let play = {team: team, name: msg.author.username, style: {color: getColor(team.teamId)}, avatarUrl: msg.author.avatarURL()};
+    let play = {
+      team: team,
+      name: msg.author.username,
+      style: {color: getColor(team.teamId)},
+      avatarUrl: msg.author.avatarURL(),
+      imgUrl: msg.author.username };
     TeamInteraction.addPlayer(play);
 
     addAvatar(play);

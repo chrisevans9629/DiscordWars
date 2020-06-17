@@ -66,15 +66,19 @@ export interface IPlayer {
     team: ITeamSystem;
     style: Style;
     avatarUrl: string;
+    imgUrl: string;
 }
 
 export class AIPlayer implements IPlayer {
-    name = 'AI'
+    name: string;
     team: ITeamSystem;
     style: Style;
     avatarUrl:string = null;
+    imgUrl: string;
     constructor(tm: number){
         let team = getTeam(tm.toString());
+        this.name = `AI-${team.teamId}`;
+        this.imgUrl = 'AI';
         this.team = team;
         this.style = {color: getColor(tm)};
     }

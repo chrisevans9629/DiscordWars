@@ -114,7 +114,7 @@ function say(chat: Chat){
 }
 
 function addAvatar(player: IPlayer){
-    handler.Level.load.image(player.name,player.avatarUrl);
+    handler.Level.load.image(player.imgUrl,player.avatarUrl);
     handler.Level.load.start();
 }
 

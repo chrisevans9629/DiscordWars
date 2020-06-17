@@ -20,7 +20,7 @@ export class UserAction {
         }
         //console.log(user.name);
         
-        this.avatar = scene.add.image(0, 0, user.name).setScale(0.25).setAlpha(0.5).setDepth(3);
+        this.avatar = scene.add.image(0, 0, user.imgUrl).setScale(0.25).setAlpha(0.5).setDepth(3);
         this.text = scene.add.text(0, 0, '', { fontSize: '20px', color: 'white', fontFamily: 'ethno' });
     }
     update() {
