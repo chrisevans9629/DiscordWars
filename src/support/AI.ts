@@ -1,9 +1,10 @@
 import { IBase } from "../BaseStates/IBase.1";
 import { IUnit } from "../UnitStates/IUnit";
 import { IBotHandler } from "./IAction";
-import { AIPlayer, teams, ITeamInteractor } from "./TeamSystem";
+import { AIPlayer, teams, ITeamInteractor, ITeamSystem } from "./TeamSystem";
 import { ICalculateParameters } from "./ICalculateParameters";
 import { INeutralState } from "../BaseStates/INeutralState";
+import { ILevelSystem } from "./ILevelSystem";
 
 let Dialogs = {
     winning: ['get rekt','you trying?','easy...','forfeit?','lol'],
@@ -15,6 +16,8 @@ function getRandom<T>(data: T[]){
     return data[Math.floor(Math.random()*data.length)];
 }
 
+
+
 export class AI {
     TeamInteraction: ITeamInteractor;
     botHandler: IBotHandler;
@@ -22,14 +25,14 @@ export class AI {
         this.TeamInteraction = teamInteraction;
         this.botHandler = botHandler;
     }
-    chat(bases: IBase[]){
+    chat(bases: {team: {teamId: number}, xp: {level: number}}[], ran: (() => number)){
         let pTeams = teams
         .filter(p => !this.TeamInteraction.players.some(r => r.team.teamId == p.teamId) && p.teamId > 0)
         .filter(p => bases.some(r => r.team.teamId == p.teamId))
         .map(p => { return {team: p, score: bases.filter(r => r.team.teamId == p.teamId).map(r => r.xp.level).reduce((s,c) => s + c,0)}});
 
         pTeams.forEach(team => {
-            let talkChance = Math.random() > .75;
+            let talkChance = ran() > .75;
 
             if(talkChance){
                 let say = '';
@@ -75,7 +78,7 @@ export class AI {
             }
         });
 
-        this.chat(bases);
+        this.chat(bases, Math.random);
     }
 
     
