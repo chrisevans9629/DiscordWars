@@ -1,9 +1,9 @@
 
 import { Client, Message } from 'discord.js';
-import { move, upgrade, retreat, say, getColor, getTeam, addAvatar } from './game';
+import { move, upgrade, retreat, say, addAvatar } from './game';
 import { model } from './vuemodel';
 import { toastInfo } from './vueapp';
-import { TeamInteraction, Chat } from './support/TeamSystem';
+import { TeamInteraction, Chat, getTeam, getColor } from './support/TeamSystem';
 import { botHandler } from './support/BotHandler';
 
 const client = new Client();

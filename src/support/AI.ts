@@ -1,7 +1,7 @@
-import { Base } from "../BaseStates/Base";
-import { Unit } from "../UnitStates/Unit";
-import { botHandler } from "./BotHandler";
-import { TeamInteraction, AIPlayer, teams } from "./TeamSystem";
+import { IBase } from "../BaseStates/Base";
+import { IUnit } from "../UnitStates/Unit";
+import { IBotHandler } from "./BotHandler";
+import { AIPlayer, teams, ITeamInteractor } from "./TeamSystem";
 import { NeutralState } from "../BaseStates/NeutralState";
 import { ICalculateParameters } from "./ICalculateParameters";
 
@@ -16,16 +16,17 @@ function getRandom<T>(data: T[]){
 }
 
 export class AI {
-    makeMove(bases: Base[], units: Unit[]) {
-
-        
-        let maxUnits = Math.max(...bases.map(p => units.filter(r => r.currentBase.baseId == p.baseId).length));
-        let maxLevel = Math.max(...bases.map(p => p.xp.maxLevel));
-
+    TeamInteraction: ITeamInteractor;
+    botHandler: IBotHandler;
+    constructor(teamInteraction: ITeamInteractor, botHandler: IBotHandler){
+        this.TeamInteraction = teamInteraction;
+        this.botHandler = botHandler;
+    }
+    chat(bases: IBase[]){
         let pTeams = teams
-            .filter(p => !TeamInteraction.players.some(r => r.team.teamId == p.teamId) && p.teamId > 0)
-            .filter(p => bases.some(r => r.team.teamId == p.teamId))
-            .map(p => { return {team: p, score: bases.filter(r => r.team.teamId == p.teamId).map(r => r.xp.level).reduce((s,c) => s + c,0)}});
+        .filter(p => !this.TeamInteraction.players.some(r => r.team.teamId == p.teamId) && p.teamId > 0)
+        .filter(p => bases.some(r => r.team.teamId == p.teamId))
+        .map(p => { return {team: p, score: bases.filter(r => r.team.teamId == p.teamId).map(r => r.xp.level).reduce((s,c) => s + c,0)}});
 
         pTeams.forEach(team => {
             let talkChance = Math.random() > .75;
@@ -45,13 +46,19 @@ export class AI {
                     say = getRandom(Dialogs.normal);
                 }
                 let chat = { message: say, player: new AIPlayer(team.team.teamId), name: 'AI'};
-                botHandler.say(chat);
-                TeamInteraction.addChat(chat);
+                this.botHandler.say(chat);
+                this.TeamInteraction.addChat(chat);
             }
         });
-        
+    }
 
-        let teamsWithNoPlayers = bases.filter(p => !TeamInteraction.players.some(r => r.team.teamId == p.team.teamId) && p.team.teamId > 0);
+    makeMove(bases: IBase[], units: IUnit[]) {
+
+        
+        let maxUnits = Math.max(...bases.map(p => units.filter(r => r.currentBase.baseId == p.baseId).length));
+        let maxLevel = Math.max(...bases.map(p => p.xp.maxLevel));
+
+        let teamsWithNoPlayers = bases.filter(p => !this.TeamInteraction.players.some(r => r.team.teamId == p.team.teamId) && p.team.teamId > 0);
         teamsWithNoPlayers.forEach(p => {
             //let opposite = bases.filter(r => r.team.teamId != p.team.teamId || r.baseState instanceof NeutralState && r.team.teamId == p.team.teamId);
             let t = bases.map(r => Phaser.Math.Distance.Between(r.x, r.y, p.x, p.y));
@@ -60,13 +67,15 @@ export class AI {
             let best = bases.map(r => this.calculateScore({ current: p, attack: r, units: units, maxDistance: maxDistance, maxLevel: maxLevel, maxUnits: maxUnits })).sort((a, b) => a.score - b.score).pop();
             if (best) {
                 if (best.base.baseId == p.baseId) {
-                    botHandler.upgrade(p.baseId, p.team.teamId);
+                    this.botHandler.upgrade(p.baseId, p.team.teamId);
                 }
                 else {
-                    botHandler.move(p.baseId, best.base.baseId, 100, new AIPlayer(p.team.teamId));
+                    this.botHandler.move(p.baseId, best.base.baseId, 100, new AIPlayer(p.team.teamId));
                 }
             }
         });
+
+        this.chat(bases);
     }
 
     calculateScore(parameter: ICalculateParameters) {

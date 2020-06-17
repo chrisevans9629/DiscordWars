@@ -3,8 +3,8 @@ import { Unit, IUnit } from '../UnitStates/Unit';
 import { BaseState } from './BaseState';
 import { GenerateState } from './GenerateState';
 import { Base, IBase } from "./Base";
-import { getTeam, ILevel } from '../game';
-import { rgbToHex, tween } from '../support/TeamSystem';
+import { ILevel } from '../game';
+import { rgbToHex, tween, getTeam } from '../support/TeamSystem';
 export class NeutralState extends BaseState {
     fromTint: number;
     fromColor: [number,number,number];

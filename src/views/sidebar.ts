@@ -45,7 +45,7 @@ export class Sidebar {
         });
         let chat = this.view.getChildByID('chat');
         chat.innerHTML = "";
-        TeamInteraction.chat.forEach(p => {
+        TeamInteraction.chat.reverse().forEach(p => {
             chat.innerHTML += chatHtml(p);
         });
     }

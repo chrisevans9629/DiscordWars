@@ -1,9 +1,9 @@
 import { BaseState } from './BaseState';
 import { GenerateState } from './GenerateState';
 import { LevelSystem, ILevelSystem, ILevelScale } from '../support/LevelSystem';
-import { ITeamSystem, teams } from '../support/TeamSystem';
+import { ITeamSystem, teams, getTeam } from '../support/TeamSystem';
 import { IHealthBar, HealthBar } from '../healthbar';
-import { getTeam, ILevel } from '../game';
+import { ILevel } from '../game';
 
 
 export interface IBase {

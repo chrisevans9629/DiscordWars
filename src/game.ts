@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import Level1 from './Levels/level1';
 
 import {MainMenu} from './Levels/mainmenu';
-import { teams, getTeam, IPlayer, Chat } from './support/TeamSystem';
+import { teams, IPlayer, Chat } from './support/TeamSystem';
 import { LevelSelect } from './Levels/levelSelect';
 import { Level2 } from './Levels/level2';
 import { Base } from './BaseStates/Base';
@@ -113,13 +113,6 @@ function say(chat: Chat){
     handler.say(chat);
 }
 
-function getColor(teamId: number){
-    let t = getTeam(teamId.toString()).color;
-    //console.log(t);
-    return `rgb(${t[0]},${t[1]},${t[2]})`;
-}
-
-
 function addAvatar(player: IPlayer){
     handler.Level.load.image(player.name,player.avatarUrl);
     handler.Level.load.start();
@@ -137,4 +130,4 @@ function getVolumes(){
         master: soundSystem.masterVolume };
 }
 
-export { game, move, retreat, upgrade, reset, say, getColor, getTeam, addAvatar, updateVolume, getVolumes };
+export { game, move, retreat, upgrade, reset, say, addAvatar, updateVolume, getVolumes };

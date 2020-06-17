@@ -1,6 +1,6 @@
 import login from './bot';
 
-import { move, retreat, upgrade, reset, getColor, updateVolume, getVolumes } from './game';
+import { move, retreat, upgrade, reset, updateVolume, getVolumes } from './game';
 import { toastInfo, toastError } from './vueapp';
 import { ITeamSystem, getTeam } from './support/TeamSystem';
 

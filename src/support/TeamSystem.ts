@@ -1,4 +1,6 @@
-import { getColor } from "../game";
+
+
+
 
 export function componentToHex(c: number) {
     var hex = c.toString(16);
@@ -50,7 +52,11 @@ export let teams: ITeamSystem[] = [
 export function getTeam(teamId: string) {
     return teams.find(p => p.teamId == Number(teamId) || p.names.some(r => r == teamId.toLocaleLowerCase()));
 }
-
+export function getColor(teamId: number) {
+    let t = getTeam(teamId.toString()).color;
+    //console.log(t);
+    return `rgb(${t[0]},${t[1]},${t[2]})`;
+}
 export interface Style {
     color: string;
 }
@@ -86,7 +92,14 @@ interface IRender {
     render(): void;
 }
 
-class TeamInteractor {
+export interface ITeamInteractor {
+    players: IPlayer[]
+    chat: Chat[]
+    addChat(c: Chat): void;
+}
+
+
+class TeamInteractor implements ITeamInteractor {
     private _chat: Chat[]
     private _players: IPlayer[]
     get chat() {

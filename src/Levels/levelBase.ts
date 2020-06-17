@@ -10,6 +10,7 @@ import { SettingsView } from "../views/settings";
 import { Sidebar } from "../views/sidebar";
 import { CombineUnits } from "../UnitStates/UnitState";
 import { AI } from "../support/AI";
+import { TeamInteraction } from "../support/TeamSystem";
 
 export class LevelBase extends Phaser.Scene implements ILevel {
     title: string
@@ -46,7 +47,7 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         let sideView = new Sidebar(this);
         this.createBases();
         //console.log(this.bases);
-        this.ai = new AI();
+        this.ai = new AI(TeamInteraction, botHandler);
         //this.SoundSystem = new SoundSystem(this.sound);
         
         this.createTime();
