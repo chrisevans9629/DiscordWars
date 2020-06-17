@@ -1,6 +1,7 @@
 import { Scene } from 'phaser';
 import { State } from './State';
-import { Base, IBase } from "../BaseStates/Base";
+import { Base } from "../BaseStates/Base";
+import { IBase } from "../BaseStates/IBase.1";
 import { Unit } from "./Unit";
 import { UnitState } from './UnitState';
 import { SpawnState } from './SpawnState';

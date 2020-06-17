@@ -1,18 +1,12 @@
 import { State } from '../UnitStates/State';
 import { SpawnState } from '../UnitStates/SpawnState';
-import { Base, IBase } from "../BaseStates/Base";
+import { Base } from "../BaseStates/Base";
+import { IBase } from "../BaseStates/IBase.1";
 import { UnitState } from "./UnitState";
 import { ITeamSystem } from '../support/TeamSystem';
 import { ILevel } from '../game';
+import { IUnit } from './IUnit';
 
-export interface IUnit {  
-    value: number;
-    team: ITeamSystem;
-    unitState: UnitState;
-    currentBase: IBase;
-    tint: number;
-    maxScale: number;
-}
 
 export class Unit extends Phaser.GameObjects.Container implements IUnit {
     currentBase: IBase;

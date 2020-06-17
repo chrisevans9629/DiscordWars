@@ -1,8 +1,10 @@
 import { Scene } from 'phaser';
-import { Unit, IUnit } from '../UnitStates/Unit';
+import { Unit } from '../UnitStates/Unit';
+import { IUnit } from "../UnitStates/IUnit";
 import { BaseState } from './BaseState';
 import { GenerateState } from './GenerateState';
-import { Base, IBase } from "./Base";
+import { Base } from "./Base";
+import { IBase } from "./IBase.1";
 import { ILevel } from '../game';
 import { rgbToHex, tween, getTeam } from '../support/TeamSystem';
 export class NeutralState extends BaseState {

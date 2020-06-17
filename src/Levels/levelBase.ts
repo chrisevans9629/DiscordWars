@@ -1,6 +1,7 @@
 import { GameState } from "../GameStates/GameState";
 import { ParticleEngine } from "../support/ParticleEngine";
-import { Base, IBase } from "../BaseStates/Base";
+import { Base } from "../BaseStates/Base";
+import { IBase } from "../BaseStates/IBase.1";
 import { Unit } from "../UnitStates/Unit";
 import { UserAction } from "../UnitStates/UserAction";
 import { botHandler } from "../support/BotHandler";

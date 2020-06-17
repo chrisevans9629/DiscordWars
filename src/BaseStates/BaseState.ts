@@ -1,17 +1,15 @@
 import { State } from '../UnitStates/State';
-import { Unit, IUnit } from '../UnitStates/Unit';
-import { Base, IBase } from "./Base";
+import { Unit } from '../UnitStates/Unit';
+import { IUnit } from "../UnitStates/IUnit";
+import { Base } from "./Base";
+import { IBase } from "./IBase.1";
 import { soundSystem } from '../game';
-
-export interface UnitChange {
-    valueUsed: number;
-    shouldDestroy: boolean;
-}
+import { IUnitChange } from './IUnitChange';
 
 export class BaseState extends State<IBase> {
     secondPassed() {
     }
-    unitHit(unit: IUnit) : UnitChange {
+    unitHit(unit: IUnit) : IUnitChange {
         return { valueUsed: 0, shouldDestroy: false };
     }
 

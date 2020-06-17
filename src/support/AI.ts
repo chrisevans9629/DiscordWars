@@ -1,5 +1,5 @@
-import { IBase } from "../BaseStates/Base";
-import { IUnit } from "../UnitStates/Unit";
+import { IBase } from "../BaseStates/IBase.1";
+import { IUnit } from "../UnitStates/IUnit";
 import { IBotHandler } from "./BotHandler";
 import { AIPlayer, teams, ITeamInteractor } from "./TeamSystem";
 import { NeutralState } from "../BaseStates/NeutralState";

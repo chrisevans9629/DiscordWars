@@ -1,23 +1,14 @@
 import { BaseState } from './BaseState';
 import { GenerateState } from './GenerateState';
-import { LevelSystem, ILevelSystem, ILevelScale } from '../support/LevelSystem';
+import { LevelSystem } from '../support/LevelSystem';
+import { ILevelSystem } from "../support/ILevelSystem";
+import { ILevelScale } from "../support/ILevelScale";
 import { ITeamSystem, teams, getTeam } from '../support/TeamSystem';
-import { IHealthBar, HealthBar } from '../healthbar';
+import { HealthBar } from '../healthbar';
+import { IHealthBar } from "../IHealthBar";
 import { ILevel } from '../game';
+import { IBase } from './IBase.1';
 
-
-export interface IBase {
-    hp: IHealthBar;
-    team: ITeamSystem;
-    //levelScale: number;
-    xp: ILevelSystem;
-    baseState: BaseState;
-    tint: number;
-    baseId: number;
-    x: number;
-    y: number;
-    pulse(): void;
-}
 
 export class Base extends Phaser.GameObjects.Container implements IBase, ILevelScale {
     hp: IHealthBar;

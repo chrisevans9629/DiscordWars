@@ -1,23 +1,9 @@
-import { UnitChange } from "../BaseStates/BaseState";
+import { IUnitChange } from "../BaseStates/IUnitChange";
 import { addHealth, IHealth } from "../BaseStates/IBase";
 import { ProgressBar } from "../healthbar";
 import { Scene } from "phaser";
-
-export interface ILevelScale {
-    levelScaleRatio: number;
-    levelScale: number;
-    reset(): void;
-}
-
-export interface ILevelSystem {
-    level: number;
-    nextLevel: number;
-    experience: number;
-    nextRatio: number;
-    maxLevel: number;
-    upgrade(value: number): UnitChange
-    reset(): void;
-}
+import { ILevelScale } from "./ILevelScale";
+import { ILevelSystem } from "./ILevelSystem";
 
 export class LevelSystem implements ILevelSystem { 
     level: number;
@@ -46,7 +32,7 @@ export class LevelSystem implements ILevelSystem {
         this.scale.reset();
         //this.scale.levelScale = this.defaultScale;
     }
-    upgrade(value: number): UnitChange {
+    upgrade(value: number): IUnitChange {
         if(this.level == this.maxLevel){
             return { valueUsed: 0, shouldDestroy: false };
         }

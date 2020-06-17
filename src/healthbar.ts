@@ -1,14 +1,6 @@
-import { UnitChange } from "./BaseStates/BaseState";
 import { addHealth } from "./BaseStates/IBase";
 import { Scene } from "phaser";
-
-export interface IHealthBar {
-    health: number;
-    maxHealth: number;
-    isFullHealth: boolean;
-    addHealth(amt: number): UnitChange;
-    setHealth(amt: number): void;
-}
+import { IHealthBar } from "./IHealthBar";
 
 export class ProgressBar {
     x: number;
