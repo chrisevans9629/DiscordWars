@@ -12,7 +12,10 @@ export class BotHandler implements IBotHandler {
         if(!this.Level){
             return;
         }
-        this.Level.actions.filter(p => p.user.name == chat.name).forEach(p => {
+        let actions = this.Level.actions.filter(p => p.user.name == chat.name);
+
+        if(actions.length > 0){
+            let p = actions[0];
             p.text.text = `${chat.message}`
             if(chat.message.length > 10){
                 let ratio = chat.message.length * 0.05;
@@ -21,8 +24,7 @@ export class BotHandler implements IBotHandler {
             else{
                 p.text.setFontSize(20);
             }
-            //console.log(p.text.text);
-        });
+        }
         soundSystem.playRandom(soundSystem.blipSounds);
     }
     upgrade(to: number, team: number){
