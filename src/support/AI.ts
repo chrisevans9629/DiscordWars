@@ -7,9 +7,9 @@ import { INeutralState } from "../BaseStates/INeutralState";
 import { ILevelSystem } from "./ILevelSystem";
 
 let Dialogs = {
-    winning: ['get rekt','you trying?','easy...','forfeit?','lol'],
-    losing: ['wtf!','nooo','u cheating?','wat.','oof'],
-    normal: ['nice move','hmm'],
+    winning: ['get rekt','you trying?','easy...','forfeit?','lol','u suk','get clapped'],
+    losing: ['wtf!','nooo','u cheating?','wat.','oof','pls','give me chance','hacks!','you been practicing?','tie?',"didn't need that anyway"],
+    normal: ['nice move','hmm','wait','predictable','ok..','that was a mistake','I have a plan','just like boot camp','siick'],
 }
 
 function getRandom<T>(data: T[]){

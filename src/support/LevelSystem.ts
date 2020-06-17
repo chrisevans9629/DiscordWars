@@ -1,9 +1,10 @@
 import { IUnitChange } from "../BaseStates/IUnitChange";
 import { addHealth, IHealth } from "../BaseStates/IBase";
-import { ProgressBar } from "../healthbar";
+import { ProgressBar } from "../ProgressBar";
 import { Scene } from "phaser";
 import { ILevelScale } from "./ILevelScale";
 import { ILevelSystem } from "./ILevelSystem";
+import { soundSystem } from "../game";
 
 export class LevelSystem implements ILevelSystem { 
     level: number;
@@ -39,10 +40,12 @@ export class LevelSystem implements ILevelSystem {
         let base: IHealth = { health: this.experience, maxHealth: this.nextLevel };
         let result = addHealth(value, base);
         this.experience = base.health;
-        
+        let xpRatio = this.experience/this.nextLevel;
+        soundSystem.play(soundSystem.upgrading,xpRatio*1000);
         if(this.experience >= this.nextLevel){
             this.level++;
-            
+            let ratio = this.level/this.maxLevel;
+            soundSystem.play(soundSystem.upgraded, ratio*1000);
             this.scale.levelScale *= this.scale.levelScaleRatio;
             //console.log(`upgraded! level:${this.level} scale:${this.scale.levelScale} nextLevel:${this.nextLevel}`);
             if(this.level != this.maxLevel){

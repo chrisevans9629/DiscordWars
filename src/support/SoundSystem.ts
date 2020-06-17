@@ -20,6 +20,13 @@ export class SoundSystem implements ISoundSystem {
     explosionSounds: Phaser.Sound.BaseSound[];
     hitSounds: Phaser.Sound.BaseSound[];
     blipSounds: Phaser.Sound.BaseSound[];
+
+    healing: Phaser.Sound.BaseSound;
+    upgrading: Phaser.Sound.BaseSound;
+    upgraded: Phaser.Sound.BaseSound;
+    healed: Phaser.Sound.BaseSound;
+    destroyed: Phaser.Sound.BaseSound;
+
     sound: Phaser.Sound.BaseSoundManager;
     constructor(sound: Phaser.Sound.BaseSoundManager){
         this.soundVolume = Number(getCache('sound',"1"));
@@ -30,11 +37,39 @@ export class SoundSystem implements ISoundSystem {
         
         //this.start();
     }
-   
+    load(load: Phaser.Loader.LoaderPlugin){
+        load.audio('theme','assets/audio/discordwars.wav');
+        load.audio('exp_9','assets/audio/Explosion9.wav');
+        load.audio('exp_10','assets/audio/Explosion10.wav');
+        load.audio('exp_11','assets/audio/Explosion11.wav');
+        load.audio('exp_14','assets/audio/Explosion14.wav');
+
+        load.audio('blip_5','assets/audio/Blip_Select5.wav');
+        load.audio('blip_6','assets/audio/Blip_Select6.wav');
+        load.audio('blip_7','assets/audio/Blip_Select7.wav');
+        load.audio('blip_8','assets/audio/Blip_Select8.wav');
+
+        load.audio('hit_7', 'assets/audio/Hit_Hurt7.wav');
+        load.audio('hit_8', 'assets/audio/Hit_Hurt8.wav');
+        load.audio('hit_9', 'assets/audio/Hit_Hurt9.wav');
+        load.audio('hit_10','assets/audio/Hit_Hurt10.wav');
+        load.audio('hit_11','assets/audio/Hit_Hurt11.wav');
+
+        load.audio('death','assets/audio/Death.wav');
+        load.audio('healed','assets/audio/Healed.wav');
+        load.audio('healing','assets/audio/Healing.wav');
+        load.audio('upgrading','assets/audio/Upgrade2.wav');
+        load.audio('upgraded','assets/audio/UpgradeComplete3.wav');
+    }
     start() {
         if(this.explosionSounds){
             return;
         }
+        this.destroyed = this.sound.add('death');
+        this.healed = this.sound.add('healed');
+        this.healing = this.sound.add('healing');
+        this.upgraded = this.sound.add('upgraded');
+        this.upgrading = this.sound.add('upgrading');
 
         this.explosionSounds = [
             this.sound.add('exp_9'),
@@ -70,7 +105,9 @@ export class SoundSystem implements ISoundSystem {
         localStorage.setItem('music', music.toString());
         this.music.play({ volume: this.musicVolume * this.masterVolume, loop: true });
     }
-
+    play(sound: Phaser.Sound.BaseSound, cents: number){
+        sound.play({volume: this.masterVolume * this.soundVolume, detune: cents});
+    }
     playRandom(sounds: Phaser.Sound.BaseSound[]){
         sounds[Math.floor(Math.random() * sounds.length)].play({ volume: this.masterVolume * this.soundVolume });
     }

@@ -14,6 +14,13 @@ export class BotHandler implements IBotHandler {
         }
         this.Level.actions.filter(p => p.user.name == chat.name).forEach(p => {
             p.text.text = `${chat.message}`
+            if(chat.message.length > 10){
+                let ratio = chat.message.length * 0.05;
+                p.text.setFontSize(20/ratio)
+            }
+            else{
+                p.text.setFontSize(20);
+            }
             //console.log(p.text.text);
         });
         soundSystem.playRandom(soundSystem.blipSounds);

@@ -18,6 +18,6 @@ export class BaseState extends State<IBase> {
         let y = Phaser.Math.FloatBetween(-1,1) * 30;
         let x = Phaser.Math.FloatBetween(-1,1) * 30;
         lvl.particleEngine.explosion(this.Unit.x + x, this.Unit.y + y, 3, 0.25, 4000, this.Unit.team.tint);
-        soundSystem.playRandom(soundSystem.hitSounds);
+        //soundSystem.playRandom(soundSystem.hitSounds);
     }
 }

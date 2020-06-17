@@ -6,7 +6,7 @@ import { IUnitChange } from "./IUnitChange";
 import { Base } from "./Base";
 import { IBase } from "./IBase.1";
 import { NeutralState } from "./NeutralState";
-import { ILevel } from '../game';
+import { ILevel, soundSystem } from '../game';
 
 
 export class GenerateState extends BaseState {
@@ -48,9 +48,12 @@ export class GenerateState extends BaseState {
         } else {
             //value: 100 = 100 used; health = -90;
             x = this.Unit.hp.addHealth(-unit.value);
+            this.damageEffect();
+
         }
         if (this.Unit.hp.health == 0) {
             this.Unit.baseState = new NeutralState(this.Unit, this.Scene);
+            soundSystem.play(soundSystem.destroyed,0);
         } 
         else if (this.Unit.hp.health < 0) {
             //health = 90;
@@ -58,9 +61,7 @@ export class GenerateState extends BaseState {
             this.Unit.team = unit.team;//.changeTeam(unit.teamId);
             this.Unit.tint = this.Unit.team.tint;
             this.Unit.xp.reset();
-        }
-        if(x.valueUsed != 0){
-            this.damageEffect();
+            soundSystem.play(soundSystem.destroyed,0);
         }
         return x;
     }
