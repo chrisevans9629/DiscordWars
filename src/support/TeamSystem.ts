@@ -118,7 +118,10 @@ class TeamInteractor implements ITeamInteractor {
         this._players = [];
     }
     addChat(c: Chat) {
-        this._chat.push(c);
+        this._chat.unshift(c);
+        if(this._chat.length > 10){
+            this._chat.pop();
+        }
         if (this.renderer) {
             this.renderer.render();
         }

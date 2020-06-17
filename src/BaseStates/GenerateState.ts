@@ -57,7 +57,7 @@ export class GenerateState extends BaseState {
         } 
         else if (this.Unit.hp.health < 0) {
             //health = 90;
-            this.Unit.hp.setHealth(this.Unit.hp.health);
+            this.Unit.hp.setHealth(-this.Unit.hp.health);
             this.Unit.team = unit.team;//.changeTeam(unit.teamId);
             this.Unit.tint = this.Unit.team.tint;
             this.Unit.xp.reset();
