@@ -3,7 +3,7 @@ import { ITeamSystem } from '../support/TeamSystem';
 
 interface IUnitState {
 
-}
+} 
 export interface IUnit {
     value: number;
     team: ITeamSystem;

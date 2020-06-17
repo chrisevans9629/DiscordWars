@@ -4,20 +4,7 @@ import { OrbitState } from "../UnitStates/OrbitState";
 import { AttackState } from "../UnitStates/AttackState";
 import { UserAction } from "../UnitStates/UserAction";
 import { MoveState } from "../UnitStates/MoveState";
-
-export interface IAction{
-    success: boolean;
-    reason: string;
-}
-
-export interface IBotHandler {
-    say(chat: Chat): void;
-    upgrade(to: number, team: number): void;
-    retreat(to: number, user: IPlayer): IAction;
-    move(from: number,to: number,count: number, user: IPlayer): IAction;
-    moveAll(to: number, count: number, user: IPlayer): IAction;
-}
-
+import { IBotHandler } from "./IAction";
 
 export class BotHandler implements IBotHandler {
     Level: ILevel

@@ -1,13 +1,12 @@
-import { Scene } from 'phaser';
-import { Unit } from '../UnitStates/Unit';
 import { IUnit } from "../UnitStates/IUnit";
 import { BaseState } from './BaseState';
 import { GenerateState } from './GenerateState';
-import { Base } from "./Base";
 import { IBase } from "./IBase.1";
 import { ILevel } from '../game';
 import { rgbToHex, tween, getTeam } from '../support/TeamSystem';
-export class NeutralState extends BaseState {
+import { INeutralState } from "./INeutralState";
+
+export class NeutralState extends BaseState implements INeutralState {
     fromTint: number;
     fromColor: [number,number,number];
     constructor(base: IBase, scene: ILevel) {

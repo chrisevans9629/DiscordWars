@@ -1,9 +1,9 @@
 import { IBase } from "../BaseStates/IBase.1";
 import { IUnit } from "../UnitStates/IUnit";
-import { IBotHandler } from "./BotHandler";
+import { IBotHandler } from "./IAction";
 import { AIPlayer, teams, ITeamInteractor } from "./TeamSystem";
-import { NeutralState } from "../BaseStates/NeutralState";
 import { ICalculateParameters } from "./ICalculateParameters";
+import { INeutralState } from "../BaseStates/INeutralState";
 
 let Dialogs = {
     winning: ['get rekt','you trying?','easy...','forfeit?','lol'],
@@ -78,6 +78,8 @@ export class AI {
         this.chat(bases);
     }
 
+    
+
     calculateScore(parameter: ICalculateParameters) {
         let current = parameter.current;
         let attack = parameter.attack;
@@ -95,8 +97,10 @@ export class AI {
         }
 
         let neutralValue = 0;
-
-        if (attack.baseState instanceof NeutralState && attack.team.teamId == current.team.teamId) {
+        let isNeutral = function(obj: any): boolean {
+            return obj.fromTint !== undefined;
+        }
+        if (isNeutral(attack.baseState) && attack.team.teamId == current.team.teamId) {
             neutralValue = 1;
         }
 
