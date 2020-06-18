@@ -32,17 +32,17 @@ export class Random extends LevelBase implements ILevel {
         for (let index = 0; index < baseNum; index++) {
             let id = index + 1;
             
-            let posI = Math.floor(Math.random() * positions.length);
-            let pos = positions[posI];
-            positions.splice(posI,1);
+            let freePostions = positions.filter(p => baseSetup.some(r => r.xCell == p.x && r.yCell == p.y) != true);
+            let pos = freePostions[Math.floor(Math.random() * freePostions.length)];
 
             baseSetup.push({id: id, team: -1, xCell: pos.x, yCell: pos.y, maxLvl: Phaser.Math.Between(1,3)});
         }
 
         let teamCount = Phaser.Math.Between(2,4);
-
         for(let i = 0;i < teamCount;i++){
-            let base = baseSetup[Math.floor(Math.random() * baseSetup.length)];
+
+            let neutralBases = baseSetup.filter(p => p.team < 0);
+            let base = neutralBases[Math.floor(Math.random() * neutralBases.length)];
             base.team = i+1;
         }
 
