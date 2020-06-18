@@ -11,8 +11,10 @@ export class LoginView {
         //scene.add.dom(0,0).createFromHTML('<script>console.log(\'wohoo!\')</script>');
 
         let login = this.view;
-        
-        this.trylogin();
+        //let div = login.node as HTMLDivElement;
+
+        //div.style.width = `${scene.scale.width}px`;
+        //this.trylogin();
 
         let btn = login.getChildByName('login') as HTMLButtonElement;
         btn.onclick = () => {
