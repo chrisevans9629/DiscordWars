@@ -1,4 +1,4 @@
-import { Levels } from "../game";
+import { Levels, ILevel } from "../game";
 
 
 
@@ -8,29 +8,43 @@ export class LevelSelect extends Phaser.Scene {
     constructor(){
         super('LevelSelect');
     }
+    preload(){
+        this.load.html('levelselect','assets/html/levelselect.html');
+    }
     create(){
-        this.view = this.add.dom(this.scale.width/2,10).setOrigin(0.5,0).createFromHTML(`
-        <div class="d-flex justify-content-center flex-column text-center">
-            <button class="btn" id="MainMenu">MainMenu</button>
-            <h1>Level Select</h1>
-        </div>`);
+        this.view = this.add.dom(0,0).setOrigin(0,0).createFromCache('levelselect');
 
         let div = this.view.node as HTMLDivElement;
 
-        //div.style.width = (this.scale.width/2).toString();
-        //div.style.height = this.scale.height.toString();
         div.style.overflowY = "scroll";
-        div.style.height = `${this.scale.height * 0.95}px`;
-        //div.style.overflow = 'hidden';
+        div.style.height = `${this.scale.height}px`;
+        div.style.width = `${this.scale.width}px`;
 
-        Levels.forEach(p => {
-            div.innerHTML += `
+        let lvls = this.view.getChildByID('levels');
+        
+        let levels = Levels.slice().reverse();
+
+        function card(p: ILevel){
+            return `
             <div class="d-flex justify-content-center flex-column text-center p-2 mt-4">
                 <h2>${p.title}</h2>
                 <p>${p.description}</p>
                 <button class="btn" id="${p.sys.settings.key}">Play</button>
             </div>`;
-        });
+        }
+
+        let lvlHtml = '';
+        while(levels.length > 0){
+            lvlHtml += '<div class="row">';
+            for(let i = 0;i < 3;i++){
+                let result = levels.pop();
+                if(result){
+                    lvlHtml += '<div class="col">' + card(result) + '</div>';
+                }
+            }
+            lvlHtml += '</div>';
+        }
+        lvls.innerHTML += lvlHtml;
         this.view.setInteractive();
         this.view.addListener("click");
 
