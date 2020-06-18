@@ -1,7 +1,7 @@
 import login from './bot';
 
 import { toastInfo, toastError } from './vueapp';
-
+//hello
 let model = {
     el: '#app',
     data: {

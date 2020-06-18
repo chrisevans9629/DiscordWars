@@ -12,6 +12,8 @@
 token.js
 Token.cs
 main.js
+vendors~main.js
+vendors~main.js.LICENSE.txt
 test.js
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

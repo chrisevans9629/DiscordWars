@@ -1,6 +1,9 @@
 const path = require('path');
 const webpack = require("webpack");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+const TerserPlugin = require("terser-webpack-plugin");
+
 module.exports = {
   entry: './src/index.ts',
   module: {
@@ -16,7 +19,7 @@ module.exports = {
     extensions: [ '.tsx', '.ts', '.js' ],
   },
   output: {
-    filename: 'main.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
   },
   mode: 'production',
@@ -24,11 +27,18 @@ module.exports = {
   node: {
       fs: 'empty',
   },
-  optimization: {  
-    minimize: true,
-    minimizer: [new UglifyJsPlugin({
-      include: /\.min\.js$/
-    })]
-  },
+  optimization: {
+		minimize: true,
+		minimizer: [
+			new TerserPlugin({
+				terserOptions: {
+					keep_classnames: true,
+				},
+			}),
+    ],
+    splitChunks: {
+      chunks: 'all',
+    }
+	},
   watch: true,
 };
