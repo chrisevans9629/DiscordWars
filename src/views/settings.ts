@@ -6,6 +6,7 @@ import { GamePlayingState } from "../GameStates/GamePlayingState";
 export class SettingsView {
     view: Phaser.GameObjects.DOMElement;
     isSettings = true;
+    helpOpen = false;
     lvl: ILevel;
     constructor(lvl: ILevel){
         this.lvl = lvl;
@@ -17,6 +18,16 @@ export class SettingsView {
         //this.view.node.querySelectorAll("*");
 
         let saveBtn = this.view.getChildByID('saveSettings') as HTMLButtonElement;
+
+        
+
+        let helpBtn = this.view.getChildByID('help') as HTMLButtonElement;
+        let help = this.view.getChildByID('isHelp') as HTMLDivElement;
+        helpBtn.onclick = e => {
+            this.helpOpen = !this.helpOpen;
+            help.hidden = !this.helpOpen;
+        };
+        help.hidden = !this.helpOpen;
 
         let master = this.view.getChildByID('master') as HTMLInputElement;
         let music = this.view.getChildByID('music') as HTMLInputElement;
