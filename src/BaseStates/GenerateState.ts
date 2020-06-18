@@ -53,7 +53,7 @@ export class GenerateState extends BaseState {
         }
         if (this.Unit.hp.health == 0) {
             this.Unit.baseState = new NeutralState(this.Unit, this.Scene);
-            soundSystem.play(soundSystem.destroyed,0);
+            soundSystem.playDestroyed();
         } 
         else if (this.Unit.hp.health < 0) {
             //health = 90;
@@ -61,7 +61,7 @@ export class GenerateState extends BaseState {
             this.Unit.team = unit.team;//.changeTeam(unit.teamId);
             this.Unit.tint = this.Unit.team.tint;
             this.Unit.xp.reset();
-            soundSystem.play(soundSystem.destroyed,0);
+            soundSystem.playDestroyed();
         }
         return x;
     }

@@ -51,10 +51,10 @@ export class HealthBar implements IHealthBar {
         this.draw();
         let ratio = this.health/this.maxHealth;
         if(ratio >= 1){
-            soundSystem.play(soundSystem.healed,0);
+            soundSystem.playHealed();
         }
         else{
-            soundSystem.play(soundSystem.healing, ratio*1000);
+            soundSystem.playHealing(ratio);
         }
 
         return t;

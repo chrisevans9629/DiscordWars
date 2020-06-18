@@ -14,7 +14,7 @@ export class LoginView {
         //let div = login.node as HTMLDivElement;
 
         //div.style.width = `${scene.scale.width}px`;
-        //this.trylogin();
+        this.trylogin();
 
         let btn = login.getChildByName('login') as HTMLButtonElement;
         btn.onclick = () => {

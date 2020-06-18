@@ -4,28 +4,28 @@ export interface ISoundSystem {
     musicVolume: number;
     soundVolume: number;
     masterVolume: number;
-    music: Phaser.Sound.BaseSound;
-    explosionSounds: Phaser.Sound.BaseSound[];
-    hitSounds: Phaser.Sound.BaseSound[];
-    blipSounds: Phaser.Sound.BaseSound[];
+    //music: Phaser.Sound.BaseSound;
+    //explosionSounds: Phaser.Sound.BaseSound[];
+    //hitSounds: Phaser.Sound.BaseSound[];
+    //blipSounds: Phaser.Sound.BaseSound[];
     updateVolume(music: number, sound: number, master: number): void;
-    playRandom(sounds: Phaser.Sound.BaseSound[]): void;
+    //playRandom(sounds: Phaser.Sound.BaseSound[]): void;
 }
 
 export class SoundSystem implements ISoundSystem {
     musicVolume: number;
     soundVolume: number;
     masterVolume: number;
-    music: Phaser.Sound.BaseSound;
-    explosionSounds: Phaser.Sound.BaseSound[];
-    hitSounds: Phaser.Sound.BaseSound[];
-    blipSounds: Phaser.Sound.BaseSound[];
+    private music: Phaser.Sound.BaseSound;
+    private explosionSounds: Phaser.Sound.BaseSound[];
+    private hitSounds: Phaser.Sound.BaseSound[];
+    private blipSounds: Phaser.Sound.BaseSound[];
 
-    healing: Phaser.Sound.BaseSound;
-    upgrading: Phaser.Sound.BaseSound;
-    upgraded: Phaser.Sound.BaseSound;
-    healed: Phaser.Sound.BaseSound;
-    destroyed: Phaser.Sound.BaseSound;
+    private healing: Phaser.Sound.BaseSound;
+    private upgrading: Phaser.Sound.BaseSound;
+    private upgraded: Phaser.Sound.BaseSound;
+    private healed: Phaser.Sound.BaseSound;
+    private destroyed: Phaser.Sound.BaseSound;
 
     sound: Phaser.Sound.BaseSoundManager;
     constructor(sound: Phaser.Sound.BaseSoundManager){
@@ -36,6 +36,21 @@ export class SoundSystem implements ISoundSystem {
         this.sound.pauseOnBlur = false;
         
         //this.start();
+    }
+    playHealing(ratio:number){
+        this.play(this.healing,ratio*1000);
+    }
+    playHealed(){
+        this.play(this.healed,0,0.5);
+    }
+    playUpgraded(ratio: number){
+        this.play(this.upgraded,ratio*1000);
+    }
+    playUpgrading(ratio: number){
+        this.play(this.upgrading,ratio*1000);
+    }
+    playDestroyed(){
+        this.play(this.destroyed,0);
     }
     load(load: Phaser.Loader.LoaderPlugin){
         load.audio('theme','assets/audio/discordwars.wav');
@@ -105,10 +120,27 @@ export class SoundSystem implements ISoundSystem {
         localStorage.setItem('music', music.toString());
         this.music.play({ volume: this.musicVolume * this.masterVolume, loop: true });
     }
-    play(sound: Phaser.Sound.BaseSound, cents: number){
-        sound.play({volume: this.masterVolume * this.soundVolume, detune: cents});
+    private play(sound: Phaser.Sound.BaseSound, cents: number, volume?: number){
+        let v = 1;
+        if(volume){
+            v = volume
+        }
+        sound.play({volume: this.masterVolume * this.soundVolume * v, detune: cents});
     }
-    playRandom(sounds: Phaser.Sound.BaseSound[]){
-        sounds[Math.floor(Math.random() * sounds.length)].play({ volume: this.masterVolume * this.soundVolume });
+
+    playBlip(){
+        this.playRandom(this.blipSounds, 0.5);
+    }
+
+    playHit(){
+        this.playRandom(this.hitSounds, 0.5);
+    }
+
+    private playRandom(sounds: Phaser.Sound.BaseSound[], volume?: number){
+        let v = 1;
+        if(volume){
+            v = volume;
+        }
+        sounds[Math.floor(Math.random() * sounds.length)].play({ volume: this.masterVolume * this.soundVolume * v });
     }
 }
