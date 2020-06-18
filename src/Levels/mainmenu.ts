@@ -40,6 +40,15 @@ export class MainMenu extends LevelBase {
             this.scene.start('LevelSelect');
         };
 
+        this.tweens.add({
+            targets: view,
+            y: view.y + 10,
+            duration: 4000,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            loop: -1,
+        });
+
     }
 
     createBases(){
