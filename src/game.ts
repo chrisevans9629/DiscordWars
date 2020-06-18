@@ -17,6 +17,7 @@ import { Level5 } from './Levels/level5';
 import { ParticleEngine } from './support/ParticleEngine';
 import { Login } from './Levels/login';
 import { Random } from './Levels/random';
+import { Level6 } from './Levels/level6';
 
 let config = {
     type: Phaser.AUTO,
@@ -77,6 +78,7 @@ export let Levels: ILevel[] = [
     new Level3(), 
     new Level4(), 
     new Level5(),
+    new Level6(),
     new Random()];
 
 
