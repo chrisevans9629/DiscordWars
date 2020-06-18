@@ -42,7 +42,7 @@ export class UnitState extends State<Unit> {
     }
 }
 
-export function CombineUnits(unit1: Unit, unit2: Unit, lvl: ILevel) {
+export function CombineUnits(unit1: Unit, unit2: Unit, lvl: { destroyUnit: (Unit: Unit) => void}) {
     unit1.value += unit2.value;
     unit1.scale = unit1.maxScale;
     lvl.destroyUnit(unit2);

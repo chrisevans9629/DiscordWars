@@ -1,7 +1,12 @@
 import { assets } from '../assets';
 import { LoginView } from '../views/login';
 import { soundSystem } from '../game';
-export class MainMenu extends Phaser.Scene{
+import { Base } from '../BaseStates/Base';
+import { Unit } from '../UnitStates/Unit';
+import { teams } from '../support/TeamSystem';
+import { NeutralState } from '../BaseStates/NeutralState';
+import { LevelBase } from './levelBase';
+export class MainMenu extends LevelBase {
     constructor(){
         super('MainMenu');
     }
@@ -21,6 +26,8 @@ export class MainMenu extends Phaser.Scene{
         soundSystem.load(this.load);
     }
     create() {
+        super.create();
+
         soundSystem.start();
 
         //let cell = new Phaser.Math.Vector2(this.scale.width / 12, this.scale.height / 12);
@@ -32,6 +39,32 @@ export class MainMenu extends Phaser.Scene{
         playBtn.onclick = e => {
             this.scene.start('LevelSelect');
         };
+
+    }
+
+    createBases(){
+        this.bases = [];
+
+        let baseSetup = [
+            {id: 1,team: 1,xCell: 1, yCell: 1,maxLvl: 2},
+            {id: 2,team: 2,xCell: 1, yCell: 2,maxLvl: 2},
+            {id: 3,team: 3,xCell: 2, yCell: 1,maxLvl: 2},
+            {id: 4,team: 4,xCell: 2, yCell: 2,maxLvl: 2},
+        ];
+        let cell = new Phaser.Math.Vector2(this.scale.width/3,this.scale.height/3);
+
+        baseSetup.forEach(p => {
+            let team = p.team;
+            let con = new Base(p.id,this, teams.find(p => p.teamId == team).BaseImgKey, team, p.maxLvl);
+            if(team < 0){
+                con.baseState = new NeutralState(con, this);
+            }
+            con.x = cell.x * p.xCell;
+            con.y = cell.y * p.yCell;
+            //con.xp.maxLevel = p.maxLvl;
+            
+            this.bases.push(con);
+        });
     }
 }
 

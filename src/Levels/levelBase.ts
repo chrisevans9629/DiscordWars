@@ -52,6 +52,8 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         //this.SoundSystem = new SoundSystem(this.sound);
         
         this.createTime();
+        TeamInteraction.clearChat();
+
     }
     private createTime() {
         this.second = this.time.addEvent({ loop: true, delay: 1000 / this.speed, callback: this.secondPassed, callbackScope: this });
