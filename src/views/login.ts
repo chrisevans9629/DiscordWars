@@ -8,20 +8,21 @@ export class LoginView {
     constructor(scene: Scene, x: number, y: number){
         this.view = scene.add.dom(x, y).createFromCache('login');
         this.scene = scene;
-        //scene.add.dom(0,0).createFromHTML('<script>console.log(\'wohoo!\')</script>');
 
         let login = this.view;
-        //let div = login.node as HTMLDivElement;
 
-        //div.style.width = `${scene.scale.width}px`;
         this.trylogin();
+
+        let local = login.getChildByName('local') as HTMLButtonElement;
+        local.onclick = () => {
+            scene.scene.start(this.goTo);
+        }
+
 
         let btn = login.getChildByName('login') as HTMLButtonElement;
         btn.onclick = () => {
             let token = login.getChildByName("token") as HTMLInputElement;
             login.destroy();
-            
-            //console.log(token.value);
             model.methods.tokenLogin(token.value);
             scene.scene.start(this.goTo);
         };

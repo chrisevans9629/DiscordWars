@@ -5,6 +5,7 @@ import { model } from './vuemodel';
 import { toastInfo } from './vueapp';
 import { TeamInteraction, Chat, getTeam, getColor } from './support/TeamSystem';
 import { botHandler } from './support/BotHandler';
+import { IMessage } from './IMessage';
 
 const client = new Client();
 //client.commands = new Collection();
@@ -14,14 +15,14 @@ client.on('ready', () => {
 });
 
 interface ICommand {
-  name: string;
-  execute(msg: Message, args: string): void;
+  name: string[];
+  execute(msg: IMessage, args: string): void;
 }
 
-let getPlayer = (msg: Message) => {
+let getPlayer = (msg: IMessage) => {
   return TeamInteraction.players.find(p => p.name == msg.author.username)
 };
-let hasJoined = (msg: Message) => {
+let hasJoined = (msg: IMessage) => {
   let team = getPlayer(msg);
   if(!team){
     msg.reply("you must !join first");
@@ -34,7 +35,7 @@ let hasJoined = (msg: Message) => {
 
 let moveCmd = {
   name: ['!move', '! move', '!m '],
-  execute(msg: Message, args: string) {
+  execute(msg: IMessage, args: string) {
     let team = hasJoined(msg);
     if(!team.joined){
       return;
@@ -58,7 +59,7 @@ let moveCmd = {
 
 let joinCmd = {
   name: ['!join', '! join', '!j '],
-  execute(msg: Message, args: string) {
+  execute(msg: IMessage, args: string) {
     
     args = args.replace(' ','');
     let player = getPlayer(msg);
@@ -87,7 +88,7 @@ let joinCmd = {
 
 let upgradeCmd = {
   name: ['!upgrade', '! upgrade', '!u '],
-  execute(msg: Message, args: string) {
+  execute(msg: IMessage, args: string) {
     let team = hasJoined(msg);
     if(!team.joined){
       return;
@@ -98,7 +99,7 @@ let upgradeCmd = {
 
 let leaveCmd = {
   name: ['!leave',  '! leave', '!l'],
-  execute(msg: Message, args: string) {
+  execute(msg: IMessage, args: string) {
     if(!hasJoined(msg).joined){
       return;
     }
@@ -109,7 +110,7 @@ let leaveCmd = {
 
 let retreatCmd = {
   name: ['!retreat', '! retreat','!r '],
-  execute(msg: Message, args: string) {
+  execute(msg: IMessage, args: string) {
     let team = hasJoined(msg);
     if(!team.joined){
       return;
@@ -123,7 +124,7 @@ let retreatCmd = {
 
 let sayCmd = {
   name: ['!say','! say', '!s '],
-  execute(msg: Message, args: string){
+  execute(msg: IMessage, args: string){
     
     let joined = hasJoined(msg);
     if(!joined.joined){
@@ -138,20 +139,27 @@ let sayCmd = {
 
 let helpCmd = {
   name: ['!help', '! help', '!h'],
-  execute(msg: Message, args: string){
+  execute(msg: IMessage, args: string){
     msg.reply("!join 1 -> joins team 1\r\n!move 2 4 -> moves from base 2 to base 4\r\n!upgrade 1 -> upgrades base 1\r\n!retreat 1 -> retreats all units away from base 1\r\n!say loser -> roasts the other team\r\n!leave -> leaves the game");
   }
 };
 
-let commands = [moveCmd, joinCmd, upgradeCmd, leaveCmd, retreatCmd, sayCmd, helpCmd];
 
-client.on('message', msg => {
+
+let commands: ICommand[] = [moveCmd, joinCmd, upgradeCmd, leaveCmd, retreatCmd, sayCmd, helpCmd];
+
+
+export function RunCommands(msg: IMessage){
   commands.forEach(p => {
     p.name.filter(t => msg.content.toLocaleLowerCase().startsWith(t)).forEach(r => {
       let t = msg.content.substr(r.length,100);
       p.execute(msg,t);
     });
   });
+}
+
+client.on('message', msg => {
+  RunCommands(msg);
 });
 
 
