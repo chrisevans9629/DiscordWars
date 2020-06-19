@@ -1,6 +1,7 @@
 import { ILevel } from "../game";
 import { RunCommands } from "../bot";
 import { IMessage } from "../IMessage";
+import { toastInfo } from "../vueapp";
 
 class PlayerMessage implements IMessage {
     author: {username: string; avatarURL(): string}
@@ -12,7 +13,8 @@ class PlayerMessage implements IMessage {
     }
 
     reply(msg: string){
-
+        console.log(msg);
+        toastInfo(msg);
     }
     
 }
