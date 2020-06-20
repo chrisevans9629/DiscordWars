@@ -8,10 +8,18 @@ export class GameOverState extends PauseState {
         super(scene);
         console.log('game over!');
 
-
-        
-        //else{
+        if(TeamInteraction.players.length <= 0){
+            scene.time.paused = false;
+            scene.time.addEvent({
+                delay: 1000,
+                callback: () => scene.reset(),
+                callbackScope: this,
+            });
+        }
+        else{
             let gameOverView = new GameOverView(scene.scene.scene, team);
-        //}
+        }
     }
+
+    
 }

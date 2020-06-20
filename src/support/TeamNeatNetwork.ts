@@ -34,6 +34,7 @@ export class TeamNeatNetwork {
         this.weights.forEach((p, i) => {
             this.weights[i] = Math.round((Phaser.Math.FloatBetween(-1, 1) + Number.EPSILON) * 100) / 100;
         });
+        return this;
     }
 
     Mutate() {
