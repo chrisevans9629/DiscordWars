@@ -10,7 +10,8 @@ import { ILevel } from "../game";
 import { SettingsView } from "../views/settings";
 import { Sidebar } from "../views/sidebar";
 import { CombineUnits } from "../UnitStates/UnitState";
-import { AI, Population } from "../support/AI";
+import { AI } from "../support/AI";
+import { Population } from "../support/Population";
 import { TeamInteraction, teams } from "../support/TeamSystem";
 import { CommandlineView } from "../views/commandline";
 
@@ -115,8 +116,9 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         this.units = [];
         this.bases.forEach(p => p.destroy());
         this.createBases();
-        this.gameState = new GamePlayingState(this);
         this.population.NextGeneration();
+        this.gameState = new GamePlayingState(this);
+
     }
     createBases(){
 

@@ -18,10 +18,11 @@ export class GamePlayingState extends ResumeState {
         teams.forEach(p => {
             if (teams.every(r => r == p) && this.Unit.gameState instanceof GameOverState != true) {
 
-                if(TeamInteraction.players.length <= 0){
-                    this.Scene.reset();
-                    return;
-                }   
+                // if(TeamInteraction.players.length <= 0){
+                //     this.Unit.gameState = new GameOverState(this.Unit, p);
+                //     this.Scene.reset();
+                //     return;
+                // }   
                 
                 this.Unit.gameState = new GameOverState(this.Unit, p);
                 return;
