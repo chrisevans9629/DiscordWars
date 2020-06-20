@@ -19,7 +19,11 @@ export class SettingsView {
 
         let saveBtn = this.view.getChildByID('saveSettings') as HTMLButtonElement;
 
-        
+        let restartBtn = this.view.getChildByID('restart') as HTMLButtonElement;
+
+        restartBtn.onclick = () => {
+            lvl.reset();
+        };
 
         let helpBtn = this.view.getChildByID('help') as HTMLButtonElement;
         let help = this.view.getChildByID('isHelp') as HTMLDivElement;

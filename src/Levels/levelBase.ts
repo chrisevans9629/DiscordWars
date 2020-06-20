@@ -10,8 +10,8 @@ import { ILevel } from "../game";
 import { SettingsView } from "../views/settings";
 import { Sidebar } from "../views/sidebar";
 import { CombineUnits } from "../UnitStates/UnitState";
-import { AI } from "../support/AI";
-import { TeamInteraction } from "../support/TeamSystem";
+import { AI, Population } from "../support/AI";
+import { TeamInteraction, teams } from "../support/TeamSystem";
 import { CommandlineView } from "../views/commandline";
 
 export class LevelBase extends Phaser.Scene implements ILevel {
@@ -24,6 +24,7 @@ export class LevelBase extends Phaser.Scene implements ILevel {
     units: Unit[];
     actions: UserAction[];
     ai: AI;
+    population: Population;
     //SoundSystem: ISoundSystem;
     private _speed: number = 1;
     get speed(){
@@ -51,8 +52,11 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         this.createBases();
         //console.log(this.bases);
         this.ai = new AI(TeamInteraction, botHandler);
+
+        this.population = new Population(teams);
         //this.SoundSystem = new SoundSystem(this.sound);
         
+
         this.createTime();
         TeamInteraction.clearChat();
 
@@ -91,7 +95,8 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         CombineUnits(img1.parentContainer as Unit, img2.parentContainer as Unit, this);
     }
     fivePassed(){
-        this.ai.makeMove(this.bases,this.units);
+        this.population.Evaluate(this.bases,this.units);
+        //this.ai.makeMove(this.bases,this.units);
     }
 
     secondPassed(){
@@ -111,6 +116,7 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         this.bases.forEach(p => p.destroy());
         this.createBases();
         this.gameState = new GamePlayingState(this);
+        this.population.NextGeneration();
     }
     createBases(){
 
