@@ -9,12 +9,9 @@ export class GameOverState extends PauseState {
         console.log('game over!');
 
 
-        if(TeamInteraction.players.length <= 0){
-            this.Scene.reset();
-            return;
-        }   
-        else{
+        
+        //else{
             let gameOverView = new GameOverView(scene.scene.scene, team);
-        }
+        //}
     }
 }
