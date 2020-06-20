@@ -41,19 +41,21 @@ export class Population {
     }
 
     NextGeneration() {
-        let best = this.networks.sort((a, b) => a.teamScore - b.teamScore)[this.networks.length - 1];
+        let bests = this.networks.slice().sort((a, b) => a.teamScore - b.teamScore);
+
+        let best = bests.pop();
         console.log({ name: best.team.names[0], weights: best.weights });
         let nGen: TeamNeatNetwork[] = [];
 
-        //nGen.push(best.Copy());
+        nGen.push(best.Copy());
 
-        let half = Math.floor(this.networks.length / 2);
+        let half = Math.floor(bests.length / 2);
 
-        this.networks.slice(0, half).forEach(p => {
-            nGen.push(p.Copy());
+        bests.slice(0, half).forEach(p => {
+            nGen.push(p.Copy().Randomize());
         });
 
-        this.networks.slice(half,this.networks.length).forEach(p => {
+        bests.slice(half,bests.length).forEach(p => {
             nGen.push(p.Copy().Mutate());
         });
         // for(let i = 0;i < this.networks.length-2;i++){
