@@ -40,6 +40,10 @@ export class Population {
         });
     }
 
+    TimeRanOut(){
+        this.networks = this.networks.map(p => p.Copy().Mutate());
+    }
+
     NextGeneration() {
         let bests = this.networks.slice().sort((a, b) => a.teamScore - b.teamScore);
 

@@ -66,6 +66,17 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         this.second = this.time.addEvent({ loop: true, delay: 1000 / this.speed, callback: this.secondPassed, callbackScope: this });
         this.five = this.time.addEvent({ loop: true, delay: 5000 / this.speed, callback: this.fivePassed, callbackScope: this });
         this.ten = this.time.addEvent({ loop: true, delay: 10000 / this.speed, callback: this.tenPassed, callbackScope: this });
+
+        this.time.addEvent({
+            loop: true,
+            delay: 120000,
+            callback: () => {
+                this.population.TimeRanOut();
+                //this.reset();
+            },
+            callbackScope: this
+        });
+
     }
 
     updateTime(){
