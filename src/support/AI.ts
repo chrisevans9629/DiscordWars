@@ -17,11 +17,13 @@ export class Population {
     constructor(teams: ITeamSystem[]){
         teams.forEach(p => {
             let t = new TeamNeatNetwork(p);
-            t.Randomize();
+            //t.Randomize();
+            t.weights = bestWeights.slice();
             this.networks.push(t);
         });
 
         let best = this.networks[0];
+        best.weights = bestWeights.slice();
         console.log({name: best.team.names[0], weights: best.weights});
     }
 

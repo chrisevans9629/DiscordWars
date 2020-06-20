@@ -1,6 +1,7 @@
 import { ResumeState } from './ResumeState';
 import { GameOverState } from './GameOverState';
 import { ILevel } from '../game';
+import { TeamInteraction } from '../support/TeamSystem';
 export class GamePlayingState extends ResumeState {
     constructor(scene: ILevel) {
         super(scene);
@@ -16,6 +17,12 @@ export class GamePlayingState extends ResumeState {
 
         teams.forEach(p => {
             if (teams.every(r => r == p) && this.Unit.gameState instanceof GameOverState != true) {
+
+                if(TeamInteraction.players.length <= 0){
+                    this.Scene.reset();
+                    return;
+                }   
+                
                 this.Unit.gameState = new GameOverState(this.Unit, p);
                 return;
             }
