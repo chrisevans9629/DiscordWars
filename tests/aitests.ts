@@ -1,4 +1,4 @@
-import { AI } from "../src/support/AI";
+import { chat } from "../src/support/AI";
 import { ITeamInteractor, IPlayer, Chat, getTeam } from "../src/support/TeamSystem";
 import { IBotHandler, IAction } from "../src/support/IAction";
 
@@ -37,15 +37,13 @@ describe('AI Tests', () => {
     it('no bases should not fail', () => {
         let fakeT = new FakeTeamInteractor();
         let fakeBot = new FakeBotHandler();
-        let ai = new AI(fakeT,fakeBot);
-        ai.chat([], () => 1);
+        chat([], () => 1, fakeT, fakeBot);
     });
 
     it('should create two chats', () => {
         let fakeT = new FakeTeamInteractor();
         let fakeBot = new FakeBotHandler();
-        let ai = new AI(fakeT,fakeBot);
-        ai.chat([{team: {teamId: 1}, xp: {level: 1} }, {team: {teamId: 2}, xp: {level: 1}}], () => 1);
+        chat([{team: {teamId: 1}, xp: {level: 1} }, {team: {teamId: 2}, xp: {level: 1}}], () => 1, fakeT, fakeBot);
         expect(fakeT.chat.length).toBe(2);
     });
 

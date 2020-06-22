@@ -4,12 +4,24 @@ import { ITeamSystem, TeamInteraction } from "./TeamSystem";
 import { GetValues } from "./AI";
 
 
-
+interface IWeights {
+    allies: number,
+    distance: number,
+    enemies: number,
+    heal: number,
+    level: number,
+    neutral: number,
+    enemyTeam: number,
+    upgrade: number,
+    random: number,
+    allyUnits: number,
+    attackUnits: number
+}
 
 export class TeamNeatNetwork {
     //input: number[] = [];
     //output: number[] = [];
-    weights: number[] = [];
+    weights: IWeights;
     mutateRatio: number = 0.2;
     //base: IBase;
     team: ITeamSystem;
@@ -19,9 +31,9 @@ export class TeamNeatNetwork {
     }
     constructor(team: ITeamSystem) {
         this.team = team;
-        for (let i = 0; i < 11; i++) {
-            this.weights.push(0);
-        }
+        // for (let i = 0; i < 11; i++) {
+        //     this.weights.push(0);
+        // }
         // for(let i = 0;i < input;i++){
         //     this.input.push(0);
         // }
@@ -30,27 +42,27 @@ export class TeamNeatNetwork {
         // }
     }
 
-    Randomize() {
-        this.weights.forEach((p, i) => {
-            this.weights[i] = Math.round((Phaser.Math.FloatBetween(-1, 1) + Number.EPSILON) * 100) / 100;
-        });
-        return this;
-    }
+    // Randomize() {
+    //     // this.weights.forEach((p, i) => {
+    //     //     this.weights[i] = Math.round((Phaser.Math.FloatBetween(-1, 1) + Number.EPSILON) * 100) / 100;
+    //     // });
+    //     return this;
+    // }
 
-    Mutate() {
-        this.weights.forEach((p, i) => {
-            this.weights[i] = Phaser.Math.Clamp(p + Phaser.Math.FloatBetween(-this.mutateRatio, this.mutateRatio), -1, 1);
-        });
-        return this;
-    }
+    // Mutate() {
+    //     // this.weights.forEach((p, i) => {
+    //     //     this.weights[i] = Phaser.Math.Clamp(p + Phaser.Math.FloatBetween(-this.mutateRatio, this.mutateRatio), -1, 1);
+    //     // });
+    //     return this;
+    // }
 
-    Copy() {
-        let n = new TeamNeatNetwork(this.team);
-        this.weights.forEach((p, i) => {
-            n.weights[i] = p;
-        });
-        return n;
-    }
+    // Copy() {
+    //     let n = new TeamNeatNetwork(this.team);
+    //     this.weights.forEach((p, i) => {
+    //         n.weights[i] = p;
+    //     });
+    //     return n;
+    // }
 
     Evaluate(bases: IBase[], units: IUnit[]): { current: IBase; attack: IBase; }[] {
         let maxUnits = Math.max(...bases.map(p => units.filter(r => r.currentBase.baseId == p.baseId).map(p => p.value).reduce((a, b) => a + b, 0)));
@@ -74,17 +86,17 @@ export class TeamNeatNetwork {
                 });
             }).map(p => {
                 //console.log(p);
-                let score = p.allyBaseUnits * w[0] +
-                    p.distance * w[1] +
-                    p.enemyBaseUnits * w[2] +
-                    p.healValue * w[3] +
-                    p.lvl * w[4] +
-                    p.neutralValue * w[5] +
-                    p.diffTeamValue * w[6] +
-                    p.upgradeValue * w[7] +
-                    p.random * w[8] +
-                    p.allyUnits * w[9] +
-                    p.attackingUnits * w[10];
+                let score = p.allyBaseUnits * w.allies +
+                    p.distance * w.distance +
+                    p.enemyBaseUnits * w.enemies +
+                    p.healValue * w.heal +
+                    p.lvl * w.level +
+                    p.neutralValue * w.neutral +
+                    p.diffTeamValue * w.enemyTeam +
+                    p.upgradeValue * w.upgrade +
+                    p.random * w.random +
+                    p.allyUnits * w.allyUnits +
+                    p.attackingUnits * w.attackUnits;
                 return { score, attack: p.attack };
             }).sort((a, b) => a.score - b.score);
 

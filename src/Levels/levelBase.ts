@@ -10,7 +10,6 @@ import { ILevel } from "../game";
 import { SettingsView } from "../views/settings";
 import { Sidebar } from "../views/sidebar";
 import { CombineUnits } from "../UnitStates/UnitState";
-import { AI } from "../support/AI";
 import { Population } from "../support/Population";
 import { TeamInteraction, teams } from "../support/TeamSystem";
 import { CommandlineView } from "../views/commandline";
@@ -24,7 +23,7 @@ export class LevelBase extends Phaser.Scene implements ILevel {
     bases: Base[];
     units: Unit[];
     actions: UserAction[];
-    ai: AI;
+    //ai: AI;
     population: Population;
     //SoundSystem: ISoundSystem;
     private _speed: number = 1;
@@ -52,7 +51,7 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         let cmd = new CommandlineView(this);
         this.createBases();
         //console.log(this.bases);
-        this.ai = new AI(TeamInteraction, botHandler);
+        //this.ai = new AI(TeamInteraction, botHandler);
 
         this.population = new Population(teams);
         //this.SoundSystem = new SoundSystem(this.sound);
@@ -67,15 +66,15 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         this.five = this.time.addEvent({ loop: true, delay: 5000 / this.speed, callback: this.fivePassed, callbackScope: this });
         this.ten = this.time.addEvent({ loop: true, delay: 10000 / this.speed, callback: this.tenPassed, callbackScope: this });
 
-        this.time.addEvent({
-            loop: true,
-            delay: 120000,
-            callback: () => {
-                this.population.TimeRanOut();
-                //this.reset();
-            },
-            callbackScope: this
-        });
+        // this.time.addEvent({
+        //     loop: true,
+        //     delay: 120000,
+        //     callback: () => {
+        //         this.population.TimeRanOut();
+        //         //this.reset();
+        //     },
+        //     callbackScope: this
+        // });
 
     }
 
@@ -127,7 +126,7 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         this.units = [];
         this.bases.forEach(p => p.destroy());
         this.createBases();
-        this.population.NextGeneration();
+        //this.population.NextGeneration();
         this.gameState = new GamePlayingState(this);
 
     }
