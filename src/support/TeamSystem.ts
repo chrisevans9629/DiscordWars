@@ -34,6 +34,7 @@ export interface ITeamSystem {
     color: [number, number, number];
     tint: number;
     names: string[];
+    score: number;
 }
 
 // this.teamBaseImgs.push({teamId: 1, BaseImgKey: 'red', UnitImgKey: 'red', color: [0xFF,0,0]});
@@ -42,11 +43,11 @@ export interface ITeamSystem {
 
 
 export let teams: ITeamSystem[] = [
-    { teamId: 1, names: ['red','r'], BaseImgKey: 'base', UnitImgKey: 'base', color: [0xFF, 0, 0], tint: 0xFF0000 },
-    { teamId: 2, names: ['blue','b'], BaseImgKey: 'base', UnitImgKey: 'base', color: [0, 0, 0xFF], tint: 0x0000FF },
-    { teamId: 3, names: ['green', 'g'], BaseImgKey: 'base', UnitImgKey: 'base', color: [0, 0xFF, 0], tint: 0x00FF00 },
-    { teamId: 4, names: ['yellow', 'y'], BaseImgKey: 'base', UnitImgKey: 'base', color: [0xFF, 0XFF, 0], tint: 0xFFFF00 },
-    { teamId: -1, names: ['neutral'], BaseImgKey: 'base', UnitImgKey: 'base', color: [0xFF, 0xFF, 0xFF], tint: 0xFFFFFF },
+    { teamId: 1, names: ['red','r'], BaseImgKey: 'base', UnitImgKey: 'base', color: [0xFF, 0, 0], tint: 0xFF0000, score: 0 },
+    { teamId: 2, names: ['blue','b'], BaseImgKey: 'base', UnitImgKey: 'base', color: [0, 0, 0xFF], tint: 0x0000FF, score: 0 },
+    { teamId: 3, names: ['green', 'g'], BaseImgKey: 'base', UnitImgKey: 'base', color: [0, 0xFF, 0], tint: 0x00FF00, score: 0 },
+    { teamId: 4, names: ['yellow', 'y'], BaseImgKey: 'base', UnitImgKey: 'base', color: [0xFF, 0XFF, 0], tint: 0xFFFF00, score: 0 },
+    { teamId: -1, names: ['neutral'], BaseImgKey: 'base', UnitImgKey: 'base', color: [0xFF, 0xFF, 0xFF], tint: 0xFFFFFF, score: 0 },
 ];
 
 export function getTeam(teamId: string) {

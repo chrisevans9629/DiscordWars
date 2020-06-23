@@ -5,4 +5,5 @@ export let assets = {
     sidebar: 'sidebar',
     gameOver: 'gameover',
     mainMenu: 'mainMenu',
+    leaderboard: 'leaderboard',
 }

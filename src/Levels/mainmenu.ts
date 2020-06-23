@@ -19,6 +19,7 @@ export class MainMenu extends LevelBase {
         this.load.html(assets.gameOver, 'assets/html/gameover.html');
         this.load.html(assets.mainMenu, 'assets/html/mainmenu.html');
         this.load.html('commandline', 'assets/html/commandline.html');
+        this.load.html(assets.leaderboard, 'assets/html/leaderboard.html');
 
         this.load.image('base','assets/images/base.png');
         this.load.image('AI','assets/images/bot1.png');
