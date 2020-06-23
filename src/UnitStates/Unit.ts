@@ -7,7 +7,7 @@ import { ITeamSystem } from '../support/TeamSystem';
 import { ILevel } from '../game';
 import { IUnit } from './IUnit';
 
-
+let id = 0;
 export class Unit extends Phaser.GameObjects.Container implements IUnit {
     currentBase: IBase;
     unitImg: Phaser.Physics.Arcade.Image;
@@ -15,6 +15,7 @@ export class Unit extends Phaser.GameObjects.Container implements IUnit {
     team: ITeamSystem;
     value: number;
     maxScale: number;
+    unitId: number;
     //tint: number;
     get tint(){
         if(this.unitImg){
@@ -37,6 +38,8 @@ export class Unit extends Phaser.GameObjects.Container implements IUnit {
         this._unitState = new SpawnState(this, scene);
         this.value = 1;
         this.tint = this.team.tint;
+        this.unitId = id;
+        id++;
         //unit.baseLocation = new Phaser.Math.Vector2(p.x + x * distance,p.y + y * distance);
         this.add(this.unitImg);
         scene.sys.displayList.add(this);

@@ -35,6 +35,7 @@ export class BotHandler implements IBotHandler {
             p.unitState = (new AttackState(p, this.Level, p.currentBase));
         });
         soundSystem.playBlip();
+        //console.log(`team ${team} upgraded ${to}`)
         //this.SoundSystem.blipSounds[Math.floor(Math.random() * this.blipSounds.length)].play({volume: this.masterVolume * this.soundVolume });
     }
     retreat(to: number, user: IPlayer){
@@ -95,7 +96,7 @@ export class BotHandler implements IBotHandler {
         if(!this.Level){
             return;
         }
-
+        //console.log(`user ${user.name} moved`);
         let bases = this.Level.bases;
 
         let toBase = bases.find(p => p.baseId == to);

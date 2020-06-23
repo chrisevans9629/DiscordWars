@@ -120,15 +120,15 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         teams.filter(p => p.teamId > 0).forEach(team => {
             let bases = this.bases
                 .filter(p => p.team.teamId == team.teamId)
-                .map(p => p.xp.level + p.xp.experience + p.hp.health)
-                .reduce((a,b) => a + b, 0);
+                .map(p => { return {level: p.xp.level, xp: p.xp.experience, hp: p.hp.health }})
+                .reduce((a,b) => {return {level: a.level + b.level, xp: a.xp + b.xp, hp: a.hp + b.hp}}, {level: 0, xp: 0, hp: 0});
 
             let units = this.units
                 .filter(p => p.team.teamId == team.teamId)
                 .map(p => p.value)
                 .reduce((a,b) => a + b,0);
-
-            team.score = bases + units;
+            //console.log(`team: ${team.teamId} lvl: ${bases.level}, xp: ${bases.xp}, hp: ${bases.hp}, units: ${units}`);
+            team.score = bases.hp + bases.level + bases.xp + units;
 
         });
         this.leaderboard.update();

@@ -23,6 +23,10 @@ export class SettingsView {
 
         restartBtn.onclick = () => {
             lvl.reset();
+            this.isSettings = !this.isSettings;
+            content.hidden = this.isSettings;
+
+            this.updatestate();
         };
 
         let helpBtn = this.view.getChildByID('help') as HTMLButtonElement;
