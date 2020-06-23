@@ -25,7 +25,7 @@ export class TeamNeatNetwork {
     mutateRatio: number = 0.2;
     //base: IBase;
     team: ITeamSystem;
-    teamScore: number = 0;
+    //teamScore: number = 0;
     get teamId() {
         return this.team.teamId;
     }
@@ -105,7 +105,7 @@ export class TeamNeatNetwork {
         });
 
 
-        this.teamScore += bases.filter(p => p.team.teamId == this.teamId).map(p => p.xp.level).reduce((p, c) => p + c, 0);
+        //this.teamScore += bases.filter(p => p.team.teamId == this.teamId).map(p => p.xp.level).reduce((p, c) => p + c, 0);
         //let calc: ICalculateParameters = { current: this.base, attack}
         //let values = GetValues(calc);
         //console.log(moves);

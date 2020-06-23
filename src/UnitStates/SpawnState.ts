@@ -9,7 +9,7 @@ export class SpawnState extends UnitState {
     speed: number;
     distance: number;
     constructor(unit: Unit, scene: ILevel) {
-        super(unit, scene);
+        super(unit, scene, "SpawnState");
         let x = Phaser.Math.FloatBetween(-1, 1);
         let y = Phaser.Math.FloatBetween(-1, 1);
         let v = new Phaser.Math.Vector2(x, y).normalize();

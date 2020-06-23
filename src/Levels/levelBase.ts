@@ -161,5 +161,6 @@ export class LevelBase extends Phaser.Scene implements ILevel {
         this.gameState.update();
         let f = 1000/delta;
         this.fps = f;
+        
     }
 }

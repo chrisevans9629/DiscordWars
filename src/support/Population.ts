@@ -98,6 +98,5 @@ export class Population {
         });
 
         chat(bases, Math.random, TeamInteraction, botHandler);
-        //console.log(this);
     }
 }

@@ -3,9 +3,11 @@ import { ILevel } from '../game';
 export class State<T> {
     Unit: T;
     Scene: ILevel;
-    constructor(unit: T, scene: ILevel) {
+    name: string;
+    constructor(unit: T, scene: ILevel, name: string) {
         this.Unit = unit;
         this.Scene = scene;
+        this.name = name;
     }
     update() {
     }

@@ -6,7 +6,7 @@ import { ILevel } from '../game';
 export class OrbitState extends UnitState {
     speed: number;
     constructor(unit: Unit, scene: ILevel) {
-        super(unit, scene);
+        super(unit, scene, "OrbitState");
 
         this.speed = Phaser.Math.FloatBetween(-0.005,0.005) * scene.speed;
     }

@@ -11,9 +11,19 @@ let id = 0;
 export class Unit extends Phaser.GameObjects.Container implements IUnit {
     currentBase: IBase;
     unitImg: Phaser.Physics.Arcade.Image;
+    //text: Phaser.GameObjects.Text;
     private _unitState: UnitState;
     team: ITeamSystem;
-    value: number;
+    private _value: number;
+    get value(){
+        return this._value;
+    }
+    set value(v){
+        this._value = v;
+        // if(this.text){
+        //     this.text.text = v.toString();
+        // }
+    }
     maxScale: number;
     unitId: number;
     //tint: number;
@@ -40,6 +50,8 @@ export class Unit extends Phaser.GameObjects.Container implements IUnit {
         this.tint = this.team.tint;
         this.unitId = id;
         id++;
+
+        //this.text = scene.add.text(0,10,this.value.toString(), {color: 'white', fontSize: '400px'}).setOrigin(0.5,0.5);
         //unit.baseLocation = new Phaser.Math.Vector2(p.x + x * distance,p.y + y * distance);
         this.add(this.unitImg);
         scene.sys.displayList.add(this);

@@ -12,7 +12,7 @@ import { ILevel, soundSystem } from '../game';
 export class GenerateState extends BaseState {
     //speed: number;
     constructor(base: IBase, scene: ILevel) {
-        super(base, scene);
+        super(base, scene, "GenerateState");
         base.hp.maxHealth = 50;
         base.hp.health = 50;
         

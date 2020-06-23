@@ -43,11 +43,14 @@ export class UnitState extends State<Unit> {
 }
 
 export function CombineUnits(unit1: Unit, unit2: Unit, lvl: { destroyUnit: (Unit: Unit) => void}) {
-    console.log(`team ${unit1.team.teamId} combining ${unit1.unitId}=${unit1.value} with ${unit2.unitId}=${unit2.value} \r\nresult: ${unit1.value+unit2.value}`);
-    if(unit1.value > 1){
+    
+    if(unit1.unitState.name == "SpawnState" || unit2.unitState.name == "SpawnState")
+    {
         return;
     }
-    unit1.value += unit2.value;
-    unit1.scale = unit1.maxScale;
-    lvl.destroyUnit(unit2);
+    //console.log(`team ${unit1.team.teamId} combining ${unit1.unitId}=${unit1.value} state ${unit1.unitState.name} with ${unit2.unitId}=${unit2.value} state ${unit2.unitState.name}\r\nresult: ${unit1.value+unit2.value}`);
+    
+    // unit1.value += unit2.value;
+    // unit1.scale = unit1.maxScale;
+    // lvl.destroyUnit(unit2);
 }

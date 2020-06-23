@@ -43,7 +43,7 @@ describe('AI Tests', () => {
     it('should create two chats', () => {
         let fakeT = new FakeTeamInteractor();
         let fakeBot = new FakeBotHandler();
-        chat([{team: {teamId: 1}, xp: {level: 1} }, {team: {teamId: 2}, xp: {level: 1}}], () => 1, fakeT, fakeBot);
+        chat([{team: {teamId: 1, score: 10}, xp: {level: 1} }, {team: {teamId: 2, score: 10}, xp: {level: 1}}], () => 1, fakeT, fakeBot);
         expect(fakeT.chat.length).toBe(2);
     });
 

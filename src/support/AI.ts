@@ -45,15 +45,15 @@ function getRandom<T>(data: T[]){
 }
 
 export function chat(
-    bases: {team: {teamId: number}, 
+    bases: {team: {teamId: number, score: number}, 
     xp: {level: number}}[], 
     ran: (() => number),
     teamInteraction: ITeamInteractor,
     botHandler: IBotHandler){
     let pTeams = teams
-    .filter(p => !teamInteraction.players.some(r => r.team.teamId == p.teamId) && p.teamId > 0)
-    .filter(p => bases.some(r => r.team.teamId == p.teamId))
-    .map(p => { return {team: p, score: bases.filter(r => r.team.teamId == p.teamId).map(r => r.xp.level).reduce((s,c) => s + c,0)}});
+        .filter(p => !teamInteraction.players.some(r => r.team.teamId == p.teamId) && p.teamId > 0)
+        .filter(p => bases.some(r => r.team.teamId == p.teamId));
+    //.map(p => { return {team: p, score: bases.filter(r => r.team.teamId == p.teamId).map(r => r.xp.level).reduce((s,c) => s + c,0)}});
 
     pTeams.forEach(team => {
         let talkChance = ran() > .75;
@@ -72,7 +72,7 @@ export function chat(
             else{
                 say = getRandom(Dialogs.normal);
             }
-            let player = new AIPlayer(team.team.teamId);
+            let player = new AIPlayer(team.teamId);
             let chat = { message: say, player: player, name: player.name};
             botHandler.say(chat);
             teamInteraction.addChat(chat);

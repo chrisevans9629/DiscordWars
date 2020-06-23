@@ -10,7 +10,7 @@ export class AttackState extends UnitState {
     toBase: IBase;
     speed: number;
     constructor(unit: Unit, scene: ILevel, toBase: IBase) {
-        super(unit, scene);
+        super(unit, scene,"AttackState");
         this.speed = 1 * scene.speed;
         this.toBase = toBase;
     }
