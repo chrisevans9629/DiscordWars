@@ -118,9 +118,15 @@ export class LevelBase extends Phaser.Scene implements ILevel {
     secondPassed(){
 
         teams.filter(p => p.teamId > 0).forEach(team => {
-            let bases = this.bases.filter(p => p.team.teamId == team.teamId).map(p => p.xp.level + p.xp.experience).reduce((a,b) => a + b, 0);
+            let bases = this.bases
+                .filter(p => p.team.teamId == team.teamId)
+                .map(p => p.xp.level + p.xp.experience + p.hp.health)
+                .reduce((a,b) => a + b, 0);
 
-            let units = this.units.filter(p => p.team.teamId == team.teamId).map(p => p.value).reduce((a,b) => a + b,0);
+            let units = this.units
+                .filter(p => p.team.teamId == team.teamId)
+                .map(p => p.value)
+                .reduce((a,b) => a + b,0);
 
             team.score = bases + units;
 
